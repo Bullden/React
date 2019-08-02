@@ -1,0 +1,14 @@
+input ,label {
+    display: block;
+}
+input {
+    margin-top: 10px;
+}
+.verification {
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+.wrapp-verification {
+    padding-top: 50px;
+}
