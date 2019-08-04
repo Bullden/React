@@ -1,10 +1,28 @@
 {
-    "users":[
-        {
-            "id" : 1,
-            "name":"sdfd"
-        }
-    ]
-
-    
+  "users": [
+    {
+      "password": 1234,
+      "repeatPassword": 1234,
+      "name": "Denis",
+      "surname": "Bulanov",
+      "email": "deniiserbull@gmail.com",
+      "id": 1
+    },
+    {
+      "password": "qwerty",
+      "repeatPassword": "qwerty",
+      "name": "Bogdan",
+      "surname": "Burukhin",
+      "email": "bogdan.kf@gmail.com",
+      "id": 2
+    },
+    {
+      "password": "qwerty1234",
+      "repeatPassword": "qwerty1234",
+      "name": "Sonya",
+      "surname": "Kadyan",
+      "email": "Sofiakim@gmail.com",
+      "id": 3
+    }
+  ]
 }

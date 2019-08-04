@@ -8,6 +8,7 @@ interface VerificationProps {
 //     [key:string]: any
 // }
 
+
 export class Verification extends React.Component<VerificationProps,any> {
     constructor(props:VerificationProps){
         super(props);
@@ -20,18 +21,32 @@ export class Verification extends React.Component<VerificationProps,any> {
             email:'',
         };
     }
-    handleClick:any=()=> {
+
+
+    handleClick = ():void => {
         console.log(this.state)
+        fetch('http://localhost:3000/users',{
+            method:'POST',
+            body: JSON.stringify(this.state),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((res) => res.json())
+            .then((data) => console.log(data))
+            .catch((err) =>console.log(err))
     }
     // require:any=() {
-    //      this.state = this.setState   
+    //      this.state = this.setState
     // }
     onChange(event : any){
         this.setState ({[event.target.name]: event.target.value} as any)
     }
     // valueState:any =(VerificationProps)=> {
-    //    this.setState.password 
+    //    this.setState.password
     // }
+
     render() {
         return (
             <div className = 'wrapp-verification'>
@@ -57,20 +72,20 @@ export class Verification extends React.Component<VerificationProps,any> {
                     <label>
                         <span>Password</span>
                         <input type ='text'  name='password' value={this.state.password} onChange={this.onChange}/>
-                    </label>    
+                    </label>
                 </div>
                 <div className = 'verification'>
                     <label>
                         <span>Repeat Password</span>
                         <input type = 'text' name='repeatPassword' value={this.state.repeatPassword} onChange={this.onChange}></input>
-                    </label>   
+                    </label>
                 </div>
 
                 <button
-                 type='button' 
-                 onClick={this.handleClick}>
-                click
-                 </button> 
+                    type='button'
+                    onClick={this.handleClick}>
+                    click
+                </button>
             </div>
         )
 
