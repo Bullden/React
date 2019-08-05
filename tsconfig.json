@@ -1,25 +1,48 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "baseUrl": "./",
+    "paths": {
+      // define absolute path mappings
+      // "redux": ["typings/redux.d.ts"],
+      // "@src/*": ["src/*"] // will enable -> import { ... } from '@src/components'
+      // // in webpack you need to add -> resolve: { alias: { '@src': PATH_TO_SRC } }
+      "@redux/*": ["src/redux/*"],
+      "@components/*": ["src/components/*"],
+      "@containers/*": ["src/containers/*"],
+      "@services/*": ["src/services/*"]
+    },
+    "outDir": "dist/",
+    "allowSyntheticDefaultImports": true,
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowUnreachableCode": true,
+    "noEmitHelpers": false,
+    "jsx": "react",
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "es2015.iterable",
+      "es2016",
+      "es2017.object"
     ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
+    "target": "es5",
+    "module": "ESNext",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "preserve"
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": false,
+    "strict": true,
+    "strictFunctionTypes": false,
+    "pretty": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "skipLibCheck": true
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "src/**/*.spec.*"]
 }
