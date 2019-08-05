@@ -8,17 +8,20 @@ export interface LoginState {
   email: string;
   password: string;
   isLoading: boolean;
-  error: string
+  error: string;
+  name: string;
 }
 
 export interface DoLoginProps {
   email: string;
   password: string;
   payloadFunc: Function;
+  name: string;
 }
 export interface LoginRequest {
   email: string;
   password: string;
+  name: string;
 }
 
 export interface LoginResult {

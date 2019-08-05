@@ -1,7 +1,8 @@
 import * as React from "react";
-import { LoginState, LoginRequest, ResultApiUser } from "../../redux/login/types";
+import { LoginState, LoginRequest, ResultApiUser } from "@redux/login/types";
 import { InputLabel, Input } from "@material-ui/core";
 import ButtonComponent from "../helpComponents/button";
+import {ErrorComponent} from "@components/common/errorComponent";
 
 export interface LoginProps {
   doLogin: (data: LoginRequest) => object;
@@ -12,7 +13,8 @@ export class LoginComponent extends React.Component<LoginProps, LoginState, Resu
     email: "",
     password: "",
     isLoading: true,
-    error: ""
+    error: "",
+    name: ""
   };
 
   handle = (event: any) =>
@@ -20,7 +22,9 @@ export class LoginComponent extends React.Component<LoginProps, LoginState, Resu
 
   login = async () => {
     const { doLogin } = this.props;
-    await doLogin({ email: this.state.email, password: this.state.password });
+
+    (!this.state.name || !this.state.email || !this.state.password) ? this.state.error :
+    await doLogin({ email: this.state.email, password: this.state.password, name:this.state.name });
   };
 
   render() {
@@ -30,14 +34,26 @@ export class LoginComponent extends React.Component<LoginProps, LoginState, Resu
         {
           this.state.isLoading ? <h1>Hi dude:)</h1> : <h1>khm,no!</h1>
         }
+          {
+              (!this.state.name || !this.state.email || !this.state.password) ? <h1 style={ {color:"red"} }> Fill in the gaps </h1> : <h1 style={ {color:"green"} }>Fine!</h1>
+          }
+
         <div>
-        <InputLabel htmlFor="password" className="input-label" style ={{ marginBottom:'5px'}}>Email</InputLabel>
+        <InputLabel htmlFor="name" className="inputtt-label" style ={{ marginBottom:'5px'}}>Name</InputLabel>
+           <Input
+               type="name"
+               name="name"
+               value={this.state.name}
+               onChange={this.handle}
+               className="input" style ={{ marginBottom:'20px'}}
+           />
+        <InputLabel htmlFor="email" className="input-label" style ={{ marginBottom:'5px'}}>Email</InputLabel>
           <Input
             type="email"
             name="email"
             value={this.state.email}
             onChange={this.handle}
-            className="input" style ={{ marginBottom:'10px'}}
+            className="input" style ={{ marginBottom:'20px'}}
           />
         </div>
         <div>
@@ -49,7 +65,7 @@ export class LoginComponent extends React.Component<LoginProps, LoginState, Resu
             value={this.state.password}
             onChange={this.handle}
             aria-describedby="passsword"
-            className="inputt" style ={{ marginBottom:'10px'}}
+            className="inputt" style ={{ marginBottom:'20px'}}
           />
         </div>
         <div>

@@ -16,7 +16,7 @@ const style = {
 
 export class ErrorComponent extends React.Component<ErrorProps> {
   render() {
-    return <h4 style={style}>{this.props.error.error}</h4>;
+    return <h4 style={style}>{this.props.error.error} ОШИБКА!</h4>;
   }
 }
 
@@ -28,4 +28,4 @@ const mapDispatchToProps: any = (dispatch: any) => ({
   actions: bindActionCreators(onErrorOccured, dispatch)
 });
 
-export const Error = connect(mapStateToProps)(ErrorComponent);
+export  const Error = connect(mapStateToProps)(ErrorComponent);

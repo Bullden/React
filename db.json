@@ -119,6 +119,18 @@
       "email": "uyuy",
       "password": "jhihh",
       "id": 24
+    },
+    {
+      "email": "admin@gmail.com",
+      "password": "aidmin",
+      "name": "admin",
+      "id": 25
+    },
+    {
+      "email": "xcxzcxz",
+      "password": "czxcxzc",
+      "name": "xcx",
+      "id": 26
     }
   ]
 }

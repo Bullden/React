@@ -5,7 +5,8 @@ export const initialState: LoginState = {
   email: "",
   password: "",
   isLoading: false,
-  error: ""
+  error: "",
+  name: ""
 };
 
 export function loginReducer(state: LoginState = initialState, action: any) {
