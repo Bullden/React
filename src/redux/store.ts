@@ -6,6 +6,7 @@ import { doLogin } from "./login/sagasLogin";
 // import { doInit } from "./home/homeSagas";
 import { onError } from "./common/errorSagas";
 import { all } from "redux-saga/effects";
+import { doRegistration } from "./registration/sagasRegistration";
 // import { doRegister } from "./../redux/register/sagasRegister";
 // import { doBooks } from './booksPage/sagasBooks';
 
@@ -29,7 +30,7 @@ export default function configureStore(
   }
 
   sagaMiddleware.run(function*() {
-    yield all([doLogin(),onError()]);
+    yield all([doLogin(),onError(),doRegistration()]);
   });
 
   return store;

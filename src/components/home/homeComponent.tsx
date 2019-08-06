@@ -31,7 +31,7 @@ export class HomeComponent extends React.Component<HomeProps, HomeState> {
     // const classes = useStyles();
     return (
       <div className="wrapper"> 
-        <Error />
+        {/* <Error /> */}
         <h1>
           Hi welcome to store, enviroment : {process.env.NODE_ENV} <b />
         </h1>

@@ -1,24 +1,28 @@
 import * as React from "react";
-import { LoginState, LoginRequest, ResultApiUser } from "@redux/login/types";
+import {
+  RegistrationState,
+  RegistrationRequest,
+  ResultApiUser
+} from "@redux/registration/types";
 import { InputLabel, Input } from "@material-ui/core";
 import ButtonComponent from "../helpComponents/button";
 import { ErrorComponent } from "@components/common/errorComponent";
 import { Error } from "../common/errorComponent";
 import { Redirect } from "react-router";
-import {Path} from '../../Root'
-import HomeContainer from '../../containers/homeContainer'
+import { Path } from "../../Root";
+import HomeContainer from "../../containers/homeContainer";
 import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 
-export interface LoginProps {
-  doLogin: (data: LoginRequest) => object;
+export interface RegistrationProps {
+  doRegistration: (data: RegistrationRequest) => object;
 }
 
-export class LoginComponent extends React.Component<
-  LoginProps,
-  LoginState,
+export class RegistrationComponent extends React.Component<
+  RegistrationProps,
+  RegistrationState,
   ResultApiUser
 > {
-  state: LoginState = {
+  state: RegistrationState = {
     email: "",
     password: "",
     isLoading: true,
@@ -30,14 +34,14 @@ export class LoginComponent extends React.Component<
     this.setState({ [event.target.name]: event.target.value } as any);
 
   login = () => {
-    const { doLogin } = this.props;
+    const { doRegistration } = this.props;
     !this.state.name || !this.state.email || !this.state.password
       ? this.state.error
-      : (doLogin({
+      : doRegistration({
           email: this.state.email,
           password: this.state.password,
           name: this.state.name
-        }))
+        });
   };
   render() {
     return (
@@ -50,7 +54,7 @@ export class LoginComponent extends React.Component<
           flexDirection: "column"
         }}
       >
-        {this.state.isLoading ? <h1>Hi dude:)</h1> : <h1>khm,no!</h1>}
+        {this.state.isLoading ? <h1>Hello!</h1> : <h1>khm,no!</h1>}
         {!this.state.name || !this.state.email || !this.state.password ? (
           <Error />
         ) : (

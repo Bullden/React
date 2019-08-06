@@ -10,12 +10,15 @@ import configureStore from "./redux/store";
 import { RootState } from "./redux/rootReducer";
 import LoginContainer from "./containers/loginContainer";
 import HomeContainer from "./containers/homeContainer";
+import RegistrationContainer from "./containers/registrationContainer";
+
 
 export const Path = {
   root: "/",
   // topProducts: "/top",
   // products: "/products",
-  login: "/login"
+  login: "/login",
+  registration: "/registration"
 };
 
 const store: Store<RootState> = configureStore();
@@ -36,7 +39,9 @@ export default () => (
           <li>
             <Link to="/">Home</Link>
           </li>
-
+          <li>
+            <Link to="/registration">Registration</Link>
+          </li>
           <li>
             <Link to="/login">Login</Link>
           </li>
@@ -50,6 +55,7 @@ export default () => (
         >
           <Route exact path={Path.root} component={HomeContainer} />
           <Route path={Path.login} component={LoginContainer} />
+          <Route path={Path.registration} component={RegistrationContainer} />
         </main>
 
        

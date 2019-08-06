@@ -9,3 +9,4 @@ export function tokenService(currentUser : ResultApiUser) {
         return {};
     }
 }
+
