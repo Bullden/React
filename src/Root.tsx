@@ -12,7 +12,6 @@ import LoginContainer from "./containers/loginContainer";
 import HomeContainer from "./containers/homeContainer";
 import RegistrationContainer from "./containers/registrationContainer";
 
-
 export const Path = {
   root: "/",
   // topProducts: "/top",
@@ -35,7 +34,7 @@ export default () => (
           marginTop: 20
         }}
       >
-         <ul style={{ display: "flex", listStyle: "none", justifyContent:"space-around" }}>
+        <ul style={{ display: "flex", listStyle: "none", justifyContent:"space-around" }}>
           <li>
             <Link to="/">Home</Link>
           </li>
@@ -46,6 +45,7 @@ export default () => (
             <Link to="/login">Login</Link>
           </li>
         </ul>
+        
         <main
           style={{
             display: "flex",

@@ -8,9 +8,12 @@ import { Redirect } from "react-router";
 import {Path} from '../../Root'
 import HomeContainer from '../../containers/homeContainer'
 import { Route, Link, BrowserRouter as Router } from "react-router-dom";
+import { doLogin } from "@redux/login/sagasLogin";
+import { login } from "@redux/login/reducer";
 
 export interface LoginProps {
   doLogin: (data: LoginRequest) => object;
+  user : any;
 }
 
 export class LoginComponent extends React.Component<
@@ -23,7 +26,8 @@ export class LoginComponent extends React.Component<
     password: "",
     isLoading: true,
     error: "",
-    name: ""
+    name: "",
+    token: "",
   };
 
   handle = (event: any) =>
@@ -31,8 +35,9 @@ export class LoginComponent extends React.Component<
 
   login = () => {
     const { doLogin } = this.props;
-    !this.state.name || !this.state.email || !this.state.password
-      ? this.state.error
+    !this.state.name || !this.state.email || !this.state.password 
+    ? this.state.error 
+    
       : (doLogin({
           email: this.state.email,
           password: this.state.password,
@@ -40,6 +45,7 @@ export class LoginComponent extends React.Component<
         }))
   };
   render() {
+    console.log(this.props.user)
     return (
       <div
         className="panel"
@@ -50,12 +56,17 @@ export class LoginComponent extends React.Component<
           flexDirection: "column"
         }}
       >
-        {this.state.isLoading ? <h1>Hi dude:)</h1> : <h1>khm,no!</h1>}
+
         {!this.state.name || !this.state.email || !this.state.password ? (
           <Error />
         ) : (
           <h1 style={{ color: "green" }}>Fine!</h1>
         )}
+        {/* {this.props.user == localStorage.getItem("user") ? <h1>hello! {this.props.user.name}</h1> : <h1>nope</h1>} */}
+      {console.log(this.props.user)}
+        {this.props.user ? <h1>Hi, {this.props.user.name}</h1> : <h1>Please let's login</h1> }
+
+
         <div>
           <InputLabel
             htmlFor="name"

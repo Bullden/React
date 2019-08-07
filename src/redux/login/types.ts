@@ -10,6 +10,7 @@ export interface LoginState {
   isLoading: boolean;
   error: string;
   name: string;
+  token:any;
 }
 
 
