@@ -12,6 +12,7 @@ import { Redirect } from "react-router";
 import { Path } from "../../Root";
 import HomeContainer from "../../containers/homeContainer";
 import { Route, Link, BrowserRouter as Router } from "react-router-dom";
+import { environment } from '../../enviroment'
 
 export interface RegistrationProps {
   doRegistration: (data: RegistrationRequest) => object;

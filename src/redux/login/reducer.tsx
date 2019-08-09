@@ -18,6 +18,7 @@ export function loginReducer(state: LoginState = initialState, action: any) {
         isLoading: true
       };
     }
+
     case `@@login/LOGIN_FAILED`: {
       const { data } = action.payload;
       return {
@@ -36,7 +37,7 @@ export function loginReducer(state: LoginState = initialState, action: any) {
         isLoading: true
       };
     }
-
+    
     default:
       return state;
   }

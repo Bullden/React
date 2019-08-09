@@ -17,7 +17,7 @@ export const Path = {
   // topProducts: "/top",
   // products: "/products",
   login: "/login",
-  registration: "/registration"
+  registration: "/registration",
 };
 
 const store: Store<RootState> = configureStore();

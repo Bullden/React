@@ -24,6 +24,7 @@ export function* doLogin(): IterableIterator<any> {
     // }
 
     const answerApi = yield call(callApi, "GET", "users");
+    
     // const {email, data, id} = answerApi
     console.log(answerApi);
     console.log(action);
@@ -36,6 +37,9 @@ export function* doLogin(): IterableIterator<any> {
     );
     localStorage.setItem("user", JSON.stringify(user));
     console.log("some user", user);
+
+    // const admin = environment.admin
+    // admin.email === user.email && admin.password === user.password && admin.name === user.name ? 
     if (user) {
       alert("yahoo!");
       yield put({

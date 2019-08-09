@@ -4,6 +4,7 @@ import { RootState } from "../redux/rootReducer";
 //import { getData } from "@redux/login/reducer";
 import { RegistrationComponent } from "../components/registration/registrationComponent";
 import { doRegistration } from "../redux/registration/actions";
+import { environment } from '../enviroment'
 
 const mapStateToProps = (state: RootState) => ({
   email: state.registration.email,

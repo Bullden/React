@@ -16,7 +16,7 @@ const style = {
 
 export class ErrorComponent extends React.Component<ErrorProps> {
   render() {
-    return <h4 style={style}>{this.props.error.error} Error! Fill in the gaps</h4>;
+    return <h4 style={style}>{this.props.error.error} Fill in the gaps</h4>;
   }
 }
 

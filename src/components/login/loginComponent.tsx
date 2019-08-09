@@ -5,16 +5,20 @@ import ButtonComponent from "../helpComponents/button";
 import { ErrorComponent } from "@components/common/errorComponent";
 import { Error } from "../common/errorComponent";
 import { Redirect } from "react-router";
-import {Path} from '../../Root'
-import HomeContainer from '../../containers/homeContainer'
+import { Path } from "../../Root";
+import HomeContainer from "../../containers/homeContainer";
 import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 import { doLogin } from "@redux/login/sagasLogin";
 import { login } from "@redux/login/reducer";
+import { environment } from "../../enviroment";
 
 export interface LoginProps {
   doLogin: (data: LoginRequest) => object;
-  user : any;
+  user: any;
+  admin: any;
 }
+const admin: any = environment.admin;
+const local: any = localStorage.getItem("user");
 
 export class LoginComponent extends React.Component<
   LoginProps,
@@ -35,17 +39,18 @@ export class LoginComponent extends React.Component<
 
   login = () => {
     const { doLogin } = this.props;
-    !this.state.name || !this.state.email || !this.state.password 
-    ? this.state.error 
-    
-      : (doLogin({
+    !this.state.email || !this.state.password
+      ? this.state.error
+      : doLogin({
           email: this.state.email,
           password: this.state.password,
-          name: this.state.name
-        }))
+          name: this.state.name,
+        });
+        
+
   };
   render() {
-    console.log(this.props.user)
+    console.log(this.props.user);
     return (
       <div
         className="panel"
@@ -56,19 +61,32 @@ export class LoginComponent extends React.Component<
           flexDirection: "column"
         }}
       >
+        {/* {"admin" === admin.name
+          ? console.log("hi admin", admin)
+          : console.log("you are not admin", admin)} */}
+        {/* {console.log('nameAdmin',admin.name) }
+        {console.log('mailAdmin',admin.email) }
+        {console.log('passAdmin',admin.password)}
+        {console.log('inputName',this.state.name)}
+        {console.log('inputMail',this.state.email)}
+        {console.log('inputpass',this.state.password)} */}
 
-        {!this.state.name || !this.state.email || !this.state.password ? (
+
+        { admin.email === this.state.email && admin.password === this.state.password ? <h1>hello you are my admin</h1> : null}
+        
+        { !this.state.email || !this.state.password ? (
           <Error />
-        ) : (
-          <h1 style={{ color: "green" }}>Fine!</h1>
-        )}
-        {/* {this.props.user == localStorage.getItem("user") ? <h1>hello! {this.props.user.name}</h1> : <h1>nope</h1>} */}
-      {console.log(this.props.user)}
-        {this.props.user ? <h1>Hi, {this.props.user.name}</h1> : <h1>Please let's login</h1> }
+        ) : null
+        }
 
+        {local ? <h1>{JSON.parse(local).name}</h1> : null}
+
+        {/* {this.props.user == localStorage.getItem("user") ? <h1>hello! {this.props.user.name}</h1> : <h1>nope</h1>} */}
+        {console.log(this.props.user)}
+        {/* {this.props.user ? <h1>Hi, {this.props.user.name}</h1> : null} */}
 
         <div>
-          <InputLabel
+          {/* <InputLabel
             htmlFor="name"
             className="inputtt-label"
             style={{ marginBottom: "5px" }}
@@ -82,7 +100,7 @@ export class LoginComponent extends React.Component<
             onChange={this.handle}
             className="input"
             style={{ marginBottom: "20px" }}
-          />
+          /> */}
           <InputLabel
             htmlFor="email"
             className="input-label"

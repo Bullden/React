@@ -6,6 +6,7 @@ import { AppBar, Typography } from "@material-ui/core";
 //import { doInit } from "@redux/home/actions";
 // import Headers from '../header/headerComponent';
 import { makeStyles } from '@material-ui/styles';
+import ButtonComponent from "@components/helpComponents/button";
 
 export interface HomeProps {
   error: string;
@@ -13,6 +14,10 @@ export interface HomeProps {
   count : number
   doInit: () => void;
 }
+
+// export interface LogoutProps {
+//   doLogout:()
+// }
 
 export class HomeComponent extends React.Component<HomeProps, HomeState> {
   state: HomeState = {
@@ -26,6 +31,10 @@ export class HomeComponent extends React.Component<HomeProps, HomeState> {
     doInit();
   };
 
+  logout =() => {
+    localStorage.removeItem('user')
+  }
+
   render() {
     //  const isExpanded = this.state ? this.state.isExpanded : false;
     // const classes = useStyles();
@@ -37,7 +46,7 @@ export class HomeComponent extends React.Component<HomeProps, HomeState> {
         </h1>
         <div>
         
-          {this.props.products.map((i, ix) => {
+          {/* {this.props.products.map((i, ix) => {
             return (
               <div className="ProductList__Product" key={ix}>
                 <span>
@@ -45,8 +54,9 @@ export class HomeComponent extends React.Component<HomeProps, HomeState> {
                 </span>
               </div>
             );
-          })}
+          })} */}
         </div>
+        <ButtonComponent text = "Logout" click={() =>this.logout()} />
       </div>
     );
   }

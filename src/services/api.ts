@@ -8,7 +8,6 @@ export async function callApi(method: string, path: string, data ?: object, url:
     headers:{
       'Accept': 'application/json',
       'Content-Type': 'application/json'
-      
     },
      body: !(method === "GET") ? JSON.stringify(data) : null
   }).then(d => d.json())

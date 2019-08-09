@@ -1,5 +1,5 @@
 {
-  "authenticate": [
+  "users": [
     {
       "email": "deniiserbull@gmail.com",
       "password": "1234",
@@ -131,6 +131,60 @@
       "password": "czxcxzc",
       "name": "xcx",
       "id": 26
+    },
+    {
+      "email": "dd",
+      "password": "ddd",
+      "name": "d",
+      "id": 27
+    },
+    {
+      "email": "deniiser@gmail.com",
+      "password": "123",
+      "name": "Denis",
+      "id": 28
+    },
+    {
+      "email": "qwer@gmail.com",
+      "password": "qwer",
+      "name": "qwer",
+      "id": 29
+    },
+    {
+      "email": "1",
+      "password": "1",
+      "name": "1",
+      "id": 30
+    },
+    {
+      "email": "2",
+      "password": "2",
+      "name": "2",
+      "id": 31
+    },
+    {
+      "email": "admin@gmail.com",
+      "password": "iadmin",
+      "name": "admin",
+      "id": 32
+    },
+    {
+      "email": "dsfdsf",
+      "password": "dsfdsf",
+      "name": "ddsfds",
+      "id": 33
+    },
+    {
+      "email": "deniiser@gmail.com",
+      "password": "123",
+      "name": "dsfdsf",
+      "id": 34
+    },
+    {
+      "email": "admin@gmail.com",
+      "password": "123",
+      "name": "admin",
+      "id": 35
     }
   ]
 }
