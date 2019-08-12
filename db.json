@@ -1,126 +1,6 @@
 {
   "users": [
     {
-      "email": "deniiserbull@gmail.com",
-      "password": "1234",
-      "id": 1
-    },
-    {
-      "email": "bogdan.kf@gmail.com",
-      "password": "qwerty",
-      "id": 2
-    },
-    {
-      "email": "Sofiakim@gmail.com",
-      "password": "qwerty1234",
-      "id": 3
-    },
-    {
-      "email": "deniiser@gmail.com",
-      "password": "1234dvsdv",
-      "id": 4
-    },
-    {
-      "email": "deniisiuler@gmail.com",
-      "password": "1234dvsdvlil",
-      "id": 5
-    },
-    {
-      "email": "deniisiuler@gmail.com",
-      "password": "111111",
-      "id": 6
-    },
-    {
-      "email": "deniiser@gmail.com",
-      "password": "1234",
-      "id": 7
-    },
-    {
-      "email": "deniiser@gmail.com",
-      "password": "1234",
-      "id": 8
-    },
-    {
-      "email": "3",
-      "password": "",
-      "id": 9
-    },
-    {
-      "email": "3",
-      "password": "",
-      "id": 10
-    },
-    {
-      "email": "deniiser@gmail.com",
-      "password": "1234",
-      "id": 11
-    },
-    {
-      "email": "1",
-      "password": "3",
-      "id": 12
-    },
-    {
-      "email": "deniiser@gmail.com",
-      "password": "1234",
-      "id": 13
-    },
-    {
-      "email": "deniiser@gmail.com",
-      "password": "1234",
-      "id": 14
-    },
-    {
-      "email": "deniiser@gmail.com",
-      "password": "1234",
-      "id": 15
-    },
-    {
-      "email": "deniiser@gmail.com",
-      "password": "1234",
-      "id": 16
-    },
-    {
-      "email": "deniiser@gmail.comdvsdv",
-      "password": "1234dsdsv",
-      "id": 17
-    },
-    {
-      "email": "deniiser@gmail.comdvsdv",
-      "password": "1234dsdsv",
-      "id": 18
-    },
-    {
-      "email": "deniiser@gmail.com",
-      "password": "1234",
-      "id": 19
-    },
-    {
-      "email": "32324",
-      "password": "1234324",
-      "id": 20
-    },
-    {
-      "email": "32324",
-      "password": "1234324",
-      "id": 21
-    },
-    {
-      "email": "o",
-      "password": "1234o",
-      "id": 22
-    },
-    {
-      "email": "",
-      "password": "",
-      "id": 23
-    },
-    {
-      "email": "uyuy",
-      "password": "jhihh",
-      "id": 24
-    },
-    {
       "email": "admin@gmail.com",
       "password": "aidmin",
       "name": "admin",
@@ -185,6 +65,12 @@
       "password": "123",
       "name": "admin",
       "id": 35
+    },
+    {
+      "email": "deniiser@gmail.com",
+      "password": "123",
+      "name": "rgdfgdfgdg",
+      "id": 36
     }
   ]
 }

@@ -10,4 +10,25 @@ export enum HomeActions {
 export interface HomeState extends BaseState {
   products: Product[];
   enviroment: string;
+  token: any;
+}
+
+export interface LoginResult {
+  token: any;
+}
+
+export interface ResultApiUser{
+  id : number;
+  email: string;
+  password : string;
+  name : string;
+  userPhoto : string;
+  data : string;
+}
+
+export interface HomeRequest {
+  email: string;
+  password: string;
+  name: string;
+  user: any;
 }

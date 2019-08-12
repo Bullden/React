@@ -5,7 +5,8 @@ import { string } from "prop-types";
 export const initialState: HomeState = {
   error: "",
   products: [],
-  enviroment: ""
+  enviroment: "",
+  token: "",
 };
 
 export function homeReducer(state: HomeState = initialState, action: any) {

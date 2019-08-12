@@ -11,6 +11,7 @@ import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 import { doLogin } from "@redux/login/sagasLogin";
 import { login } from "@redux/login/reducer";
 import { environment } from "../../enviroment";
+import CenteredTabs from "@components/helpComponents/tabs";
 
 export interface LoginProps {
   doLogin: (data: LoginRequest) => object;
@@ -70,8 +71,6 @@ export class LoginComponent extends React.Component<
         {console.log('inputName',this.state.name)}
         {console.log('inputMail',this.state.email)}
         {console.log('inputpass',this.state.password)} */}
-
-
         { admin.email === this.state.email && admin.password === this.state.password ? <h1>hello you are my admin</h1> : null}
         
         { !this.state.email || !this.state.password ? (

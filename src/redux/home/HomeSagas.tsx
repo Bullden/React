@@ -1,4 +1,4 @@
-import { LoginRequest } from "@redux/login/types";
+import { HomeRequest } from "@redux/home/types";
 import { ResultApiUser } from "@redux/login/types";
 import { put, takeEvery, call } from "redux-saga/effects";
 // import { delay } from "redux-saga";
@@ -8,7 +8,7 @@ import { callApi } from "../../services/api";
 // import { toast } from 'react-toastify';
 //import { delay } from "redux-saga";
 //import { DoLoginProps } from "./types";
-import { LoginState } from "../../redux/login/types";
+import { HomeState } from "../../redux/home/types";
 const needDelay: boolean = true;
 
 // worker sagas
@@ -17,8 +17,8 @@ import { tokenService } from "./../../services/tokenService";
 // import { number } from 'prop-types';
 // import { StaticRouter } from 'react-router';
 
-export function* doLogin(): IterableIterator<any> {
-  yield takeEvery(`@@login/DO_LOGIN`, function*(action: any) {
+export function* doInit(): IterableIterator<any> {
+  yield takeEvery(`@@home/DATA_INIT`, function*(action: any) {
     // if (needDelay) {
     //   yield call(delay, 500);
     // }
@@ -26,25 +26,21 @@ export function* doLogin(): IterableIterator<any> {
     const answerApi = yield call(callApi, "GET", "users");
     
     // const {email, data, id} = answerApi
-    console.log(answerApi);
+    console.log('users',answerApi);
     console.log(action);
 
     //const user = answerApi.forEach((user:ResultApiUser) => user.email ===  action.data.email && user.password === action.data.password? localStorage.setItem('currentUser',JSON.stringify(user)) : null);
-    const user = answerApi.find(
-      (user: LoginRequest) =>
-        user.email === action.data.email &&
-        user.password === action.data.password
-    );
+    const user = answerApi
     
-    user !== undefined ? localStorage.setItem("user", JSON.stringify(user)) : null;
-    console.log("some user", user);
+    // user !== undefined ? localStorage.setItem("user", JSON.stringify(user)) : null;
+    // console.log("some user", user);
 
     // const admin = environment.admin
     // admin.email === user.email && admin.password === user.password && admin.name === user.name ? 
     if (user) {
       alert("yahoo!");
       yield put({
-        type: `@@login/LOGIN_SUCCESS`,
+        type: `@@home/DATA_LOADED`,
         payload: {
           data: user,
         }
@@ -53,7 +49,7 @@ export function* doLogin(): IterableIterator<any> {
     } else {
       console.log("errrrrr!");
       yield put({
-        type: `@@login/LOGIN_FAILED`,
+        type: `@@home/ERROR_OCCURED`,
         payload: {
           error: "error.message"
         }

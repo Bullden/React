@@ -11,6 +11,7 @@ import { RootState } from "./redux/rootReducer";
 import LoginContainer from "./containers/loginContainer";
 import HomeContainer from "./containers/homeContainer";
 import RegistrationContainer from "./containers/registrationContainer";
+import CenteredTabs from "@components/helpComponents/tabs";
 
 export const Path = {
   root: "/",
@@ -34,7 +35,9 @@ export default () => (
           marginTop: 20
         }}
       >
-        <ul style={{ display: "flex", listStyle: "none", justifyContent:"space-around" }}>
+       
+       <CenteredTabs /> 
+        {/* <ul style={{ display: "flex", listStyle: "none", justifyContent:"space-around" }}>
           <li>
             <Link to="/">Home</Link>
           </li>
@@ -44,7 +47,7 @@ export default () => (
           <li>
             <Link to="/login">Login</Link>
           </li>
-        </ul>
+        </ul> */}
         
         <main
           style={{
