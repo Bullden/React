@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -37,53 +37,84 @@ let rows: any[] = [];
 //   createData("Cupcake", 305, 3.7, 67, 4.3),
 //   createData("Gingerbread", 356, 16.0, 49, 3.9)
 // ];
+interface TableDataItem {
+    id: string,
+    name: string,
+    password: string,
+    email: string
+}
+interface SimpleTableProps {
 
-export default function SimpleTable() {
-  const classes = useStyles({});
-  (async function users() {
-    const data = await fetch("http://localhost:3000/users", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    });
+}
 
-    const arrUser = await data.json();
-    //    arrUser.forEach(function(item:any) {
-    //         rows.push(createData(item.id, item.name, item.password, item.email))
-    //    })
-    rows = [];
-    arrUser.forEach((item: any) => {
-      rows.push(createData(item.id, item.name, item.password, item.email));
-    });
-  })();
+interface SimpleTableState {
+  tableData: TableDataItem[]
+}
 
-  return (
-    <div>
-      <Paper className={classes.root}>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <TableCell align="right">id </TableCell>
-              <TableCell align="right">name </TableCell>
-              <TableCell align="right">password </TableCell>
-              <TableCell align="right">email </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map(row => (
-              <TableRow key={row.name}>
-                <TableCell align="right">{row.id}</TableCell>
-                <TableCell align="right">{row.name}</TableCell>
-                <TableCell align="right">{row.password}</TableCell>
-                <TableCell align="right">{row.email}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Paper>
-      {/* <ButtonComponent text="users" click ={() => users()} /> */}
-    </div>
-  );
+export default class SimpleTable extends PureComponent<SimpleTableProps,SimpleTableState> {
+  constructor(props: SimpleTableProps) {
+    super(props);
+    this.state = {
+      tableData: []
+    }
+  }
+   // classes = useStyles({});
+  loadUsers = async () => {
+      const data = await fetch("http://localhost:3000/users", {
+          method: "GET",
+          headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json"
+          }
+      });
+
+      const arrUser = await data.json();
+      //    arrUser.forEach(function(item:any) {
+      //         rows.push(createData(item.id, item.name, item.password, item.email))
+      //    })
+      let formattedArr:TableDataItem[] = []
+      arrUser.forEach((item: any) => {
+          formattedArr.push(createData(item.id, item.name, item.password, item.email));
+      });
+      this.setState({
+          tableData: formattedArr
+      })
+  };
+  componentDidMount() {
+      this.loadUsers()
+  }
+
+  render(){
+    const {tableData} = this.state
+      return (
+          <div>
+              {/*<Paper className={this.classes.root}>*/}
+                  {/*<Table className={this.classes.table}>*/}
+              <Paper >
+                  <Table>
+                      <TableHead>
+                          <TableRow>
+                              <TableCell align="right">id </TableCell>
+                              <TableCell align="right">name </TableCell>
+                              <TableCell align="right">password </TableCell>
+                              <TableCell align="right">email </TableCell>
+                          </TableRow>
+                      </TableHead>
+                      <TableBody>
+                          {tableData.map(row => (
+                              <TableRow key={row.name}>
+                                  <TableCell align="right">{row.id}</TableCell>
+                                  <TableCell align="right">{row.name}</TableCell>
+                                  <TableCell align="right">{row.password}</TableCell>
+                                  <TableCell align="right">{row.email}</TableCell>
+                              </TableRow>
+                          ))}
+                      </TableBody>
+                  </Table>
+              </Paper>
+              {/* <ButtonComponent text="users" click ={() => users()} /> */}
+          </div>
+      );
+  }
+
 }
