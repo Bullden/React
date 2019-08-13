@@ -35,18 +35,21 @@ export function* doLogin(): IterableIterator<any> {
         user.email === action.data.email &&
         user.password === action.data.password
     );
-    
-    user !== undefined ? localStorage.setItem("user", JSON.stringify(user)) : null;
+    // const isAdmin = answerApi.roleId;
+     const fakeUser = {id:99,name:'fakeUser',password:'fakeUser',email:'fakeUser' } 
+    user !== undefined || null ? localStorage.setItem("user", JSON.stringify(user)) : localStorage.setItem('user',JSON.stringify(fakeUser));
     console.log("some user", user);
-
+      
     // const admin = environment.admin
     // admin.email === user.email && admin.password === user.password && admin.name === user.name ? 
     if (user) {
+      // isAdmin = true
       alert("yahoo!");
       yield put({
         type: `@@login/LOGIN_SUCCESS`,
         payload: {
           data: user,
+          // isAdmin: isAdmin
         }
       });
       yield tokenService(answerApi);

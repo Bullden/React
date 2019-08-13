@@ -87,12 +87,12 @@ export default class SimpleTable extends PureComponent<SimpleTableProps,SimpleTa
   render(){
     const {tableData} = this.state
       return (
-          <div>
+          <div style = {{width: '100%', marginTop: "10px"}}>
               {/*<Paper className={this.classes.root}>*/}
                   {/*<Table className={this.classes.table}>*/}
-              <Paper >
-                  <Table>
-                      <TableHead>
+              <Paper style = {{width: '100%'}}>
+                  <Table style = {{width: '100%'}}>
+                      <TableHead style = {{width: '100%'}}>
                           <TableRow>
                               <TableCell align="right">id </TableCell>
                               <TableCell align="right">name </TableCell>

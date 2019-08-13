@@ -10,6 +10,7 @@ import configureStore from "./redux/store";
 import { RootState } from "./redux/rootReducer";
 import LoginContainer from "./containers/loginContainer";
 import HomeContainer from "./containers/homeContainer";
+import AdminContainer from './containers/adminPageContainer'
 import RegistrationContainer from "./containers/registrationContainer";
 import CenteredTabs from "@components/helpComponents/tabs";
 
@@ -19,6 +20,7 @@ export const Path = {
   // products: "/products",
   login: "/login",
   registration: "/registration",
+  admin: "/adminPage"
 };
 
 const store: Store<RootState> = configureStore();
@@ -59,6 +61,7 @@ export default () => (
           <Route exact path={Path.root} component={HomeContainer} />
           <Route path={Path.login} component={LoginContainer} />
           <Route path={Path.registration} component={RegistrationContainer} />
+          <Route path={Path.admin} component ={AdminContainer} />
         </main>
 
        
