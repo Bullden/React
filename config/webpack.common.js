@@ -21,8 +21,8 @@ module.exports = {
       "@redux": path.resolve(__dirname, "../src/redux"),
       "@components": path.resolve(__dirname, "../src/components"),
       "@containers": path.resolve(__dirname, "../src/containers"),
-      "@services": path.resolve(__dirname, "../src/services")
-    }
+      "@services": path.resolve(__dirname, "../src/services"),
+    },
   },
 
   stats: { warnings: false },

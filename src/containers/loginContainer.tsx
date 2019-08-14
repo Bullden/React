@@ -11,7 +11,6 @@ const mapStateToProps = (state: RootState) => ({
   isLoading: state.login.isLoading,
   name: state.login.name,
   user: state.login.token
-
 });
 
 export default connect(

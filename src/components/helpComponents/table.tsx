@@ -83,7 +83,6 @@ export default class SimpleTable extends PureComponent<SimpleTableProps,SimpleTa
   componentDidMount() {
       this.loadUsers()
   }
-
   render(){
     const {tableData} = this.state
       return (
