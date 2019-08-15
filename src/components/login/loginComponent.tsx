@@ -29,6 +29,7 @@ export interface LoginProps {
   doLogin: (data: LoginRequest) => object;
   user: any;
   admin: any;
+  isLoggedIn: boolean;
 }
 const fakeUser = {id:99,name:'fakeUser',password:'fakeUser',email:'fakeUser' };
 const admin: any = environment.admin;
@@ -49,6 +50,7 @@ export class LoginComponent extends React.Component<
     error: "",
     name: "",
     token: "",
+    isLoggedIn: false
   };
 
   handle = (event: any) =>
@@ -67,8 +69,9 @@ export class LoginComponent extends React.Component<
 
   };
   render() {
+    const { isLoggedIn } = this.props
     console.log(this.props.user);
-    return (
+    return (!isLoggedIn ?
       <div
         className="panel"
         style={{
@@ -156,7 +159,7 @@ export class LoginComponent extends React.Component<
         <div>
           <ButtonComponent text="Login" click={() => this.login()} />
         </div>
-      </div>
+      </div> : <Redirect to={'/'} />
     );
   }
 }

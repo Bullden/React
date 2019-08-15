@@ -11,6 +11,7 @@ export interface LoginState {
   error: string;
   name: string;
   token: any;
+  isLoggedIn: boolean;
 }
 
 

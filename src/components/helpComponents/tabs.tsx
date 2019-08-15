@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   },
 });
 
-  const CenteredTabs: React.FC = () => {
+const CenteredTabs = () => {
 
   const classes = useStyles({});
   const [value, setValue] = React.useState(0);
