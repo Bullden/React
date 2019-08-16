@@ -8,6 +8,8 @@ import { adminPage } from '@redux/adminPage/reducer';
 import { LoginProps } from '@components/login/loginComponent';
 import { environment } from '../../enviroment';
 import { connect } from 'react-redux';
+import { LoginState, LoginRequest, ResultApiUser } from "@redux/login/types";
+import { RootState } from '@redux/rootReducer';
 
 const useStyles = makeStyles({
   root: {
@@ -15,7 +17,14 @@ const useStyles = makeStyles({
   },
 });
 
-const CenteredTabs = () => {
+export interface LoginProps {
+  doLogin: (data: LoginRequest) => object;
+  user: any;
+  admin: any;
+  isLoggedIn: boolean;
+} 
+
+const CenteredTabs: React.FC  =(props: any) =>{
 
   const classes = useStyles({});
   const [value, setValue] = React.useState(0);
@@ -24,6 +33,7 @@ const CenteredTabs = () => {
     setValue(newValue);
 
   }
+  const isLoggedIn = props.isLoggedIn
   const admin = environment.admin
   const local: any = localStorage.getItem("user");
   const fakeUser = {id:99,name:'fakeUser',password:'fakeUser',email:'fakeUser' };
@@ -39,10 +49,11 @@ const CenteredTabs = () => {
       >
         <Tab label="Home" value='/' component={Link} to="/" />
         {
-           JSON.parse(local).name === fakeUser.name  && JSON.parse(local).email === fakeUser.email && JSON.parse(local).password === fakeUser.password
+          //  JSON.parse(local).name === fakeUser.name  && JSON.parse(local).email === fakeUser.email && JSON.parse(local).password === fakeUser.password
+            !isLoggedIn && JSON.parse(local).name === fakeUser.name  && JSON.parse(local).email === fakeUser.email && JSON.parse(local).password === fakeUser.password
           ?
         <Tab label="Registration" value='/registration' component={Link} to="/registration" /> 
-          : null  
+          : console.log('dpofpovpodv') 
 
         }
         
@@ -50,7 +61,7 @@ const CenteredTabs = () => {
         { console.log(JSON.parse(local))}
         {console.log(fakeUser)}
         {
-           JSON.parse(local).roleId === 0
+           isLoggedIn && JSON.parse(local).roleId === 0
           ?
           <Tab label="Admin Page" value="/adminPage" component={Link} to="/adminPage"/>
           : console.log('sdfsdf')
@@ -61,10 +72,11 @@ const CenteredTabs = () => {
 }
 
 
-const mapStateToProps = function(state:any) {
+const mapStateToProps = function(state: RootState) {
   return {
-    local: state.local,
-    fakeUser: state.fakeUser
+    // local: state.local,
+    // fakeUser: state.fakeUser,
+    isLoggedIn: state.login.isLoggedIn
   }
 }
 

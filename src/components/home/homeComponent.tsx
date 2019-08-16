@@ -7,7 +7,7 @@ import { doInit } from "@redux/home/actions";
 // import Headers from '../header/headerComponent';
 import { makeStyles } from '@material-ui/styles';
 import ButtonComponent from "@components/helpComponents/button";
-import SimpleTable from '../helpComponents/table'
+// import SimpleTable from '../helpComponents/table'
 import { ResultApiUser } from "@redux/home/types";
 
 export interface HomeProps {

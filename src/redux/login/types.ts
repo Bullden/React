@@ -5,6 +5,7 @@ export enum LoginActions {
 }
 
 export interface LoginState {
+  login: any;
   email: string;
   password: string;
   isLoading: boolean;

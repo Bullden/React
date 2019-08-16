@@ -24,6 +24,8 @@ import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import Typography from '@material-ui/core/Typography';
 import { Link as RouterLink } from 'react-router-dom';
+import { connect } from "react-redux";
+import { RootState } from "@redux/rootReducer";
 
 export interface LoginProps {
   doLogin: (data: LoginRequest) => object;
@@ -38,7 +40,7 @@ const local: any = localStorage.getItem("user");
 local ? null : localStorage.setItem("user",JSON.stringify(fakeUser))
 
 
-export class LoginComponent extends React.Component<
+ export class LoginComponent extends React.Component<
   LoginProps,
   LoginState,
   ResultApiUser
@@ -50,7 +52,8 @@ export class LoginComponent extends React.Component<
     error: "",
     name: "",
     token: "",
-    isLoggedIn: false
+    isLoggedIn: false,
+    login: ''
   };
 
   handle = (event: any) =>
@@ -159,7 +162,19 @@ export class LoginComponent extends React.Component<
         <div>
           <ButtonComponent text="Login" click={() => this.login()} />
         </div>
-      </div> : <Redirect to={'/'} />
+      </div> : <Redirect to='/' />
     );
   }
 }
+
+const mapStateToProps =(state: RootState)=> ({
+    isLoggedIn: state.login.isLoggedIn
+    // name: state.name,
+    // email: state.email,
+    // password: state.password,
+    // isLoading: state.isLoading,
+    // error: state.error,
+    // token: state.token,
+  })
+
+export default connect(mapStateToProps)(LoginComponent)
