@@ -217,7 +217,7 @@ export default class SimpleTable extends PureComponent<
     // debugger;
     // this.state.tableData.splice(deleteUser,1)
     this.setState(JSON.parse(JSON.stringify(arr)) );
-    
+
   }
 
   render() {

@@ -63,9 +63,15 @@ const CenteredTabs: React.FC  =(props: any) =>{
         {
            isLoggedIn && JSON.parse(local).roleId === 0
           ?
-          <Tab label="Admin Page" value="/adminPage" component={Link} to="/adminPage"/>
+          <Tab label="Admin User Page" value="/adminUserPage" component={Link} to="/adminUserPage"/>
           : console.log('sdfsdf')
-        }        
+        }
+        {
+           isLoggedIn && JSON.parse(local).roleId === 0
+          ?
+          <Tab label="Admin Book Page" value="/adminBookPage" component={Link} to="/adminBookPage"/>
+          : console.log('sdfsdf')
+        }            
       </Tabs>
     </Paper>
   );

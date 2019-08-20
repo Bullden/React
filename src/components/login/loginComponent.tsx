@@ -12,7 +12,7 @@ import { doLogin } from "@redux/login/sagasLogin";
 import { login } from "@redux/login/reducer";
 import { environment } from "../../enviroment";
 import CenteredTabs from "@components/helpComponents/tabs";
-import { AdminComponent } from "@components/adminPage/adminPageComponent";
+
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -84,6 +84,9 @@ local ? null : localStorage.setItem("user",JSON.stringify(fakeUser))
           flexDirection: "column"
         }}
       >
+        {/* {console.log('inputName',this.state.name)}
+        {console.log('inputMail',this.state.email)}
+        {console.log('inputpass',this.state.password)} */}
         {/* {"admin" === admin.name
           ? console.log("hi admin", admin)
           : console.log("you are not admin", admin)} */}

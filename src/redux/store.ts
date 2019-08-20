@@ -7,6 +7,7 @@ import { doLogin } from "./login/sagasLogin";
 import { onError } from "./common/errorSagas";
 import { all } from "redux-saga/effects";
 import { doRegistration } from "./registration/sagasRegistration";
+import { doBook } from "./adminPage/actions";
 // import { doRegister } from "./../redux/register/sagasRegister";
 // import { doBooks } from './booksPage/sagasBooks';
 

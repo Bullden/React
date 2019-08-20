@@ -6,8 +6,9 @@ import { homeReducer } from "./home/reducer";
 import { errorReducer } from "./common/reducer";
 import { HomeState } from "./home/types";
 import { registrationReducer } from './registration/reducer';
-import { AdminPageState } from './adminPage/types';
+import { AdminPageState, AdminBookPageState } from './adminPage/types';
 import { adminPageReducer } from './adminPage/reducer';
+import { adminBookPageReducer } from './adminPage/reducerBook';
 // import { RegisterState } from "./register/types";
 // import { registerReducer } from "./register/reducer";
 // import { BooksReducer } from "./booksPage/reducer";
@@ -20,6 +21,7 @@ export interface RootState {
   home: HomeState;
   registration: RegistrationState;
   adminPage: AdminPageState;
+  adminBookPage: AdminBookPageState,
   // books : BookState
 }
 
@@ -30,7 +32,7 @@ const rootReducer: Reducer<RootState> = combineReducers<RootState>({
   home: homeReducer,
   registration: registrationReducer,
   adminPage: adminPageReducer,
-  // books : BooksReducer
+  adminBookPage : adminBookPageReducer
 });
 
 export default rootReducer;
