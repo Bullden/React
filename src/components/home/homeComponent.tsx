@@ -7,14 +7,6 @@ import { doInit } from "@redux/home/actions";
 // import Headers from '../header/headerComponent';
 import ButtonComponent from "@components/helpComponents/button";
 // import SimpleTable from '../helpComponents/table'
-import { ResultApiUser } from "@redux/home/types";
-import { Book } from "src/types/book";
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import SimpleCard from "./homeCards";
 
 // const useStyles = makeStyles({

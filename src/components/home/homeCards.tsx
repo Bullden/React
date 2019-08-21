@@ -30,6 +30,7 @@ function createData (
 ) {
   return {nameBook, description, cost}
 }
+
 let cards:any[] =[];
 
 interface CardDataItem {
@@ -68,13 +69,16 @@ loadCardBooks = async () => {
         createData(item.nameBook, item.description, item.cost)
       )
     })
-
+    
     this.setState({
       cardData : formattedArr
     });
     console.log('cardData',this.state.cardData)
-}
 
+}
+  componentDidMount(){
+    this.loadCardBooks()
+  }
  render() {
   const { cardData } = this.state;
    return (

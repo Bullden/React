@@ -111,8 +111,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
-
-export default function SimpleModal():JSX.Element {
+interface SimpleModalProps {
+  loadBooks: () => void
+}
+export default ({ loadBooks }: SimpleModalProps) => {
   const classes = useStyles({});
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -139,7 +141,7 @@ export default function SimpleModal():JSX.Element {
         onClose={handleClose}
       >
         <div style={modalStyle} className={classes.paper}>
-          <Inputs />
+          <Inputs loadBooks={loadBooks} handleClose={handleClose} />
         </div>
       </Modal>
     </div>

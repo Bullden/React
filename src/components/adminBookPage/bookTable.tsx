@@ -112,34 +112,21 @@ export class SimpleTable extends PureComponent<any,TableBookState> {
     
     this.setState(JSON.parse(JSON.stringify(arr)) );
   }
-  render():JSX.Element {
+  render() {
     const { tableData } = this.state;
-    const book = this.props.book
     const allBooks = this.props.allBooks
     console.log("AAAAAAAAAA",allBooks);
     rows=[];
     allBooks.forEach((item:any) => {
       rows.push(createData(item.id, item.nameBook, item.description, item.cost))  
-    });
-
-      fetch ('http://localhost:3001/books',{
-        method:"POST",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(book)
-      })
-      .then(res => res.json())
-    
-      
+    });      
 
     console.log('allBooks',allBooks)  
     console.log('rows',rows)
 
     return (
       <div>
-        <SimpleModal></SimpleModal>
+        <SimpleModal loadBooks={this.loadBooks} ></SimpleModal>
         <Paper >
           <Table >
             <TableHead>

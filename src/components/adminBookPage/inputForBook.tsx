@@ -1,6 +1,6 @@
 import * as React from "react";
 import { InputLabel, Input } from "@material-ui/core";
-import { runInThisContext } from "vm";
+// import { runInThisContext } from "vm";
 import ButtonComponent from "@components/helpComponents/button";
 import { number } from "prop-types";
 import { connect } from "react-redux";
@@ -15,6 +15,8 @@ export interface ModalInputProps {
     nameBook: string;
     description: string;
     cost: string;
+    loadBooks: () => void
+    handleClose: () => void
 }
 export interface ModalInputState {
   nameBook: string;
@@ -33,16 +35,28 @@ export class Inputs extends React.Component<ModalInputProps,ModalInputState> {
     this.setState({ [event.target.name]:event.target.value } as any)
 
   setBook = () => {
-    console.log('dfgdg')
-      const{doBook} =this.props
-      doBook({
+      const{doBook, loadBooks, handleClose} =this.props
+      const newBook = {
         nameBook: this.state.nameBook,
         description: this.state.description,
         cost: this.state.cost,
+      }
+
+      doBook(newBook)
+
+      fetch ('http://localhost:3001/books',{
+        method:"POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newBook)
       })
-      console.log('nameBook', this.state.nameBook)
-      console.log('description', this.state.description)
-      console.log('cost', this.state.cost)
+      .then(res => res.json())
+      .then(() => {
+        loadBooks()
+        handleClose()
+      })
   }
   
   render() {
