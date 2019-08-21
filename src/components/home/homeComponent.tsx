@@ -2,29 +2,53 @@ import React from "react";
 import { HomeState, HomeRequest, } from "../../redux/home/types";
 import { Error } from "../common/errorComponent";
 import { Product } from "../../types";
-import { AppBar, Typography } from "@material-ui/core";
+import { AppBar} from "@material-ui/core";
 import { doInit } from "@redux/home/actions";
 // import Headers from '../header/headerComponent';
-import { makeStyles } from '@material-ui/styles';
 import ButtonComponent from "@components/helpComponents/button";
 // import SimpleTable from '../helpComponents/table'
 import { ResultApiUser } from "@redux/home/types";
+import { Book } from "src/types/book";
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import SimpleCard from "./homeCards";
 
-export interface HomeProps {
-  error: string;
-  products: Product[];
-  count : number;
-  doInit: () => any;
-  user: any;
-}
+// const useStyles = makeStyles({
+//   card: {
+//     minWidth: 275,
+//   },
+//   bullet: {
+//     display: 'inline-block',
+//     margin: '0 2px',
+//     transform: 'scale(0.8)',
+//   },
+//   title: {
+//     fontSize: 14,
+//   },
+//   pos: {
+//     marginBottom: 12,
+//   },
+// });
 
-export class HomeComponent extends React.Component<HomeProps, HomeState, ResultApiUser> {
-  state: HomeState = {
-    error: "",
-    enviroment: "",
-    products: [],
-    token: "",
-  };
+// export interface HomeProps {
+//   error: string;
+//   books: Book[];
+//   count : number;
+//   doInit: () => any;
+//   user: any;
+// }
+
+export class HomeComponent extends React.Component<any,any> {
+  // state: HomeState = {
+  //   error: "",
+  //   enviroment: "",
+  //   products: [],
+  //   token: "",
+  // };
 
   init = () => {
     const { doInit } = this.props;
@@ -35,19 +59,21 @@ export class HomeComponent extends React.Component<HomeProps, HomeState, ResultA
     localStorage.removeItem('user')
   }
   
+
+
+
   render() {
     console.log('userrrrr',this.props.user)
-    //  const isExpanded = this.state ? this.state.isExpanded : false;
-    // const classes = useStyles();
+
     return (
       <div className="wrapper"> 
         
         {/* <Error /> */}
-        <h1>
+        {/* <h1>
           Hi welcome to store, enviroment : {process.env.NODE_ENV} <b />
-        </h1>
+        </h1> */}
         <div>
-          
+          <SimpleCard />
           {/* {this.props.products.map((i, ix) => {
             return (
               <div className="ProductList__Product" key={ix}>
@@ -61,10 +87,5 @@ export class HomeComponent extends React.Component<HomeProps, HomeState, ResultA
         <ButtonComponent text = "Logout" click={() =>this.logout()} />
       </div>
     );
-  }
-  async componentDidMount() {
-    console.log(this.props.user)
-    this.init();
-    console.log("init");
   }
 }

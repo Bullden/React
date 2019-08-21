@@ -28,12 +28,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function createData(
-  // id: number,
+  id: string,
   nameBook: string,
   description: string,
   cost: number
 ) {
-  return { nameBook, description, cost };
+  return {id, nameBook, description, cost };
 }
 let rows: any[] = [];
 // const rows = [
@@ -43,52 +43,109 @@ let rows: any[] = [];
 //   // createData(4,  nameBook, this.state.description, this.state.cost)
 // ];
 // const classes = useStyles({});
+interface TableDataItem {
+  id: string,
+  nameBook: string;
+  description: string;
+  cost: number;
+}
 
-export class SimpleTable extends PureComponent<any,any> {
-  // constructor(props: any) {
-  //   super(props);
-  // }
+interface TableBookState {
+  tableData: TableDataItem[]
+}
+
+export class SimpleTable extends PureComponent<any,TableBookState> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      tableData:[]
+    }
+  }
 //   addBook() {
 //     OpenModal(true)
 //   }
   // addBooks = () => {
     
   // }
+  loadBooks = async () => {
+    const data = await fetch('http://localhost:3001/books',{
+      method:"GET",
+      headers: {
+        'Accept': "application/json",
+        "Content-Type": "application/json"
+      }
+    });
+    const arrBooks = await data.json()
+    console.log('arrBooks',arrBooks)
+    arrBooks.forEach(function(item:any) {
+      rows.push(createData(item.id, item.nameBook, item.description, item.cost))
+    })
+    // const book = this.props.book
+    let formattedArr: TableDataItem[] = [];
+    arrBooks.forEach((item:any)=>{
+      formattedArr.push(
+        createData(item.id, item.nameBook, item.description, item.cost)
+      )
+    })
+    // console.log('formattedArrBefore',formattedArr)
+    // formattedArr.push(book)
+    // console.log('formattedArr',formattedArr)
+    
+    this.setState({
+      tableData: formattedArr
+    });
 
-  // componentDidMount() {
-  //   this.addBooks();
-  //   // this.deleteUser();
-  // }
+    console.log('async rows',rows)
+  } 
+
+  componentDidMount() {
+    this.loadBooks();
+    // this.deleteUser();
+  }
+  deleteBook(id:string){
+    let arr = this.state.tableData;
+
+    arr.forEach((item,idx:any) => {
+      if(item.id === id)
+       arr.splice(idx, 1);
+    })
+    
+    this.setState(JSON.parse(JSON.stringify(arr)) );
+  }
   render():JSX.Element {
+    const { tableData } = this.state;
     const book = this.props.book
     const allBooks = this.props.allBooks
     console.log("AAAAAAAAAA",allBooks);
     rows=[];
     allBooks.forEach((item:any) => {
-      rows.push(createData(item.nameBook, item.description, item.cost))
+      rows.push(createData(item.id, item.nameBook, item.description, item.cost))  
     });
+
       fetch ('http://localhost:3001/books',{
         method:"POST",
         headers: {
           "Accept": "application/json",
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(allBooks)
+        body: JSON.stringify(book)
       })
       .then(res => res.json())
+    
+      
 
-
-    console.log('rowssss',rows)
+    console.log('allBooks',allBooks)  
+    console.log('rows',rows)
 
     return (
       <div>
-        {/*  */}
         <SimpleModal></SimpleModal>
         <Paper >
           <Table >
             <TableHead>
               <TableRow>
-                {/* <TableCell>Id</TableCell> */}
+                <TableCell align="right">Delete</TableCell>
+                <TableCell align="right">Id</TableCell>
                 <TableCell align="right">Name</TableCell>
                 <TableCell align="right">Descripton</TableCell>
                 <TableCell align="right">Cost</TableCell>
@@ -96,11 +153,18 @@ export class SimpleTable extends PureComponent<any,any> {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map(row => (
+              {tableData.map(row => (
                 <TableRow key={row.nameBook}>
                   {/* <TableCell component="th" scope="row">
                     {row.id}
                   </TableCell> */}
+                  <TableCell align="right">
+                    <ButtonComponent
+                      text="Delete"
+                      click={() => this.deleteBook(row.id)}
+                    />
+                  </TableCell>
+                  <TableCell align="right">{row.id}</TableCell>
                   <TableCell align="right">{row.nameBook}</TableCell>
                   <TableCell align="right">{row.description}</TableCell>
                   <TableCell align="right">{row.cost}</TableCell>

@@ -23,10 +23,10 @@ export function* doInit(): IterableIterator<any> {
     //   yield call(delay, 500);
     // }
 
-    const answerApi = yield call(callApi, "GET", "users");
+    const answerApi = yield call(callApi, "GET", "books");
     
     // const {email, data, id} = answerApi
-    console.log('users',answerApi);
+    console.log('books',answerApi);
     console.log(action);
 
     //const user = answerApi.forEach((user:ResultApiUser) => user.email ===  action.data.email && user.password === action.data.password? localStorage.setItem('currentUser',JSON.stringify(user)) : null);

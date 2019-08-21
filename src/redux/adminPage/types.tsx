@@ -22,7 +22,6 @@ export interface AdminBookPageState {
     // error: string;
     allBooks : Array<Book>;
 }
-
 export interface SetBookRequest {
     nameBook: string;
     description: string;
