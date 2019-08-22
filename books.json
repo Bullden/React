@@ -7,154 +7,46 @@
       "id": 1
     },
     {
-      "nameBook": "abc",
-      "description": "bca",
-      "cost": "abc",
+      "nameBook": "Game of",
+      "description": "blabla bla blabla",
+      "cost": "150",
       "id": 2
     },
     {
-      "nameBook": "abcd",
-      "description": "bcad",
-      "cost": "abcd",
+      "nameBook": "Pirat",
+      "description": "yahooo lalalala sea",
+      "cost": "200",
       "id": 3
     },
     {
-      "nameBook": "sa",
-      "description": "sad",
-      "cost": "dsa",
+      "nameBook": "island of curse",
+      "description": "Leo nice play",
+      "cost": "150",
       "id": 4
     },
     {
-      "nameBook": "df",
-      "description": "sfd",
-      "cost": "dsf",
+      "nameBook": "Headphones",
+      "description": "tell about headphones",
+      "cost": "50",
       "id": 5
     },
     {
-      "nameBook": "fsdf",
-      "description": "dsfsdf",
-      "cost": "sdfsdf",
+      "nameBook": "computer for teapot",
+      "description": "you are teapot! you must learn computer technologies",
+      "cost": "350",
       "id": 6
     },
     {
-      "nameBook": "1d",
-      "description": "f1",
-      "cost": "1",
+      "nameBook": "abc",
+      "description": "abc",
+      "cost": "1111",
       "id": 7
     },
     {
-      "nameBook": "dsfd",
-      "description": "dsdff",
-      "cost": "sdfsdf",
+      "nameBook": "fgdfg",
+      "description": "fdgdfg",
+      "cost": "123",
       "id": 8
-    },
-    {
-      "nameBook": "sdf",
-      "description": "dsf",
-      "cost": "sdfsdf",
-      "id": 9
-    },
-    {
-      "nameBook": "dsf",
-      "description": "dsf",
-      "cost": "dsfsdf",
-      "id": 10
-    },
-    {
-      "nameBook": "2",
-      "description": "2",
-      "cost": "2",
-      "id": 11
-    },
-    {
-      "nameBook": "1",
-      "description": "443",
-      "cost": "43434",
-      "id": 12
-    },
-    {
-      "nameBook": "dfg",
-      "description": "fdg",
-      "cost": "fdg",
-      "id": 13
-    },
-    {
-      "nameBook": "sadsad",
-      "description": "sadsad",
-      "cost": "sdaasd",
-      "id": 14
-    },
-    {
-      "nameBook": "q",
-      "description": "q",
-      "cost": "q",
-      "id": 15
-    },
-    {
-      "nameBook": "q",
-      "description": "q",
-      "cost": "q",
-      "id": 16
-    },
-    {
-      "nameBook": "wq",
-      "description": "wq",
-      "cost": "wq",
-      "id": 17
-    },
-    {
-      "nameBook": "wq",
-      "description": "wq",
-      "cost": "wq",
-      "id": 18
-    },
-    {
-      "nameBook": "1",
-      "description": "sdfsdf",
-      "cost": "sdfsdfsdfdf",
-      "id": 19
-    },
-    {
-      "nameBook": "4",
-      "description": "4",
-      "cost": "4",
-      "id": 20
-    },
-    {
-      "nameBook": "4",
-      "description": "4",
-      "cost": "4",
-      "id": 21
-    },
-    {
-      "nameBook": "5",
-      "description": "5",
-      "cost": "5",
-      "id": 22
-    },
-    {
-      "nameBook": "5",
-      "description": "5",
-      "cost": "5",
-      "id": 23
-    },
-    {
-      "nameBook": "22",
-      "description": "22",
-      "cost": "22",
-      "id": 24
-    },
-    {
-      "nameBook": "22",
-      "description": "22",
-      "cost": "22",
-      "id": 25
-    },
-    {
-      "nameBook": "test",
-      "description": "test",
-      "cost": "test",
-      "id": 26
     }
   ]
 }

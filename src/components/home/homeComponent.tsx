@@ -47,9 +47,9 @@ export class HomeComponent extends React.Component<any,any> {
     doInit();
   };
 
-  logout =() => {
-    localStorage.removeItem('user')
-  }
+  // logout =() => {
+  //   localStorage.removeItem('user')
+  // }
   
 
 
@@ -76,7 +76,7 @@ export class HomeComponent extends React.Component<any,any> {
             );
           })} */}
         </div>
-        <ButtonComponent text = "Logout" click={() =>this.logout()} />
+        {/* <ButtonComponent text = "Logout" click={() =>this.logout()} /> */}
       </div>
     );
   }

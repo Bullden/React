@@ -4,10 +4,6 @@ import { RootState } from "@redux/rootReducer";
 
 
 export const initialState: AdminBookPageState = {
-    // nameBook: "",
-    // description: "",
-    // cost: "",
-    // error: "",
     book: "",
     allBooks : []
 };
@@ -28,7 +24,7 @@ export function adminBookPageReducer(state:AdminBookPageState = initialState, ac
           console.log('newState',newState)
           return{
             ...state,
-            book: action.payload,
+            book: action.payload.card,
             allBooks: newState.allBooks
           };   
           

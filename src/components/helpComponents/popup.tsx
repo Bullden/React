@@ -4,6 +4,11 @@ import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import { connect } from 'react-redux';
+import SimpleCard from '@components/home/homeCards';
+import { RootState } from '@redux/rootReducer';
+import {doCard} from '../home/actionCards'
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -13,7 +18,8 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function SimplePopover({}) {
+export  function SimplePopover(props:any) {
+ 
   const classes = useStyles({});
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
@@ -27,6 +33,8 @@ export default function SimplePopover({}) {
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
+
+  // const card = props.cardPage.card
 
   return (
     <div style= {{paddingTop:"4px"}}>
@@ -49,8 +57,19 @@ export default function SimplePopover({}) {
           horizontal: 'center',
         }}
       >
-        <Typography className={classes.typography}>The content of the Popover.</Typography>
+        <Typography className={classes.typography}>FFFFFFFFFFFFFFF</Typography>
       </Popover>
     </div>
   );
 }
+const mapStateToProps=function(state:RootState) {
+  return{
+    // nameBook: state.adminBookPage.book.nameBook,
+    // description: state.adminBookPage.book.description,
+    // cost: state.adminBookPage.cost
+    card: state.cardPage.card,
+    allCards: state.cardPage.allCards
+  }
+}
+
+export default connect(mapStateToProps, {doCard})(SimplePopover)
