@@ -14,6 +14,8 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import color from "@material-ui/core/colors/grey";
 import SimplePopover from "./popup";
 import ButtonComponent from "./button";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 
 const useStyles = makeStyles({
   root: {
@@ -46,7 +48,7 @@ const CenteredTabs: React.FC = (props: any) => {
   };
 
   function handleClick() {
-    localStorage.removeItem('user')
+    localStorage.removeItem("user");
   }
   // logout =() => {
   //   localStorage.removeItem('user')
@@ -76,8 +78,7 @@ const CenteredTabs: React.FC = (props: any) => {
         ) : (
           console.log("dpofpovpodv")
         )}
-       
-        
+
         {console.log(JSON.parse(local))}
         {console.log(fakeUser)}
         {isLoggedIn && JSON.parse(local).roleId === 0 ? (
@@ -106,14 +107,23 @@ const CenteredTabs: React.FC = (props: any) => {
         >
           <ShoppingCartIcon style={{ color: "rgba(0, 0, 0, 0.54" }} />
         </button> */}
-         {!isLoggedIn ?
+        {!isLoggedIn ? (
           <Tab label="Login" value="/login" component={Link} to="/login" />
-          :
+        ) : (
           // <button style={{ background: "inherit", border: "none", outline: "none", color: "rgba(0, 0, 0, 0.54", textTransform:'uppercase',lineHeight:'2' }} onlick={handleClick}>logout</button>
-          <ButtonComponent  text = "Logout" click={handleClick} />
-        }
-        <SimplePopover/>
-        
+          <ButtonComponent text="Logout" click={handleClick} />
+        )}
+        <SimplePopover />
+        {isLoggedIn && JSON.parse(local).roleId !== 0 ? (
+          <div style={{ marginTop: "10px" }}>
+            <AccountCircleIcon />
+          </div>
+        ) : null}
+        {isLoggedIn && JSON.parse(local).roleId === 0 ? (
+          <div style={{ marginTop: "10px" }}>
+            <VerifiedUserIcon/>
+          </div>
+        ) : null}
       </Tabs>
     </Paper>
   );

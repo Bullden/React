@@ -9,7 +9,7 @@ export const initialState: CardsPageState = {
 export function CardPageReducer(state: CardsPageState = initialState, action:any){
     console.log('actio.payload',action.payload)
       switch (action.type) {
-          case `@@admin/CARD_INIT`: {
+          case `@@card/CARD_INIT`: {
             console.log('action.payload',action.payload)
           // const { data } = ;
           // console.log('data',data)
@@ -25,6 +25,16 @@ export function CardPageReducer(state: CardsPageState = initialState, action:any
               card: action.payload,
               allCards: newState.allCards
             };  
+          }
+          case `@@card/CARD_DELETE`: {
+             let newState = JSON.parse(JSON.stringify(state))
+             newState.allCards = action.payload;
+             return newState;
+            // console.log('romoveeeeeeeee',action.payload)
+            // return {
+            //   ...state,
+            //   allCards: action.payload
+            // }
           }
           default:
               return state 
