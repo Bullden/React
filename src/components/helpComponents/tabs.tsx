@@ -16,6 +16,8 @@ import SimplePopover from "./popup";
 import ButtonComponent from "./button";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
+import SimpleModal from "@components/user/userRoom";
+import PopoverUser from "@components/user/userRoom";
 
 const useStyles = makeStyles({
   root: {
@@ -116,7 +118,8 @@ const CenteredTabs: React.FC = (props: any) => {
         <SimplePopover />
         {isLoggedIn && JSON.parse(local).roleId !== 0 ? (
           <div style={{ marginTop: "10px" }}>
-            <AccountCircleIcon />
+            {/* <AccountCircleIcon /> */}
+            <PopoverUser />
           </div>
         ) : null}
         {isLoggedIn && JSON.parse(local).roleId === 0 ? (

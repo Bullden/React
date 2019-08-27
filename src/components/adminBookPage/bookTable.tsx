@@ -12,7 +12,7 @@ import SimpleModal from "./modal";
 import { ModalInputProps, ModalInputState, Inputs } from "./inputForBook";
 import { RootState } from "@redux/rootReducer";
 import { connect } from "react-redux";
-import { doBook } from "../../redux/adminPage/actions" 
+import { doBook } from "../../redux/adminPage/actions";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,7 +33,7 @@ function createData(
   description: string,
   cost: number
 ) {
-  return {id, nameBook, description, cost };
+  return { id, nameBook, description, cost };
 }
 let rows: any[] = [];
 // const rows = [
@@ -44,93 +44,109 @@ let rows: any[] = [];
 // ];
 // const classes = useStyles({});
 interface TableDataItem {
-  id: string,
+  id: string;
   nameBook: string;
   description: string;
   cost: number;
 }
 
 interface TableBookState {
-  tableData: TableDataItem[]
+  tableData: TableDataItem[];
 }
 
-export class SimpleTable extends PureComponent<any,TableBookState> {
+export class SimpleTable extends PureComponent<any, TableBookState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      tableData:[]
-    }
+      tableData: []
+    };
   }
-//   addBook() {
-//     OpenModal(true)
-//   }
+  //   addBook() {
+  //     OpenModal(true)
+  //   }
   // addBooks = () => {
-    
+
   // }
   loadBooks = async () => {
-    const data = await fetch('http://localhost:3001/books',{
-      method:"GET",
+    const data = await fetch("http://localhost:3001/books", {
+      method: "GET",
       headers: {
-        'Accept': "application/json",
+        Accept: "application/json",
         "Content-Type": "application/json"
       }
     });
-    const arrBooks = await data.json()
-    console.log('arrBooks',arrBooks)
-    arrBooks.forEach(function(item:any) {
-      rows.push(createData(item.id, item.nameBook, item.description, item.cost))
-    })
+    const arrBooks = await data.json();
+    console.log("arrBooks", arrBooks);
+    arrBooks.forEach(function(item: any) {
+      rows.push(
+        createData(item.id, item.nameBook, item.description, item.cost)
+      );
+    });
     // const book = this.props.book
     let formattedArr: TableDataItem[] = [];
-    arrBooks.forEach((item:any)=>{
+    arrBooks.forEach((item: any) => {
       formattedArr.push(
         createData(item.id, item.nameBook, item.description, item.cost)
-      )
-    })
+      );
+    });
     // console.log('formattedArrBefore',formattedArr)
     // formattedArr.push(book)
     // console.log('formattedArr',formattedArr)
-    
+
     this.setState({
       tableData: formattedArr
     });
 
-    console.log('async rows',rows)
-  } 
+    console.log("async rows", rows);
+  };
 
   componentDidMount() {
     this.loadBooks();
     // this.deleteUser();
   }
-  deleteBook(id:string){
+  deleteBook(id: string) {
     let arr = this.state.tableData;
 
-    arr.forEach((item,idx:any) => {
-      if(item.id === id)
-       arr.splice(idx, 1);
-    })
-    
-    this.setState(JSON.parse(JSON.stringify(arr)) );
+    arr.forEach((item, idx: any) => {
+      if (item.id === id) arr.splice(idx, 1);
+      console.log("item.id", item.id);
+      console.log("id", id);
+      console.log("idx", idx);
+      fetch(`http://localhost:3001/books/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(res => res.text()) // OR res.json()
+        .then(res => console.log(res));
+    });
+
+    this.setState(JSON.parse(JSON.stringify(arr)));
   }
+
+  
+
   render() {
     const { tableData } = this.state;
-    const allBooks = this.props.allBooks
-    console.log("AAAAAAAAAA",allBooks);
-    rows=[];
-    allBooks.forEach((item:any) => {
-      rows.push(createData(item.id, item.nameBook, item.description, item.cost))  
-    });      
+    const allBooks = this.props.allBooks;
+    console.log("AAAAAAAAAA", allBooks);
+    rows = [];
+    allBooks.forEach((item: any) => {
+      rows.push(
+        createData(item.id, item.nameBook, item.description, item.cost)
+      );
+    });
 
-    console.log('allBooks',allBooks)  
-    console.log('rows',rows)
+    console.log("allBooks", allBooks);
+    console.log("rows", rows);
 
     return (
       <div>
-        <SimpleModal loadBooks={this.loadBooks} ></SimpleModal>
-        <Paper >
-          <Table >
+        <SimpleModal loadBooks={this.loadBooks} />
+        <Paper>
+          <Table>
             <TableHead>
               <TableRow>
+                {/* <TableCell align="right">Edit</TableCell> */}
                 <TableCell align="right">Delete</TableCell>
                 <TableCell align="right">Id</TableCell>
                 <TableCell align="right">Name</TableCell>
@@ -145,6 +161,12 @@ export class SimpleTable extends PureComponent<any,TableBookState> {
                   {/* <TableCell component="th" scope="row">
                     {row.id}
                   </TableCell> */}
+                  {/* <TableCell align="right">
+                    <ButtonComponent
+                      text="Edit"
+                      click={() => this.editBook(row.id)}
+                    />
+                  </TableCell> */}
                   <TableCell align="right">
                     <ButtonComponent
                       text="Delete"
@@ -157,7 +179,7 @@ export class SimpleTable extends PureComponent<any,TableBookState> {
                   <TableCell align="right">{row.cost}</TableCell>
                   {/* <TableCell align="right">{row.image}</TableCell> */}
                 </TableRow>
-               ))} 
+              ))}
             </TableBody>
           </Table>
         </Paper>
@@ -168,13 +190,16 @@ export class SimpleTable extends PureComponent<any,TableBookState> {
 // const mapStateToProps = (state: RootState) => ({
 
 // })
-const mapStateToProps=function(state:RootState) {
-  return{
+const mapStateToProps = function(state: RootState) {
+  return {
     // nameBook: state.adminBookPage.book.nameBook,
     // description: state.adminBookPage.book.description,
     // cost: state.adminBookPage.cost
     book: state.adminBookPage.book,
     allBooks: state.adminBookPage.allBooks
-  }
-}
-export default connect(mapStateToProps, {doBook})(SimpleTable)
+  };
+};
+export default connect(
+  mapStateToProps,
+  { doBook }
+)(SimpleTable);
