@@ -2,7 +2,8 @@ import { Card } from "src/types/card";
 
 export enum CardsPageActions {
     CARD_INIT = "CARD_INIT",
-    CARD_DELETE = "CARD_DELETE"
+    CARD_DELETE = "CARD_DELETE",
+    CARD_SHOW = "CARD_SHOW"
 }
 
 export interface CardsPageState {
@@ -17,4 +18,9 @@ export interface SetCardRequest {
 }
 export interface RemoveCard {
     allCards: Array<Card>
+}
+export interface ShowCardRequest {
+    nameBook: string;
+    description: string;
+    cost: string;
 }

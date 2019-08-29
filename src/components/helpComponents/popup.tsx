@@ -29,19 +29,14 @@ export interface CardsProps {
 export const SimplePopover = (props: any) => {
   const card = props.card;
   const allCards = props.allCards
-  // const allCards = props.allCards;
-  // const doCards = props
-  // console.log('doCards',doCards)
+
   const allCosts = allCards.map(function(costs: any) {
     return +costs.cost;
   });
-  // console.log("allcosts", allCosts);
   const sumCosts = allCosts.reduce(function(sum: any, current: any) {
     return sum + current;
   }, 0);
 
-  // console.log("result", sumCosts);
-  // console.log("card", card);
 
   const classes = useStyles({});
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
@@ -80,7 +75,7 @@ export const SimplePopover = (props: any) => {
   const id = open ? "simple-popover" : undefined;
   
 
-  // const card = props.cardPage.card
+
 
   return (
     <div style={{ paddingTop: "4px" }}>
@@ -137,9 +132,6 @@ export const SimplePopover = (props: any) => {
 };
 const mapStateToProps = function(state: RootState) {
   return {
-    // nameBook: state.adminBookPage.book.nameBook,
-    // description: state.adminBookPage.book.description,
-    // cost: state.adminBookPage.cost
     card: state.cardPage.card,
     allCards: state.cardPage.allCards
   };

@@ -4,7 +4,7 @@ import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import { InputForEdit } from './inputForEdit';
+import InputForEdit  from './inputForEdit';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,7 +53,6 @@ export default function PopoverUser({}) {
       >
         <Typography className={classes.typography}>
           <InputForEdit />
-s
         </Typography>
       </Popover>
     </div>

@@ -36,6 +36,13 @@ export function CardPageReducer(state: CardsPageState = initialState, action:any
             //   allCards: action.payload
             // }
           }
+          case `@@card/CARD_SHOW`: {
+            console.log('action.payloaddddddddddd',action.payload)
+            return{
+               ...state,
+              card: action.payload
+            } 
+          }
           default:
               return state 
       }

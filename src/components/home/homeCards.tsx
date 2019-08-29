@@ -6,28 +6,17 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
-import {doCard} from "./actionCards"
+import { doCard } from "./actionCards";
 import { RootState } from "@redux/rootReducer";
 import { SetCardRequest } from "./typesCards";
+import { Redirect } from "react-router";
 
-// const useStyles = makeStyles({
-//   card: {
-//     minWidth: 275,
-//   },
-//   bullet: {
-//     display: 'inline-block',
-//     margin: '0 2px',
-//     transform: 'scale(0.8)',
-//   },
-//   title: {
-//     fontSize: 14,
-//   },
-//   pos: {
-//     marginBottom: 12,
-//   },
-// });
-
-function createData(id:string, nameBook: string, description: string, cost: number) {
+function createData(
+  id: string,
+  nameBook: string,
+  description: string,
+  cost: number
+) {
   return { id, nameBook, description, cost };
 }
 
@@ -51,17 +40,18 @@ interface CardBookState {
   nameBook: string;
   description: string;
   cost: string;
+  redirect: boolean;
 }
 
 export class SimpleCard extends React.Component<any, CardBookState> {
-  // const classes = useStyles({});
   constructor(props: any) {
     super(props);
     this.state = {
       cardData: [],
-      nameBook: '',
-      description: '',
-      cost: ''
+      nameBook: "",
+      description: "",
+      cost: "",
+      redirect: false
     };
   }
   loadCardBooks = async () => {
@@ -75,48 +65,53 @@ export class SimpleCard extends React.Component<any, CardBookState> {
     const arrCards = await data.json();
     console.log("arrBooks", arrCards);
     arrCards.forEach(function(item: any) {
-      cards.push(createData(item.id, item.nameBook, item.description, item.cost));
+      cards.push(
+        createData(item.id, item.nameBook, item.description, item.cost)
+      );
     });
     let formattedArr: CardDataItem[] = [];
     arrCards.forEach((item: any) => {
-      formattedArr.push(createData(item.id, item.nameBook, item.description, item.cost));
+      formattedArr.push(
+        createData(item.id, item.nameBook, item.description, item.cost)
+      );
     });
 
     this.setState({
       cardData: formattedArr
     });
     console.log("cardData", this.state.cardData);
-
-    // const{doCard} =this.props
-    // const newCard = {
-    //   allCards:this.state.cardData
-    // }
-    // doCard(newCard)
-
   };
-  
-  click = (id:string) => {
-    console.log('click',this.state.cardData)
-    this.state.cardData.forEach((item,idx:any) => {
-      if(item.id === id) {
-        console.log('item cardData',item , idx)
-        const{doCard} =this.props
+
+  click = (id: string) => {
+    console.log("click", this.state.cardData);
+    this.state.cardData.forEach((item, idx: any) => {
+      if (item.id === id) {
+        console.log("item cardData", item, idx);
+        const { doCard } = this.props;
         const newCard = {
           id: item.id,
           nameBook: item.nameBook,
           description: item.description,
           cost: item.cost
-        }
-        doCard(newCard)
+        };
+        doCard(newCard);
       }
-    })
+    });
+  };
+
+  clickToRoute = () => {
+    this.setState({ redirect: true });
   };
 
   componentDidMount() {
     this.loadCardBooks();
   }
-  
+
   render() {
+    if (this.state.redirect === true) {
+      return <Redirect push to="/description" />;
+    } else null;
+
     const { cardData } = this.state;
     return (
       <div
@@ -126,7 +121,12 @@ export class SimpleCard extends React.Component<any, CardBookState> {
           justifyContent: "space-around"
         }}
       >
-        {console.log('JHDJLDHJLCB',this.state.nameBook, this.state.description, this.state.cost)}
+        {console.log(
+          "JHDJLDHJLCB",
+          this.state.nameBook,
+          this.state.description,
+          this.state.cost
+        )}
         {cardData.map(row => (
           <Card style={{ marginTop: "20px" }}>
             <CardContent>
@@ -145,6 +145,12 @@ export class SimpleCard extends React.Component<any, CardBookState> {
               <Button size="small" onClick={() => this.click(row.id)}>
                 Buy
               </Button>
+              <div onClick={() => this.click(row.id)}>
+                <Button size="small" onClick={() => this.clickToRoute()}>
+                  Show full Description
+                </Button>
+              </div>
+              
             </CardActions>
           </Card>
         ))}
@@ -152,14 +158,17 @@ export class SimpleCard extends React.Component<any, CardBookState> {
     );
   }
 }
-const mapStateToProps=function(state:RootState) {
-  return{
+const mapStateToProps = function(state: RootState) {
+  return {
     // nameBook: state.cardPage.card,
     // description: state.cardPage.card,
     // cost: state.cardPage.card
     allCards: state.cardPage.allCards,
     card: state.cardPage.card
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, {doCard})(SimpleCard)
+export default connect(
+  mapStateToProps,
+  { doCard }
+)(SimpleCard);

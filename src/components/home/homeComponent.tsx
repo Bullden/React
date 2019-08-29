@@ -8,6 +8,7 @@ import { doInit } from "@redux/home/actions";
 import ButtonComponent from "@components/helpComponents/button";
 // import SimpleTable from '../helpComponents/table'
 import SimpleCard from "./homeCards";
+// import {BooksPopover} from "./fullDescription";
 
 // const useStyles = makeStyles({
 //   card: {
@@ -65,7 +66,7 @@ export class HomeComponent extends React.Component<any,any> {
           Hi welcome to store, enviroment : {process.env.NODE_ENV} <b />
         </h1> */}
         <div>
-          <SimpleCard />
+          <SimpleCard/>
           {/* {this.props.products.map((i, ix) => {
             return (
               <div className="ProductList__Product" key={ix}>

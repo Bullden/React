@@ -14,6 +14,7 @@ import AdminUserContainer from './containers/adminUserPageContainer'
 import AdminBookContainer from './containers/adminBookPageContainer'
 import RegistrationContainer from "./containers/registrationContainer";
 import CenteredTabs from "@components/helpComponents/tabs";
+import fullDescription from "@components/home/fullDescription";
 
 export const Path = {
   root: "/",
@@ -22,7 +23,8 @@ export const Path = {
   login: "/login",
   registration: "/registration",
   adminUser: "/adminUserPage",
-  adminBook:"/adminBookPage"
+  adminBook:"/adminBookPage",
+  bookDescription:'/description'
 };
 
 const store: Store<RootState> = configureStore();
@@ -60,11 +62,13 @@ export default () => (
             flexDirection: "row"
           }}
         >
+          
           <Route exact path={Path.root} component={HomeContainer} />
           <Route path={Path.login} component={LoginContainer} />
           <Route path={Path.registration} component={RegistrationContainer} />
           <Route path={Path.adminUser} component ={AdminUserContainer} />
           <Route path={Path.adminBook} component ={AdminBookContainer} />
+          <Route path ={Path.bookDescription} component = {fullDescription} />
         </main>
 
        

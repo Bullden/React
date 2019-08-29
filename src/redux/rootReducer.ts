@@ -1,3 +1,5 @@
+import { UserChangeState } from './../components/user/types';
+import { change, userChangeReducer } from './../components/user/reducer';
 import { RegistrationState } from './registration/types';
 import { Reducer, combineReducers } from "redux";
 import { LoginState } from "./login/types";
@@ -25,6 +27,7 @@ export interface RootState {
   adminPage: AdminPageState;
   adminBookPage: AdminBookPageState,
   cardPage: CardsPageState;
+  change: UserChangeState;
   // books : BookState
 }
 
@@ -36,7 +39,8 @@ const rootReducer: Reducer<RootState> = combineReducers<RootState>({
   registration: registrationReducer,
   adminPage: adminPageReducer,
   adminBookPage : adminBookPageReducer,
-  cardPage: CardPageReducer
+  cardPage: CardPageReducer,
+  change: userChangeReducer
 });
 
 export default rootReducer;

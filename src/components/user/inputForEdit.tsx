@@ -4,45 +4,115 @@ import ButtonComponent from "@components/helpComponents/button";
 import { RootState } from "@redux/rootReducer";
 import { connect } from "react-redux";
 import { LoginRequest } from "@redux/login/types";
+import {doUserChange} from './actions'
+import { UserChangeRequest } from "./types";
 // import {doLogin} from '../../redux/login/actions'
 
-// export interface ModalInputProps {
-//     doLogin: (data: LoginRequest) => object;
-//     name: string;
-//     password: string;
-//     email: string;
-//     // loadBooks: () => void
-//     // handleClose: () => void
-// }
+export interface ModalInputProps {
+    doUserChange: (data: UserChangeRequest) => object;
+     name: string;
+    //  password: string;
+    //  email: string;
+    // token: string
+    // loadBooks: () => void
+    // handleClose: () => void
+}
+export interface UserChangeState {
+  name: string;
+  // password: string;
+  // email: string;
+  
+  // token:string
+}
 
-export class InputForEdit extends React.Component<any, any> {
-    state = {
+class InputForEdit extends React.Component<ModalInputProps, UserChangeState> {
+    state:UserChangeState = {
         name: '',
-        password :'',
-        email: ''
+        // password :'',
+        // email: '',
+        // token:''
+       
     }
 
   handle = (event: any) =>
     this.setState({ [event.target.name]: event.target.value } as any);
 
+    
   saveChanges = () => {
-    const name = this.props.name
+    const {doUserChange} = this.props
     const newSave = {
         name: this.state.name,
-        password: this.state.password,
-        email: this.state.email,
+        // password: this.state.password,
+        // email: this.state.email,
+        // token:this.state.token
     };
+    // var o = {
+    //   "Gray": "11",
+    //   "Black": "18"
+    // };
+    
+    // for (var key in o) {
+    //   if(key === "Gray") {
+    //     o[key] = 232434
+    //   } else null
+    //   console.log(key, ':', o[key]);
+    // }
 
+
+
+
+    const local: any = localStorage.getItem('user')
+    const localParce = JSON.parse(local)
+    console.log('localStorage',localParce)
+    
+
+    for(var key in localParce) {
+      if(key ==='name'){
+        localParce[key] = newSave.name
+      } else null
+      // console.log('MAAAAAAAAAINN', key, ':', localParce[key])
+      // console.log('!!!!!!!!!!!!!!',localParce) 
+       
+    }
+
+    let id =  JSON.parse(local).id
+    // let name = JSON.parse(local).name
+
+    // let newLocal = 
+    if(localParce.name === newSave.name) {
+      localParce.name = newSave.name
+      localStorage.setItem('user',JSON.stringify(localParce))
+      fetch(`http://localhost:3000/users/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json", "Accept": "application/json"},
+      body: JSON.stringify(localParce)
+    })
+    .then(res => res.json()) // OR res.json()
+    .then(res => console.log(res));
+
+
+    }else null
+
+    console.log("dsfffffffff!!!!!",JSON.parse(local).id)
+    // console.log('cammmmp',local.id)
+    console.log('dddvdvdvd!!!!!!!!!!!!!dv',newSave.name)
+
+    
+    doUserChange(newSave)
+    console.log('doUserChange',doUserChange(newSave))
 
 }  
   render() {
+    const local: any = localStorage.getItem('user')
     // const {user} = this.props
-    const name = this.props.name
-    const password = this.props.name
-    const email = this.props.name
+    // const name = this.props.name
+    // const password = this.props.name
+    // const email = this.props.name
     return (
       <div>
-          {console.log('fAAAAAAAAASSSSSSSSSSSSS',name,password,email)}
+        <div>Hello, { JSON.stringify(local.name)} </div>
+          {/* {console.log('fAAAAAAAAASSSSSSSSSSSSS',name,password,email)} */}
+          {console.log(this.state.name)}
         <div>
           <InputLabel
             htmlFor="name"
@@ -60,7 +130,7 @@ export class InputForEdit extends React.Component<any, any> {
             style={{ marginBottom: "20px" }}
           />
         </div>
-        <div>
+        {/* <div>
           <InputLabel
             htmlFor="email"
             className="inputt-label"
@@ -78,8 +148,8 @@ export class InputForEdit extends React.Component<any, any> {
             className="inputt"
             style={{ marginBottom: "20px" }}
           />
-        </div>
-        <InputLabel
+        </div> */}
+        {/* <InputLabel
           htmlFor="password"
           className="input-label"
           style={{ marginBottom: "5px" }}
@@ -93,7 +163,7 @@ export class InputForEdit extends React.Component<any, any> {
           onChange={this.handle}
           className="input"
           style={{ marginBottom: "20px" }}
-        />
+        /> */}
         <div>
           <ButtonComponent text="Save" click={() => this.saveChanges()} />
         </div>
@@ -104,9 +174,10 @@ export class InputForEdit extends React.Component<any, any> {
 
 const mapStateToProps = function(state:RootState) {
     return {
-        name: state.login.token,
-        password: state.login.token,
-        email: state.login.token
+        name: state.change.name,
+        // password: state.change.password,
+        // email: state.change.email,
+        // token: state.change
     }
 }
-export default connect(mapStateToProps,{})(InputForEdit)
+export default connect(mapStateToProps,{ doUserChange })(InputForEdit)
