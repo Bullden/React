@@ -15,11 +15,9 @@ export interface AdminPageState {
 }
 
 export interface AdminBookPageState {
-    // nameBook: string;
-    // description: string;
-    // cost: string;
+
     book: string;
-    // error: string;
+
     allBooks : Array<Book>;
 }
 export interface SetBookRequest {

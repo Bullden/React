@@ -13,28 +13,25 @@ import { adminPageReducer } from './adminPage/reducer';
 import { adminBookPageReducer } from './adminPage/reducerBook';
 import { CardsPageState } from '@components/home/typesCards';
 import { CardPageReducer } from '@components/home/reducerCards';
-// import { RegisterState } from "./register/types";
-// import { registerReducer } from "./register/reducer";
-// import { BooksReducer } from "./booksPage/reducer";
-// import { BookState } from "./booksPage/types";
+
 
 export interface RootState {
   error: string;
   login: LoginState;
-  // register : RegisterState;
+
   home: HomeState;
   registration: RegistrationState;
   adminPage: AdminPageState;
   adminBookPage: AdminBookPageState,
   cardPage: CardsPageState;
   change: UserChangeState;
-  // books : BookState
+
 }
 
 const rootReducer: Reducer<RootState> = combineReducers<RootState>({
   error: errorReducer,
   login: loginReducer,
-  // register : registerReducer,
+
   home: homeReducer,
   registration: registrationReducer,
   adminPage: adminPageReducer,

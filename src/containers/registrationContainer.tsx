@@ -1,7 +1,6 @@
 import { connect } from "react-redux";
 import { RootState } from "../redux/rootReducer";
-//import { doLoginSuccess } from "@redux/login/actions";
-//import { getData } from "@redux/login/reducer";
+
 import { RegistrationComponent } from "../components/registration/registrationComponent";
 import { doRegistration } from "../redux/registration/actions";
 import { environment } from '../enviroment'

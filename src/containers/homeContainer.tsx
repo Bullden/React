@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { doInit } from "../redux/home/actions";
 
 const mapStateToProps = (state: RootState) => ({
-  products: state.home.products,
+
   enviroment: state.home.enviroment,
   user: state.login.token,
 });

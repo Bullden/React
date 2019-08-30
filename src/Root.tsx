@@ -15,8 +15,7 @@ import AdminBookContainer from './containers/adminBookPageContainer'
 import RegistrationContainer from "./containers/registrationContainer";
 import CenteredTabs from "@components/helpComponents/tabs";
 import fullDescription from "@components/home/fullDescription";
-import LinearIndeterminate from "@components/helpComponents/loader";
-import { login } from "@redux/login/reducer";
+
 
 
 export const Path = {
@@ -29,7 +28,7 @@ export const Path = {
 };
 
 const store: Store<RootState> = configureStore();
-// const load = this.props
+
 const Root = () => (
   <Provider store={store}>
     <Router>
@@ -44,18 +43,7 @@ const Root = () => (
       >
        
        <CenteredTabs /> 
-       {/* <LinearIndeterminate /> */}
-        {/* <ul style={{ display: "flex", listStyle: "none", justifyContent:"space-around" }}>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/registration">Registration</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-        </ul> */}
+       
         
         <main
           style={{
@@ -80,14 +68,5 @@ const Root = () => (
 );
 
 
-// const mapStateToProps = function(state: RootState) {
-//   return {
-//     load: state.login.isLoading
-//   };
-// };
-// connect(mapStateToProps)(Root)
-// // export default connect(
-// //   mapStateToProps,
-// //   {removeCard}
-// // )(store);
+
 export default Root

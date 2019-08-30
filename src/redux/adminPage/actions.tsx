@@ -1,8 +1,7 @@
 import { AdminPageActions, SetBookRequest, AdminBookPageActions} from "./types";
 import { createAction } from "typesafe-actions";
 
-// import { createAction } from "typesafe-actions";
-// import { LoginActions, LoginResult, LoginRequest } from "./types";
+
 
 const prefix = "@@admin";
 
