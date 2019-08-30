@@ -10,6 +10,10 @@ import { doCard } from "./actionCards";
 import { RootState } from "@redux/rootReducer";
 import { SetCardRequest } from "./typesCards";
 import { Redirect } from "react-router";
+import { InputLabel, Input } from "@material-ui/core";
+import ButtonComponent from "@components/helpComponents/button";
+import { debounce } from "lodash";
+import { DebounceInput } from "react-debounce-input";
 
 function createData(
   id: string,
@@ -41,6 +45,7 @@ interface CardBookState {
   description: string;
   cost: string;
   redirect: boolean;
+  search: string;
 }
 
 export class SimpleCard extends React.Component<any, CardBookState> {
@@ -51,10 +56,16 @@ export class SimpleCard extends React.Component<any, CardBookState> {
       nameBook: "",
       description: "",
       cost: "",
-      redirect: false
+      redirect: false,
+      search: ""
     };
   }
-  loadCardBooks = async () => {
+
+ 
+
+  loadCardBooks = async (event:any) => {
+    (event:any) => this.setState({search: event.target.value})
+    console.log('fdgdfdfd',event, event.target.value)
     const data = await fetch("http://localhost:3001/books", {
       method: "GET",
       headers: {
@@ -64,11 +75,34 @@ export class SimpleCard extends React.Component<any, CardBookState> {
     });
     const arrCards = await data.json();
     console.log("arrBooks", arrCards);
-    arrCards.forEach(function(item: any) {
-      cards.push(
-        createData(item.id, item.nameBook, item.description, item.cost)
-      );
+   
+    const search = event.target.value;
+    console.log("FFFFFFFFFFFFF", search);
+    let formattedArr: CardDataItem[] = [];
+    arrCards.forEach((item: any) => {
+      if (item.nameBook.includes(search)) {
+        formattedArr.push(
+          createData(item.id, item.nameBook, item.description, item.cost)
+        );
+      } else null;
     });
+
+    this.setState({
+      cardData: formattedArr
+    });
+    console.log("cardData", this.state.cardData);
+  };
+
+  showBooks = async () => {
+    const data = await fetch("http://localhost:3001/books", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    });
+    const arrCards = await data.json();
+    console.log("arrBooksFFFFFFFFFFF", arrCards);
     let formattedArr: CardDataItem[] = [];
     arrCards.forEach((item: any) => {
       formattedArr.push(
@@ -79,7 +113,7 @@ export class SimpleCard extends React.Component<any, CardBookState> {
     this.setState({
       cardData: formattedArr
     });
-    console.log("cardData", this.state.cardData);
+    console.log("cardDataFFFFFFFFFFF", this.state.cardData);
   };
 
   click = (id: string) => {
@@ -99,13 +133,12 @@ export class SimpleCard extends React.Component<any, CardBookState> {
     });
   };
 
+ 
+
   clickToRoute = () => {
     this.setState({ redirect: true });
   };
 
-  componentDidMount() {
-    this.loadCardBooks();
-  }
 
   render() {
     if (this.state.redirect === true) {
@@ -113,47 +146,76 @@ export class SimpleCard extends React.Component<any, CardBookState> {
     } else null;
 
     const { cardData } = this.state;
+    
     return (
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "space-around"
-        }}
-      >
-        {console.log(
-          "JHDJLDHJLCB",
-          this.state.nameBook,
-          this.state.description,
-          this.state.cost
-        )}
-        {cardData.map(row => (
-          <Card style={{ marginTop: "20px" }}>
-            <CardContent>
-              <Typography color="textSecondary" gutterBottom>
-                Book
-              </Typography>
-              <Typography variant="h5" component="h2">
-                {row.nameBook}
-              </Typography>
-              <Typography color="textSecondary">{row.description}</Typography>
-              <Typography variant="body2" component="p">
-                {row.cost}$
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small" onClick={() => this.click(row.id)}>
-                Buy
-              </Button>
-              <div onClick={() => this.click(row.id)}>
-                <Button size="small" onClick={() => this.clickToRoute()}>
-                  Show full Description
-                </Button>
-              </div>
+      <div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            paddingTop: "20px"
+          }}
+        >
+          <div>
+            <div>
+             
               
-            </CardActions>
-          </Card>
-        ))}
+              <DebounceInput
+                minLength={2}
+                debounceTimeout={1000}
+                 onChange = {this.loadCardBooks}
+                
+              />
+            </div>
+            <div>
+              <ButtonComponent
+                text="Show all books"
+                click={() => this.showBooks()}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-around"
+          }}
+        >
+          {console.log(
+            "JHDJLDHJLCB",
+            this.state.nameBook,
+            this.state.description,
+            this.state.cost
+          )}
+          {cardData.map(row => (
+            <Card style={{ marginTop: "20px" }}>
+              <CardContent>
+                <Typography color="textSecondary" gutterBottom>
+                  Book
+                </Typography>
+                <Typography variant="h5" component="h2">
+                  {row.nameBook}
+                </Typography>
+                <Typography color="textSecondary">{row.description}</Typography>
+                <Typography variant="body2" component="p">
+                  {row.cost}$
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small" onClick={() => this.click(row.id)}>
+                  Buy
+                </Button>
+                <div onClick={() => this.click(row.id)}>
+                  <Button size="small" onClick={() => this.clickToRoute()}>
+                    Show full Description
+                  </Button>
+                </div>
+              </CardActions>
+            </Card>
+          ))}
+        </div>
       </div>
     );
   }

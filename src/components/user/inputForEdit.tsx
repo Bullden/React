@@ -110,8 +110,8 @@ class InputForEdit extends React.Component<ModalInputProps, UserChangeState> {
     // const email = this.props.name
     return (
       <div>
-        <div>Hello, { JSON.stringify(local.name)} </div>
-          {/* {console.log('fAAAAAAAAASSSSSSSSSSSSS',name,password,email)} */}
+        <div>Hello, { JSON.parse(local).name} </div>
+          {console.log('fAAAAAAAAASSSSSSSSSSSSS',JSON.parse(local).name)}
           {console.log(this.state.name)}
         <div>
           <InputLabel

@@ -2,12 +2,13 @@ import React from "react";
 import { HomeState, HomeRequest, } from "../../redux/home/types";
 import { Error } from "../common/errorComponent";
 import { Product } from "../../types";
-import { AppBar} from "@material-ui/core";
+import { AppBar, TextField} from "@material-ui/core";
 import { doInit } from "@redux/home/actions";
 // import Headers from '../header/headerComponent';
 import ButtonComponent from "@components/helpComponents/button";
 // import SimpleTable from '../helpComponents/table'
 import SimpleCard from "./homeCards";
+// import TextFields from "./search";
 // import {BooksPopover} from "./fullDescription";
 
 // const useStyles = makeStyles({
@@ -60,7 +61,7 @@ export class HomeComponent extends React.Component<any,any> {
 
     return (
       <div className="wrapper"> 
-        
+        {/* <TextFields /> */}
         {/* <Error /> */}
         {/* <h1>
           Hi welcome to store, enviroment : {process.env.NODE_ENV} <b />

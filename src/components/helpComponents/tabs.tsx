@@ -18,6 +18,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import SimpleModal from "@components/user/userRoom";
 import PopoverUser from "@components/user/userRoom";
+import LinearIndeterminate from "./loader";
 
 const useStyles = makeStyles({
   root: {
@@ -39,6 +40,7 @@ const CenteredTabs: React.FC = (props: any) => {
   function handleChange(event: React.ChangeEvent<{}>, newValue: number) {
     setValue(newValue);
   }
+  const isLoading = props.isLoading;
   const isLoggedIn = props.isLoggedIn;
   const admin = environment.admin;
   const local: any = localStorage.getItem("user");
@@ -53,76 +55,81 @@ const CenteredTabs: React.FC = (props: any) => {
     localStorage.removeItem("user");
   }
   return (
-    <Paper className={classes.root}>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        indicatorColor="primary"
-        textColor="primary"
-        centered
-      >
-        <Tab label="Home" value="/" component={Link} to="/" />
-        {!isLoggedIn &&
-        JSON.parse(local).name === fakeUser.name &&
-        JSON.parse(local).email === fakeUser.email &&
-        JSON.parse(local).password === fakeUser.password ? (
-          <Tab
-            label="Registration"
-            value="/registration"
-            component={Link}
-            to="/registration"
-          />
-        ) : (
-          console.log("dpofpovpodv")
-        )}
+    <div>
+      {isLoading ? <LinearIndeterminate /> : null}
 
-        {console.log(JSON.parse(local))}
-        {console.log(fakeUser)}
-        {isLoggedIn && JSON.parse(local).roleId === 0 ? (
-          <Tab
-            label="Admin User Page"
-            value="/adminUserPage"
-            component={Link}
-            to="/adminUserPage"
-          />
-        ) : (
-          console.log("sdfsdf")
-        )}
-        {isLoggedIn && JSON.parse(local).roleId === 0 ? (
-          <Tab
-            label="Admin Book Page"
-            value="/adminBookPage"
-            component={Link}
-            to="/adminBookPage"
-          />
-        ) : (
-          console.log("sdfsdf")
-        )}
+      <Paper className={classes.root}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          centered
+        >
+          <Tab label="Home" value="/" component={Link} to="/" />
+          {!isLoggedIn &&
+          JSON.parse(local).name === fakeUser.name &&
+          JSON.parse(local).email === fakeUser.email &&
+          JSON.parse(local).password === fakeUser.password ? (
+            <Tab
+              label="Registration"
+              value="/registration"
+              component={Link}
+              to="/registration"
+            />
+          ) : (
+            console.log("dpofpovpodv")
+          )}
 
-        {!isLoggedIn ? (
-          <Tab label="Login" value="/login" component={Link} to="/login" />
-        ) : (
-          <ButtonComponent text="Logout" click={handleClick} />
-        )}
-        <SimplePopover />
-        {isLoggedIn && JSON.parse(local).roleId !== 0 ? (
-          <div style={{ marginTop: "10px" }}>
-            <PopoverUser />
-          </div>
-        ) : null}
-        {isLoggedIn && JSON.parse(local).roleId === 0 ? (
-          <div style={{ marginTop: "10px" }}>
-            <VerifiedUserIcon />
-          </div>
-        ) : null}
-      </Tabs>
-    </Paper>
+          {console.log(JSON.parse(local))}
+          {console.log(fakeUser)}
+          {isLoggedIn && JSON.parse(local).roleId === 0 ? (
+            <Tab
+              label="Admin User Page"
+              value="/adminUserPage"
+              component={Link}
+              to="/adminUserPage"
+            />
+          ) : (
+            console.log("sdfsdf")
+          )}
+          {isLoggedIn && JSON.parse(local).roleId === 0 ? (
+            <Tab
+              label="Admin Book Page"
+              value="/adminBookPage"
+              component={Link}
+              to="/adminBookPage"
+            />
+          ) : (
+            console.log("sdfsdf")
+          )}
+
+          {!isLoggedIn ? (
+            <Tab label="Login" value="/login" component={Link} to="/login" />
+          ) : (
+            <ButtonComponent text="Logout" click={handleClick} />
+          )}
+          <SimplePopover />
+          {isLoggedIn && JSON.parse(local).roleId !== 0 ? (
+            <div style={{ marginTop: "10px" }}>
+              <PopoverUser />
+            </div>
+          ) : null}
+          {isLoggedIn && JSON.parse(local).roleId === 0 ? (
+            <div style={{ marginTop: "10px" }}>
+              <VerifiedUserIcon />
+            </div>
+          ) : null}
+        </Tabs>
+      </Paper>
+    </div>
   );
 };
 
 const mapStateToProps = function(state: RootState) {
   return {
-    isLoggedIn: state.login.isLoggedIn
+    isLoggedIn: state.login.isLoggedIn,
+    isLoading: state.login.isLoading
   };
 };
 

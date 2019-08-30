@@ -26,12 +26,14 @@ import Typography from '@material-ui/core/Typography';
 import { Link as RouterLink } from 'react-router-dom';
 import { connect } from "react-redux";
 import { RootState } from "@redux/rootReducer";
+import LinearIndeterminate from "@components/helpComponents/loader";
 
 export interface LoginProps {
   doLogin: (data: LoginRequest) => object;
   user: any;
   admin: any;
   isLoggedIn: boolean;
+  isLoading: boolean
 }
 const fakeUser = {id:99,name:'fakeUser',password:'fakeUser',email:'fakeUser' };
 const admin: any = environment.admin;
@@ -73,6 +75,7 @@ local ? null : localStorage.setItem("user",JSON.stringify(fakeUser))
   };
   render() {
     const { isLoggedIn } = this.props
+    const { isLoading } = this.props
     console.log(this.props.user);
     return (!isLoggedIn ?
       <div
@@ -83,7 +86,11 @@ local ? null : localStorage.setItem("user",JSON.stringify(fakeUser))
           alignItems: "center",
           flexDirection: "column"
         }}
-      >
+      > 
+          
+        {/* {
+          isLoading ? <LinearIndeterminate /> : null
+        } */}
         {/* {console.log('inputName',this.state.name)}
         {console.log('inputMail',this.state.email)}
         {console.log('inputpass',this.state.password)} */}
@@ -112,6 +119,7 @@ local ? null : localStorage.setItem("user",JSON.stringify(fakeUser))
 
 
         <div>
+        
           {/* <InputLabel
             htmlFor="name"
             className="inputtt-label"

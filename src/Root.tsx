@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Provider } from "react-redux";
+import { Provider, connect } from "react-redux";
 import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 
 //import BooksTableContainer from "./containers/BooksTableContainer";
@@ -15,11 +15,12 @@ import AdminBookContainer from './containers/adminBookPageContainer'
 import RegistrationContainer from "./containers/registrationContainer";
 import CenteredTabs from "@components/helpComponents/tabs";
 import fullDescription from "@components/home/fullDescription";
+import LinearIndeterminate from "@components/helpComponents/loader";
+import { login } from "@redux/login/reducer";
+
 
 export const Path = {
   root: "/",
-  // topProducts: "/top",
-  // products: "/products",
   login: "/login",
   registration: "/registration",
   adminUser: "/adminUserPage",
@@ -28,8 +29,8 @@ export const Path = {
 };
 
 const store: Store<RootState> = configureStore();
-
-export default () => (
+// const load = this.props
+const Root = () => (
   <Provider store={store}>
     <Router>
       <div
@@ -43,6 +44,7 @@ export default () => (
       >
        
        <CenteredTabs /> 
+       {/* <LinearIndeterminate /> */}
         {/* <ul style={{ display: "flex", listStyle: "none", justifyContent:"space-around" }}>
           <li>
             <Link to="/">Home</Link>
@@ -76,3 +78,16 @@ export default () => (
     </Router>
   </Provider>
 );
+
+
+// const mapStateToProps = function(state: RootState) {
+//   return {
+//     load: state.login.isLoading
+//   };
+// };
+// connect(mapStateToProps)(Root)
+// // export default connect(
+// //   mapStateToProps,
+// //   {removeCard}
+// // )(store);
+export default Root

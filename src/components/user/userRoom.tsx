@@ -52,7 +52,10 @@ export default function PopoverUser({}) {
         }}
       >
         <Typography className={classes.typography}>
-          <InputForEdit />
+          <div> 
+            <InputForEdit />
+          </div>
+          
         </Typography>
       </Popover>
     </div>
