@@ -35,8 +35,9 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 interface UserModalProps {
   loadBooks: () => void
+  item?: any
 }
-export default ({ loadBooks }: UserModalProps) => {
+export default ({ loadBooks, item }: UserModalProps) => {
   const classes = useStyles({});
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -61,7 +62,7 @@ export default ({ loadBooks }: UserModalProps) => {
         onClose={handleClose}
       >
         <div style={modalStyle} className={classes.paper}>
-          <Inputs loadBooks={loadBooks} handleClose={handleClose} />
+          <Inputs loadBooks={loadBooks} handleClose={handleClose} item={item} />
         </div>
       </Modal>
     </div>

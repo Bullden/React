@@ -244,7 +244,7 @@ export default class SimpleTable extends PureComponent<
             <TableBody>
               {tableData.map(row => (
                 <TableRow key={row.name}>
-                  <TableCell align="right"><UserModal loadBooks={this.loadUsers}/></TableCell>
+                  <TableCell align="right"><UserModal item={row} loadBooks={this.loadUsers}/></TableCell>
                   <TableCell align="right">
                     <ButtonComponent
                       text="Delete"

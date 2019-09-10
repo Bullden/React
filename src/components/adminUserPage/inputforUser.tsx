@@ -19,6 +19,7 @@ export interface ModalInputProps {
     email: string;
     loadBooks: () => void
     handleClose: () => void
+    item?: any
 }
 export interface ModalInputState {
     name: string;
@@ -35,14 +36,14 @@ export class Inputs extends React.Component<ModalInputProps,ModalInputState> {
     this.setState({ [event.target.name]:event.target.value } as any)
 
   changeUser =  async () => {
-      const{doChangeUser, loadBooks, handleClose} = this.props
+      const{doChangeUser, loadBooks, handleClose, item} = this.props
       const newUser = {
         name: this.state.name,
         email: this.state.email,
       }
     
       doChangeUser(newUser)
-
+      console.log('id', item._id)
       const datta = await fetch ('http://localhost:3000/v1/users',{
         method:"POST",
         headers: {

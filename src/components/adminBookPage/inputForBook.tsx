@@ -44,8 +44,8 @@ export class Inputs extends React.Component<ModalInputProps,ModalInputState> {
       }
 
       doBook(newBook)
-
-      const datta = await fetch ('http://localhost:3000/v1/books',{
+      console.log('nnsndndndn', newBook)
+      fetch ('http://localhost:3000/v1/books', {
         method:"POST",
         headers: {
           "Accept": "application/json",
@@ -55,6 +55,7 @@ export class Inputs extends React.Component<ModalInputProps,ModalInputState> {
       })
       .then(res => res.json())
       .then(() => {
+        console.log(5455455)
         loadBooks()
         handleClose()
       })
@@ -119,7 +120,7 @@ export class Inputs extends React.Component<ModalInputProps,ModalInputState> {
           style={{ marginBottom: "20px" }}
         />
         <div>
-          <ButtonComponent text="Add book" click={() => this.setBook()} />
+          <ButtonComponent text="Add book" click={this.setBook} />
         </div>
       </div>
     );
