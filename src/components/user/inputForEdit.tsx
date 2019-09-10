@@ -20,9 +20,7 @@ export interface UserChangeState {
 
 class InputForEdit extends React.Component<ModalInputProps, UserChangeState> {
     state:UserChangeState = {
-        name: '',
-     
-       
+        name: '', 
     }
 
   handle = (event: any) =>
@@ -52,14 +50,14 @@ class InputForEdit extends React.Component<ModalInputProps, UserChangeState> {
     
     }
 
-    let id =  JSON.parse(local).id
+    let id =  JSON.parse(local)._id
     // let name = JSON.parse(local).name
 
     // let newLocal = 
     if(localParce.name === newSave.name) {
       localParce.name = newSave.name
       localStorage.setItem('user',JSON.stringify(localParce))
-      fetch(`http://localhost:3000/users/${id}`, {
+      fetch(`http://localhost:3000/v1/users/:${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json", "Accept": "application/json"},
       body: JSON.stringify(localParce)

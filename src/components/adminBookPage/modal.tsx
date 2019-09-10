@@ -126,6 +126,7 @@ export default ({ loadBooks }: SimpleModalProps) => {
 
   const handleClose = () => {
     setOpen(false);
+
   };
 
   return (

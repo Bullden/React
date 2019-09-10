@@ -19,6 +19,8 @@ import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import SimpleModal from "@components/user/userRoom";
 import PopoverUser from "@components/user/userRoom";
 import LinearIndeterminate from "./loader";
+import { login } from "@redux/login/reducer";
+import CustomizedBadges from "./badge";
 
 const useStyles = makeStyles({
   root: {
@@ -53,7 +55,9 @@ const CenteredTabs: React.FC = (props: any) => {
 
   function handleClick() {
     localStorage.removeItem("user");
+    
   }
+  console.log("ROLE",props.role)
   return (
     <div>
       {isLoading ? <LinearIndeterminate /> : null}
@@ -83,7 +87,7 @@ const CenteredTabs: React.FC = (props: any) => {
 
           {console.log(JSON.parse(local))}
           {console.log(fakeUser)}
-          {isLoggedIn && JSON.parse(local).roleId === 0 ? (
+          {isLoggedIn && '5d71013d1c9d4400006eedba' === props.role || JSON.parse(local).role === '5d71013d1c9d4400006eedba' ? (
             <Tab
               label="Admin User Page"
               value="/adminUserPage"
@@ -93,7 +97,7 @@ const CenteredTabs: React.FC = (props: any) => {
           ) : (
             console.log("sdfsdf")
           )}
-          {isLoggedIn && JSON.parse(local).roleId === 0 ? (
+          {isLoggedIn && '5d71013d1c9d4400006eedba' === props.role || JSON.parse(local).role === '5d71013d1c9d4400006eedba' ? (
             <Tab
               label="Admin Book Page"
               value="/adminBookPage"
@@ -104,18 +108,24 @@ const CenteredTabs: React.FC = (props: any) => {
             console.log("sdfsdf")
           )}
 
-          {!isLoggedIn ? (
+          {!isLoggedIn &&
+          JSON.parse(local).name === fakeUser.name &&
+          JSON.parse(local).email === fakeUser.email &&
+          JSON.parse(local).password === fakeUser.password ? (
             <Tab label="Login" value="/login" component={Link} to="/login" />
           ) : (
             <ButtonComponent text="Logout" click={handleClick} />
           )}
           <SimplePopover />
-          {isLoggedIn && JSON.parse(local).roleId !== 0 ? (
+          
+          {isLoggedIn && JSON.parse(local).roleId !== 0 && JSON.parse(local).name !== fakeUser.name &&
+          JSON.parse(local).email !== fakeUser.email &&
+          JSON.parse(local).password !== fakeUser.password &&  '5d7101271c9d4400006eedb8'=== props.role || JSON.parse(local).role === '5d7101271c9d4400006eedb8' ? (
             <div style={{ marginTop: "10px" }}>
               <PopoverUser />
             </div>
           ) : null}
-          {isLoggedIn && JSON.parse(local).roleId === 0 ? (
+          {isLoggedIn && '5d71013d1c9d4400006eedba' === props.role || JSON.parse(local).role === '5d71013d1c9d4400006eedba'? (
             <div style={{ marginTop: "10px" }}>
               <VerifiedUserIcon />
             </div>
@@ -128,6 +138,7 @@ const CenteredTabs: React.FC = (props: any) => {
 
 const mapStateToProps = function(state: RootState) {
   return {
+    role: state.login.token.role,
     isLoggedIn: state.login.isLoggedIn,
     isLoading: state.login.isLoading
   };

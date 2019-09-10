@@ -9,10 +9,10 @@ export const initialState: AdminBookPageState = {
 };
 
 export function adminBookPageReducer(state:AdminBookPageState = initialState, action:any){
-  console.log('actio.payload',action.payload)
+  // console.log('actio.payload',action.payload)
     switch (action.type) {
         case `@@admin/BOOK_INIT`: {
-          console.log('action.payload',action.payload)
+          // console.log('action.payload',action.payload)
         
 
         let newState = JSON.parse(JSON.stringify(state))

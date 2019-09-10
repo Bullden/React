@@ -16,12 +16,12 @@ import { debounce } from "lodash";
 import { DebounceInput } from "react-debounce-input";
 
 function createData(
-  id: string,
+  _id: any,
   nameBook: string,
   description: string,
   cost: number
 ) {
-  return { id, nameBook, description, cost };
+  return { _id, nameBook, description, cost };
 }
 
 let cards: any[] = [];
@@ -37,7 +37,7 @@ interface CardDataItem {
   nameBook: string;
   description: string;
   cost: number;
-  id: string;
+  _id: string;
 }
 interface CardBookState {
   cardData: CardDataItem[];
@@ -66,23 +66,24 @@ export class SimpleCard extends React.Component<any, CardBookState> {
   loadCardBooks = async (event:any) => {
     (event:any) => this.setState({search: event.target.value})
     console.log('fdgdfdfd',event, event.target.value)
-    const data = await fetch("http://localhost:3001/books", {
+    const data = await fetch("http://localhost:3000/v1/books", {
       method: "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       }
     });
+
     const arrCards = await data.json();
-    console.log("arrBooks", arrCards);
+    console.log("arrBooks", arrCards.data);
    
     const search = event.target.value;
     console.log("FFFFFFFFFFFFF", search);
     let formattedArr: CardDataItem[] = [];
-    arrCards.forEach((item: any) => {
+    arrCards.data.forEach((item: any) => {
       if (item.nameBook.includes(search)) {
         formattedArr.push(
-          createData(item.id, item.nameBook, item.description, item.cost)
+          createData(item._id, item.nameBook, item.description, item.cost)
         );
       } else null;
     });
@@ -94,7 +95,7 @@ export class SimpleCard extends React.Component<any, CardBookState> {
   };
 
   showBooks = async () => {
-    const data = await fetch("http://localhost:3001/books", {
+    const data = await fetch("http://localhost:3000/v1/books", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -102,11 +103,11 @@ export class SimpleCard extends React.Component<any, CardBookState> {
       }
     });
     const arrCards = await data.json();
-    console.log("arrBooksFFFFFFFFFFF", arrCards);
+    console.log("arrBooksFFFFFFFFFFF", arrCards.data);
     let formattedArr: CardDataItem[] = [];
-    arrCards.forEach((item: any) => {
+    arrCards.data.forEach((item: any) => {
       formattedArr.push(
-        createData(item.id, item.nameBook, item.description, item.cost)
+        createData(item._id, item.nameBook, item.description, item.cost)
       );
     });
 
@@ -116,14 +117,15 @@ export class SimpleCard extends React.Component<any, CardBookState> {
     console.log("cardDataFFFFFFFFFFF", this.state.cardData);
   };
 
-  click = (id: string) => {
+  click = (_id: string) => {
     console.log("click", this.state.cardData);
     this.state.cardData.forEach((item, idx: any) => {
-      if (item.id === id) {
+      if (item._id === _id ) {
+        
         console.log("item cardData", item, idx);
         const { doCard } = this.props;
         const newCard = {
-          id: item.id,
+          _id: item._id,
           nameBook: item.nameBook,
           description: item.description,
           cost: item.cost
@@ -133,17 +135,39 @@ export class SimpleCard extends React.Component<any, CardBookState> {
     });
   };
 
+  clicker = (_id: string) => {
+    console.log("click", this.state.cardData);
+    this.state.cardData.forEach((item, idx: any) => {
+      if (item._id === _id ) {
+        
+        console.log("item cardData", item, idx);
+        const { doCard } = this.props.card;
+        const newCard = {
+          _id: item._id,
+          nameBook: item.nameBook,
+          description: item.description,
+          cost: item.cost
+        };
+        doCard(newCard);
+      }
+    });
+  };
  
+  componentDidMount() {
+    this.showBooks()
+  }
 
   clickToRoute = () => {
     this.setState({ redirect: true });
   };
 
-
   render() {
-    if (this.state.redirect === true) {
-      return <Redirect push to="/description" />;
+
+
+    if (this.state.redirect === true && this.props.card._id ) {
+      return <Redirect push to={`/description/${this.props.card._id}`} />;
     } else null;
+    
 
     const { cardData } = this.state;
     
@@ -167,12 +191,12 @@ export class SimpleCard extends React.Component<any, CardBookState> {
                 
               />
             </div>
-            <div>
+            {/* <div>
               <ButtonComponent
                 text="Show all books"
                 click={() => this.showBooks()}
               />
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -204,10 +228,10 @@ export class SimpleCard extends React.Component<any, CardBookState> {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" onClick={() => this.click(row.id)}>
+                <Button size="small" onClick={() => this.click(row._id)}>
                   Buy
                 </Button>
-                <div onClick={() => this.click(row.id)}>
+                <div onClick={() => this.clicker(row._id)}>
                   <Button size="small" onClick={() => this.clickToRoute()}>
                     Show full Description
                   </Button>

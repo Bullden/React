@@ -24,12 +24,12 @@ export const Path = {
   registration: "/registration",
   adminUser: "/adminUserPage",
   adminBook:"/adminBookPage",
-  bookDescription:'/description'
+  bookDescription:`/description`
 };
 
 const store: Store<RootState> = configureStore();
 
-const Root = () => (
+export const Root = () => (
   <Provider store={store}>
     <Router>
       <div
@@ -69,4 +69,16 @@ const Root = () => (
 
 
 
+// const mapStateToProps = function(state: RootState) {
+//   return {
+//     // nameBook: state.adminBookPage.book.nameBook,
+//     // description: state.adminBookPage.book.description,
+//     // cost: state.adminBookPage.cost
+//     card: state.cardPage.card,
+//     allBooks: state.adminBookPage.allBooks
+//   };
+// };
+// export default connect(
+//   mapStateToProps,
+// )(Root);
 export default Root

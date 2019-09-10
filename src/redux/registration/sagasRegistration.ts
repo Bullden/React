@@ -12,6 +12,7 @@ let user: LoginState;
 // worker sagas
 import { tokenService } from "./../../services/tokenService";
 import { push } from "react-router-redux";
+import { registration } from './reducer';
 
 
 export function* doRegistration(): IterableIterator<any> {
@@ -20,12 +21,12 @@ export function* doRegistration(): IterableIterator<any> {
       if (needDelay) {
         yield call(delay, 500);
       } 
-      const answerApi = yield call(callApi, "POST", "users", action.data);
+      const answerApi = yield call(callApi, "POST", "v1/registration", action.data);
       const { email, data, id } = answerApi;
       yield put({
         type: `@@registration/REGISTRATION_SUCCESS`,
         payload: {
-          data: "token"
+          data: action.data
         }
       });
       const stringApi = JSON.stringify(answerApi)

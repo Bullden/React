@@ -7,10 +7,10 @@ export const initialState: CardsPageState = {
 }
 
 export function CardPageReducer(state: CardsPageState = initialState, action:any){
-    console.log('actio.payload',action.payload)
+    // console.log('actio.payload',action.payload)
       switch (action.type) {
           case `@@card/CARD_INIT`: {
-            console.log('action.payload',action.payload)
+            // console.log('action.payload',action.payload)
           // const { data } = ;
           // console.log('data',data)
   

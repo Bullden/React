@@ -15,6 +15,23 @@ import { SetCardRequest, RemoveCard } from "@components/home/typesCards";
 import {removeCard} from "../home/actionCards"
 import { all } from "q";
 
+import Badge from '@material-ui/core/Badge';
+import Box from '@material-ui/core/Box';
+import Avatar from '@material-ui/core/Avatar';
+import withStyles  from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import CustomizedBadges from "./badge";
+
+// const StyledBadge1 = withStyles((theme: Theme) =>
+//   createStyles({
+//     badge: {
+//       right: -3,
+//       border: `2px solid ${theme.palette.background.paper}`,
+//       padding: '0 4px',
+//     },
+//   }),
+// )(Badge);
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     typography: {
@@ -46,11 +63,15 @@ export const SimplePopover = (props: any) => {
   function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     setAnchorEl(event.currentTarget);
   }
-  function remove (id:any) {
+  function remove (_id:any) {
     allCards.forEach((item:any,idx:any) => {
-      if(item.id == id)
+      if(item._id == _id)
       allCards.splice(idx,1)  
+      console.log("item.id", item._id);
+      console.log("id", _id);
+      console.log("idx", idx);
     })
+   
     const { removeCard } = props
     console.log('cardsaaaaa',allCards)
     removeCard(allCards)
@@ -60,7 +81,7 @@ export const SimplePopover = (props: any) => {
   // console.log('cardsaaaaas',allCards)
   function removeAll() {
     allCards.forEach((item:any,idx:any) => {
-      if(item.id >= 0)
+      if(item._id >= 0)
       allCards.splice(idx,100)
     })
     const { removeCard } = props
@@ -88,7 +109,8 @@ export const SimplePopover = (props: any) => {
           background: "none"
         }}
       >
-        <ShoppingCartIcon style={{ color: "rgba(0, 0, 0, 0.54" }} />
+        <CustomizedBadges />
+        {/* <ShoppingCartIcon style={{ color: "rgba(0, 0, 0, 0.54" }} /> */}
       </Button>
       <Popover
         id={id}
@@ -112,7 +134,7 @@ export const SimplePopover = (props: any) => {
             (i: any) => (
               <div style={{ borderBottom: "1px solid gray", display:'flex' }}>
                 <div style ={{paddingRight: '20px'}}>
-                  <IndeterminateCheckBoxIcon onClick={() =>remove(i.id)} />
+                  <IndeterminateCheckBoxIcon onClick={() =>remove(i._id)} />
                 </div>
                 <div>
                   <div>{i.nameBook}</div>

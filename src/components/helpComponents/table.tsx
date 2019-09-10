@@ -126,6 +126,10 @@ import { call } from "redux-saga/effects";
 import { async } from "q";
 import ButtonComponent from "./button";
 import { array, number } from "prop-types";
+import jwt_decode from 'jwt-decode';
+import UserModal from "../adminUserPage/modal";
+
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -140,8 +144,8 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function createData(id: string, name: string, password: string, email: string) {
-  return { id, name, password, email };
+function createData(_id: string, name: string, email: string) {
+  return { _id, name, email };
 }
 
 let rows: any[] = [];
@@ -153,9 +157,8 @@ let rows: any[] = [];
 //   createData("Gingerbread", 356, 16.0, 49, 3.9)
 // ];
 interface TableDataItem {
-  id: string;
+  _id: string;
   name: string;
-  password: string;
   email: string;
 }
 interface SimpleTableProps {}
@@ -176,22 +179,24 @@ export default class SimpleTable extends PureComponent<
   }
   // classes = useStyles({});
   loadUsers = async () => {
-    const data = await fetch("http://localhost:3000/users", {
+    const data = await fetch("http://localhost:3000/v1/users", {
       method: "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       }
     });
-
+    
     const arrUser = await data.json();
-    arrUser.forEach(function(item: any) {
-      rows.push(createData(item.id, item.name, item.password, item.email));
+    console.log(arrUser.data)
+
+    arrUser.data.forEach(function(item: any) {
+      rows.push(createData(item._id, item.name, item.email));
     });
     let formattedArr: TableDataItem[] = [];
-    arrUser.forEach((item: any) => {
+    arrUser.data.forEach((item: any) => {
       formattedArr.push(
-        createData(item.id, item.name, item.password, item.email)
+        createData(item._id, item.name, item.email)
       );
     });
     this.setState({
@@ -203,13 +208,13 @@ export default class SimpleTable extends PureComponent<
     this.loadUsers();
     // this.deleteUser();
   }
-  deleteUser(id: string) {
+  deleteUser(_id: string) {
     // debugger
     let deleleUser:any=''
     let arr = this.state.tableData;
 
     arr.forEach((item,idx:any) => {
-      if(item.id === id)
+      if(item._id === _id)
        arr.splice(idx, 1);
     })
    // let arr = this.state.tableData.splice(deleleUser,1);
@@ -217,7 +222,6 @@ export default class SimpleTable extends PureComponent<
     // debugger;
     // this.state.tableData.splice(deleteUser,1)
     this.setState(JSON.parse(JSON.stringify(arr)) );
-
   }
 
   render() {
@@ -230,25 +234,26 @@ export default class SimpleTable extends PureComponent<
           <Table style={{ width: "100%" }}>
             <TableHead style={{ width: "100%" }}>
               <TableRow>
-                <TableCell align="right">delete</TableCell>
+                <TableCell align="right">edit </TableCell>
+                <TableCell align="right">delete </TableCell>
                 <TableCell align="right">id </TableCell>
                 <TableCell align="right">name </TableCell>
-                <TableCell align="right">password </TableCell>
                 <TableCell align="right">email </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {tableData.map(row => (
                 <TableRow key={row.name}>
+                  <TableCell align="right"><UserModal loadBooks={this.loadUsers}/></TableCell>
                   <TableCell align="right">
                     <ButtonComponent
                       text="Delete"
-                      click={() => this.deleteUser(row.id)}
+                      click={() => this.deleteUser(row._id)}
                     />
                   </TableCell>
-                  <TableCell align="right">{row.id}</TableCell>
+                  
+                  <TableCell align="right">{row._id}</TableCell>
                   <TableCell align="right">{row.name}</TableCell>
-                  <TableCell align="right">{row.password}</TableCell>
                   <TableCell align="right">{row.email}</TableCell>
                 </TableRow>
               ))}
