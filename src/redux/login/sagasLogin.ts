@@ -56,8 +56,7 @@ export function* doLogin(): IterableIterator<any> {
       
 
     if (user) {
-      // isAdmin = true
-      alert("yahoo!");
+ 
       console.log('ACTION',action.data)
       yield put({
         type: `@@login/LOGIN_SUCCESS`,

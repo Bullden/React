@@ -81,7 +81,7 @@ export const SimplePopover = (props: any) => {
   // console.log('cardsaaaaas',allCards)
   function removeAll() {
     allCards.forEach((item:any,idx:any) => {
-      if(item._id >= 0)
+      if(item._id)
       allCards.splice(idx,100)
     })
     const { removeCard } = props
@@ -94,10 +94,6 @@ export const SimplePopover = (props: any) => {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-  
-
-
-
   return (
     <div style={{ paddingTop: "4px" }}>
       <Button

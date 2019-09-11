@@ -8,6 +8,7 @@ import { RootState } from "@redux/rootReducer";
 import { SetBookRequest } from "@redux/adminPage/types";
 import { doBook } from "../../redux/adminPage/actions" 
 import { async } from "q";
+import { Error } from "../common/errorComponent";
  
 
 
@@ -42,7 +43,6 @@ export class Inputs extends React.Component<ModalInputProps,ModalInputState> {
         description: this.state.description,
         cost: this.state.cost,
       }
-
       doBook(newBook)
       console.log('nnsndndndn', newBook)
       fetch ('http://localhost:3000/v1/books', {
@@ -58,8 +58,7 @@ export class Inputs extends React.Component<ModalInputProps,ModalInputState> {
         console.log(5455455)
         loadBooks()
         handleClose()
-      })
-      
+      })    
   }
   
   render() {
@@ -67,6 +66,11 @@ export class Inputs extends React.Component<ModalInputProps,ModalInputState> {
     return (
         
       <div>
+          { !this.state.nameBook || !this.state.cost || !this.state.description ? (
+          <Error />
+        ) : null
+
+        }
           {console.log(this.state.nameBook, this.state.description, this.state.cost)}
         <div>
           <InputLabel

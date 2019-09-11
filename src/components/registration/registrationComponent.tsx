@@ -45,7 +45,9 @@ export class RegistrationComponent extends React.Component<
         });
   };
   render() {
-    return (
+    const local:any = localStorage.getItem('user')
+    const parceLocal = JSON.parse(local)
+    return ( parceLocal.name === 'fakeUser' && parceLocal.email === 'fakeUser' ?
       <div
         className="panel"
         style={{
@@ -115,7 +117,7 @@ export class RegistrationComponent extends React.Component<
         <div>
           <ButtonComponent text="Login" click={() => this.login()} />
         </div>
-      </div>
+      </div> : <Redirect to = '/'/>
     );
   }
 }

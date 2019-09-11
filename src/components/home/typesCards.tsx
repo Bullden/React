@@ -8,7 +8,8 @@ export enum CardsPageActions {
 
 export interface CardsPageState {
     card: string;
-    allCards: Array<Card>
+    allCards: Array<Card>;
+    cardLength: any
 }
 
 export interface SetCardRequest {

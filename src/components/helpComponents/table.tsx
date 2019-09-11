@@ -144,8 +144,8 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function createData(_id: string, name: string, email: string) {
-  return { _id, name, email };
+function createData(_id: string, name: string, email: string, password:string, role:string) {
+  return { _id, name, email, password, role };
 }
 
 let rows: any[] = [];
@@ -160,6 +160,8 @@ interface TableDataItem {
   _id: string;
   name: string;
   email: string;
+  password: string;
+  role: string;
 }
 interface SimpleTableProps {}
 
@@ -186,17 +188,17 @@ export default class SimpleTable extends PureComponent<
         "Content-Type": "application/json"
       }
     });
-    
+
     const arrUser = await data.json();
     console.log(arrUser.data)
 
     arrUser.data.forEach(function(item: any) {
-      rows.push(createData(item._id, item.name, item.email));
+      rows.push(createData(item._id, item.name, item.email, item.password, item.role));
     });
     let formattedArr: TableDataItem[] = [];
     arrUser.data.forEach((item: any) => {
       formattedArr.push(
-        createData(item._id, item.name, item.email)
+        createData(item._id, item.name, item.email, item.password, item.role)
       );
     });
     this.setState({

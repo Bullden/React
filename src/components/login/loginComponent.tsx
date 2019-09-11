@@ -74,10 +74,12 @@ local ? null : localStorage.setItem("user",JSON.stringify(fakeUser))
 
   };
   render() {
+    const local:any = localStorage.getItem('user')
+    const parceLocal = JSON.parse(local)
     const { isLoggedIn } = this.props
     const { isLoading } = this.props
     console.log(this.props.user);
-    return (!isLoggedIn ?
+    return (parceLocal.name === 'fakeUser' && parceLocal.email === 'fakeUser' ?
       <div
         className="panel"
         style={{
@@ -87,7 +89,7 @@ local ? null : localStorage.setItem("user",JSON.stringify(fakeUser))
           flexDirection: "column"
         }}
       > 
-          
+          {console.log('sdfsdfdf',parceLocal.name)}
         {/* {
           isLoading ? <LinearIndeterminate /> : null
         } */}

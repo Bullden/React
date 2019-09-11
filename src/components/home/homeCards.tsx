@@ -7,13 +7,15 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
 import { doCard } from "./actionCards";
+import { showCard } from "./actionCards";
 import { RootState } from "@redux/rootReducer";
-import { SetCardRequest } from "./typesCards";
+import { SetCardRequest, ShowCardRequest } from "./typesCards";
 import { Redirect } from "react-router";
 import { InputLabel, Input } from "@material-ui/core";
 import ButtonComponent from "@components/helpComponents/button";
 import { debounce } from "lodash";
 import { DebounceInput } from "react-debounce-input";
+import { string } from "prop-types";
 
 function createData(
   _id: any,
@@ -28,6 +30,7 @@ let cards: any[] = [];
 
 export interface ModalInputProps {
   doCard: (data: SetCardRequest) => object;
+  showCard: (data: ShowCardRequest) => object;
   nameBook: string;
   description: string;
   cost: string;
@@ -110,7 +113,6 @@ export class SimpleCard extends React.Component<any, CardBookState> {
         createData(item._id, item.nameBook, item.description, item.cost)
       );
     });
-
     this.setState({
       cardData: formattedArr
     });
@@ -136,19 +138,19 @@ export class SimpleCard extends React.Component<any, CardBookState> {
   };
 
   clicker = (_id: string) => {
-    console.log("click", this.state.cardData);
+    console.log("clicker", this.state.cardData);
     this.state.cardData.forEach((item, idx: any) => {
       if (item._id === _id ) {
         
         console.log("item cardData", item, idx);
-        const { doCard } = this.props.card;
+        const { showCard } = this.props;
         const newCard = {
           _id: item._id,
           nameBook: item.nameBook,
           description: item.description,
           cost: item.cost
         };
-        doCard(newCard);
+        showCard(newCard);
       }
     });
   };
@@ -256,5 +258,5 @@ const mapStateToProps = function(state: RootState) {
 
 export default connect(
   mapStateToProps,
-  { doCard }
+  { doCard,showCard }
 )(SimpleCard);

@@ -22,6 +22,7 @@ const StyledBadge1 = withStyles((theme: Theme) =>
 
   const allCards = props.allCards 
   console.log('1111',allCards.length)
+  const cardLength = props.cardLength
   return (
     <Box display="flex">
       <Box m={1}>
@@ -37,7 +38,8 @@ const StyledBadge1 = withStyles((theme: Theme) =>
 
 const mapStateToProps = function(state: RootState) {
     return {
-        allCards: state.cardPage.allCards
+        allCards: state.cardPage.allCards,
+        cardLength: state.cardPage.cardLength
     };
   };
   

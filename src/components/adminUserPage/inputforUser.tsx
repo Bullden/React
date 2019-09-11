@@ -40,12 +40,17 @@ export class Inputs extends React.Component<ModalInputProps,ModalInputState> {
       const newUser = {
         name: this.state.name,
         email: this.state.email,
+        password: item.password,
+        _id: item._id,
+        role: item.role
       }
     
       doChangeUser(newUser)
-      console.log('id', item._id)
-      const datta = await fetch ('http://localhost:3000/v1/users',{
-        method:"POST",
+      console.log(item)
+      console.log(newUser)
+
+      fetch (`http://localhost:3000/v1/users/:${item._id}`,{
+        method:"PUT",
         headers: {
           "Accept": "application/json",
           "Content-Type": "application/json"
@@ -57,6 +62,8 @@ export class Inputs extends React.Component<ModalInputProps,ModalInputState> {
         loadBooks()
         handleClose()
       })
+      console.log(newUser)
+      console.log(JSON.stringify(newUser))
       
   }
   

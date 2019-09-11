@@ -65,7 +65,6 @@ class InputForEdit extends React.Component<ModalInputProps, UserChangeState> {
     .then(res => res.json()) // OR res.json()
     .then(res => console.log(res));
 
-
     }else null
 
     console.log("dsfffffffff!!!!!",JSON.parse(local).id)

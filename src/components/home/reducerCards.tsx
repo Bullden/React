@@ -1,9 +1,11 @@
 import { RootState } from "@redux/rootReducer";
 import { CardsPageActions, CardsPageState } from "./typesCards";
+import { number } from "prop-types";
 
 export const initialState: CardsPageState = {
     card:"",
-    allCards : []
+    allCards : [],
+    cardLength: ''
 }
 
 export function CardPageReducer(state: CardsPageState = initialState, action:any){
@@ -18,12 +20,14 @@ export function CardPageReducer(state: CardsPageState = initialState, action:any
   
           console.log('oldNewState',newState)
           console.log('state',state)
+          let length = newState.allCards.length  
           newState.allCards.push(action.payload)
             console.log('newState',newState)
             return{
               ...state,
               card: action.payload,
-              allCards: newState.allCards
+              allCards: newState.allCards,
+              cardLength: length
             };  
           }
           case `@@card/CARD_DELETE`: {

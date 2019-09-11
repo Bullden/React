@@ -14,6 +14,8 @@ import { RootState } from "@redux/rootReducer";
 import { connect } from "react-redux";
 import { doBook } from "../../redux/adminPage/actions";
 import jwt_decode from 'jwt-decode';
+import { TableFooter, TablePagination } from "@material-ui/core";
+import TablePaginationActions from "@material-ui/core/TablePagination/TablePaginationActions";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -62,6 +64,7 @@ export class SimpleTable extends PureComponent<any, TableBookState> {
       tableData: []
     };
   }
+
   loadBooks = async () => {
     const data = await fetch("http://localhost:3000/v1/books", {
       method: "GET",
@@ -110,7 +113,7 @@ export class SimpleTable extends PureComponent<any, TableBookState> {
     arr.forEach((item, idx: any) => {
       if (item._id === _id) {
         
-        fetch(`http://localhost:3000/v1/books/:${_id}`, {
+        fetch(`http://localhost:3000/v1/books/${_id}`, {
           method: "DELETE",
           headers: { "Content-Type": "application/json" }
         })
