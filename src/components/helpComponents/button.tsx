@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles, createStyles, Theme, withStyles } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
 import purple from '@material-ui/core/colors/purple';
-import { textAlign } from '@material-ui/system';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     button: {
@@ -13,7 +12,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
-
 const ColorButton = withStyles(theme => ({
   root: {
     color: theme.palette.getContrastText(purple[500]),
@@ -23,12 +21,10 @@ const ColorButton = withStyles(theme => ({
     },
   },
 }))(Button);
-
 export interface ButtonInterface {
   text : string;
   click : any;
 }
-
 export default function ButtonComponent(rest: any) {
   const classes = useStyles(purple);
   const { text, click } = rest

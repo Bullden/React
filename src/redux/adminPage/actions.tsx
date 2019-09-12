@@ -1,10 +1,7 @@
 import { AdminPageActions, SetBookRequest, AdminBookPageActions} from "./types";
 import { createAction } from "typesafe-actions";
 
-
-
 const prefix = "@@admin";
-
 
 export function doAdminInit() {
   return { type: `${prefix}/${AdminPageActions.ADMIN_INIT}` };

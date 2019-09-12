@@ -16,8 +16,6 @@ import RegistrationContainer from "./containers/registrationContainer";
 import CenteredTabs from "@components/helpComponents/tabs";
 import fullDescription from "@components/home/fullDescription";
 
-
-
 export const Path = {
   root: "/",
   login: "/login",
@@ -26,9 +24,7 @@ export const Path = {
   adminBook:"/adminBookPage",
   bookDescription:`/description`
 };
-
 const store: Store<RootState> = configureStore();
-
 export const Root = () => (
   <Provider store={store}>
     <Router>
@@ -41,44 +37,23 @@ export const Root = () => (
           marginTop: 20
         }}
       >
-       
        <CenteredTabs /> 
-       
-        
         <main
           style={{
             display: "flex",
             justifyContent: "center",
             flexDirection: "row"
           }}
-        >
-          
+        >  
           <Route exact path={Path.root} component={HomeContainer} />
           <Route path={Path.login} component={LoginContainer} />
           <Route path={Path.registration} component={RegistrationContainer} />
           <Route path={Path.adminUser} component ={AdminUserContainer} />
           <Route path={Path.adminBook} component ={AdminBookContainer} />
           <Route path ={Path.bookDescription} component = {fullDescription} />
-        </main>
-
-       
+        </main> 
       </div>
     </Router>
   </Provider>
 );
-
-
-
-// const mapStateToProps = function(state: RootState) {
-//   return {
-//     // nameBook: state.adminBookPage.book.nameBook,
-//     // description: state.adminBookPage.book.description,
-//     // cost: state.adminBookPage.cost
-//     card: state.cardPage.card,
-//     allBooks: state.adminBookPage.allBooks
-//   };
-// };
-// export default connect(
-//   mapStateToProps,
-// )(Root);
 export default Root

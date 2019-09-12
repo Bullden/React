@@ -1,9 +1,7 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import { InputLabel, Input } from '@material-ui/core';
 import Inputs from './inputforUser';
-import { object } from 'prop-types';
 import ButtonComponent from '@components/helpComponents/button';
 
 function rand() {
@@ -39,7 +37,6 @@ interface UserModalProps {
 }
 export default ({ loadBooks, item }: UserModalProps) => {
   const classes = useStyles({});
-  // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
 
@@ -49,7 +46,6 @@ export default ({ loadBooks, item }: UserModalProps) => {
 
   const handleClose = () => {
     setOpen(false);
-
   };
 
   return (

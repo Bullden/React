@@ -1,18 +1,11 @@
 import * as React from "react";
 import { InputLabel, Input } from "@material-ui/core";
-// import { runInThisContext } from "vm";
 import ButtonComponent from "@components/helpComponents/button";
-import { number } from "prop-types";
 import { connect } from "react-redux";
 import { RootState } from "@redux/rootReducer";
-import { SetBookRequest } from "@redux/adminPage/types";
 import { doChangeUser } from "./actions" 
-import { async } from "q";
 import { ChangeUserRequest } from "./types";
-import { changeUser } from "./reducer";
  
-
-
 export interface ModalInputProps {
     doChangeUser: (data: ChangeUserRequest) => object;
     name: string;
@@ -26,15 +19,12 @@ export interface ModalInputState {
     email: string;
 }
 export class Inputs extends React.Component<ModalInputProps,ModalInputState> {
-  
     state:ModalInputState = {
         name: '',
         email: ''
     }
-
   handle = (event:any) => 
     this.setState({ [event.target.name]:event.target.value } as any)
-
   changeUser =  async () => {
       const{doChangeUser, loadBooks, handleClose, item} = this.props
       const newUser = {
@@ -44,11 +34,7 @@ export class Inputs extends React.Component<ModalInputProps,ModalInputState> {
         _id: item._id,
         role: item.role
       }
-    
       doChangeUser(newUser)
-      console.log(item)
-      console.log(newUser)
-
       fetch (`http://localhost:3000/v1/users/:${item._id}`,{
         method:"PUT",
         headers: {
@@ -61,19 +47,11 @@ export class Inputs extends React.Component<ModalInputProps,ModalInputState> {
       .then(() => {
         loadBooks()
         handleClose()
-      })
-      console.log(newUser)
-      console.log(JSON.stringify(newUser))
-      
+      })   
   }
-  
   render() {
-
-    return (
-        
+    return ( 
       <div>
-          {console.log(this.state.name, this.state.email)}
-
         <div>
           <InputLabel
             htmlFor="name"

@@ -6,18 +6,12 @@ import {
 } from "@redux/registration/types";
 import { InputLabel, Input } from "@material-ui/core";
 import ButtonComponent from "../helpComponents/button";
-import { ErrorComponent } from "@components/common/errorComponent";
 import { Error } from "../common/errorComponent";
 import { Redirect } from "react-router";
-import { Path } from "../../Root";
-import HomeContainer from "../../containers/homeContainer";
-import { Route, Link, BrowserRouter as Router } from "react-router-dom";
-import { environment } from '../../enviroment'
 
 export interface RegistrationProps {
   doRegistration: (data: RegistrationRequest) => object;
 }
-
 export class RegistrationComponent extends React.Component<
   RegistrationProps,
   RegistrationState,
@@ -30,10 +24,8 @@ export class RegistrationComponent extends React.Component<
     error: "",
     name: ""
   };
-
   handle = (event: any) =>
     this.setState({ [event.target.name]: event.target.value } as any);
-
   login = () => {
     const { doRegistration } = this.props;
     !this.state.name || !this.state.email || !this.state.password

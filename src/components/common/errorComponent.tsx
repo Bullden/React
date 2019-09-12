@@ -1,9 +1,7 @@
-import React, { Dispatch } from "react";
-import { Redirect } from "react-router";
+import React from "react";
 import { RootState } from "../../redux/rootReducer";
 import { connect } from "react-redux";
-//import { onErrorOccured } from "@redux/common/actions";
-import { AnyAction, bindActionCreators } from "redux";
+import { bindActionCreators } from "redux";
 import { onErrorOccured } from "../../redux/common/actions";
 
 export interface ErrorProps {

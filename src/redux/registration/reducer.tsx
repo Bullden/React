@@ -28,7 +28,6 @@ export function registrationReducer(state: RegistrationState = initialState, act
     }
 
     case `@@registration/REGISTRATION_SUCCESS`: {
-      console.log('action.payload registration',action.payload)
       const { data } = action.payload;
       return {
         ...state,

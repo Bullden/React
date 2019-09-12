@@ -10,12 +10,14 @@ export interface CardsPageState {
     card: string;
     allCards: Array<Card>;
     cardLength: any
+    quantity: string
 }
 
 export interface SetCardRequest {
     nameBook: string;
     description: string;
     cost: string;
+    quantity: string
 }
 export interface RemoveCard {
     allCards: Array<Card>
@@ -24,4 +26,5 @@ export interface ShowCardRequest {
     nameBook: string;
     description: string;
     cost: string;
+    quantity: string
 }

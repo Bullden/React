@@ -1,6 +1,5 @@
 import { createAction } from "typesafe-actions";
 import { RegistrationActions, RegistrationRequest} from "./types";
-import { emphasize } from "@material-ui/core/styles";
 
 const prefix = "@@registration";
 

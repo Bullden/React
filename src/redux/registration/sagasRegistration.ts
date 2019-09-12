@@ -1,19 +1,11 @@
-import { ResultApiUser } from '@redux/login/types';
 import { put, takeEvery, call } from "redux-saga/effects";
 import { delay } from "redux-saga";
-import { environment } from "../../enviroment";
 import { callApi } from "../../services/api";
-import { toast } from "react-toastify";
-//import { delay } from "redux-saga";
-//import { DoLoginProps } from "./types";
 import { LoginState } from "../../redux/login/types";
+import { tokenService } from "./../../services/tokenService";
+
 const needDelay: boolean = true;
 let user: LoginState;
-// worker sagas
-import { tokenService } from "./../../services/tokenService";
-import { push } from "react-router-redux";
-import { registration } from './reducer';
-
 
 export function* doRegistration(): IterableIterator<any> {
   yield takeEvery(`@@registration/DO_REGISTRATION`, function*(action: any) {
@@ -30,9 +22,6 @@ export function* doRegistration(): IterableIterator<any> {
         }
       });
       const stringApi = JSON.stringify(answerApi)
-      console.log(stringApi)
-      // location.pathname = '/'
-    //   localStorage.setItem("thisUser", JSON.stringify({ email, data, id }));
       yield tokenService(answerApi);
     } catch (error) {
       yield put({

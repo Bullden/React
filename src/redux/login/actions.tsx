@@ -1,5 +1,5 @@
 import { createAction } from "typesafe-actions";
-import { LoginActions, LoginResult, LoginRequest } from "./types";
+import { LoginActions, LoginRequest } from "./types";
 
 const prefix = "@@login";
 

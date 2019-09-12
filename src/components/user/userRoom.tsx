@@ -13,22 +13,17 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
-
 export default function PopoverUser({}) {
   const classes = useStyles({});
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-
   function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     setAnchorEl(event.currentTarget);
   }
-
   function handleClose() {
     setAnchorEl(null);
   }
-
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
-
   return (
     <div style={{ marginTop: "-4px" }}>
       <Button aria-describedby={id} variant="contained" onClick={handleClick} style={{
@@ -54,8 +49,7 @@ export default function PopoverUser({}) {
         <Typography className={classes.typography}>
           <div> 
             <InputForEdit />
-          </div>
-          
+          </div>        
         </Typography>
       </Popover>
     </div>

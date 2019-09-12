@@ -1,6 +1,5 @@
 import { RootState } from "../../redux/rootReducer";
 import { HomeState } from "./types";
-import { string } from "prop-types";
 
 export const initialState: HomeState = {
   error: "",
@@ -8,7 +7,6 @@ export const initialState: HomeState = {
   enviroment: "",
   token: "",
 };
-
 export function homeReducer(state: HomeState = initialState, action: any) {
   switch (action.type) {
     case `@@home/DATA_INIT`: {

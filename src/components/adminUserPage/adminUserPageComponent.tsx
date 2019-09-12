@@ -10,9 +10,6 @@ export class AdminUserComponent extends React.Component<any,any> {
         const local:any = localStorage.getItem('user')
         const parceLocal = JSON.parse(local)
         return( parceLocal.role === '5d71013d1c9d4400006eedba' ?
-            // <div>
-            //    <UsersTable />
-            // </div>
             <SimpleTable /> : <Redirect to='/login' />
         )
     }

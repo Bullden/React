@@ -1,5 +1,4 @@
 import { RootState } from "../../redux/rootReducer";
-import { string } from "prop-types";
 
 export const initialState = {
   error: ""

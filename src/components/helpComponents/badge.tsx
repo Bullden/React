@@ -1,7 +1,6 @@
 import React from 'react';
 import Badge from '@material-ui/core/Badge';
 import Box from '@material-ui/core/Box';
-import Avatar from '@material-ui/core/Avatar';
 import { Theme, withStyles, createStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
@@ -18,16 +17,17 @@ const StyledBadge1 = withStyles((theme: Theme) =>
   }),
 )(Badge);
 
- function CustomizedBadges(props:any) {
+interface Props {
+  totalCount: any
+}
 
-  const allCards = props.allCards 
-  console.log('1111',allCards.length)
-  const cardLength = props.cardLength
+function CustomizedBadges(props: Props) {
+ const {totalCount} = props
   return (
     <Box display="flex">
       <Box m={1}>
         <IconButton aria-label="cart">
-          <StyledBadge1 badgeContent={allCards.length} color="primary">
+          <StyledBadge1 badgeContent={totalCount} color="primary"  >
             <ShoppingCartIcon />
           </StyledBadge1>
         </IconButton>
@@ -35,7 +35,6 @@ const StyledBadge1 = withStyles((theme: Theme) =>
     </Box>
   );
 }
-
 const mapStateToProps = function(state: RootState) {
     return {
         allCards: state.cardPage.allCards,
@@ -43,4 +42,4 @@ const mapStateToProps = function(state: RootState) {
     };
   };
   
-  export default connect(mapStateToProps)(CustomizedBadges);
+export default connect(mapStateToProps)(CustomizedBadges);

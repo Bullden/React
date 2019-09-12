@@ -1,16 +1,12 @@
 import * as React from "react";
 import { InputLabel, Input } from "@material-ui/core";
-// import { runInThisContext } from "vm";
 import ButtonComponent from "@components/helpComponents/button";
-import { number } from "prop-types";
 import { connect } from "react-redux";
 import { RootState } from "@redux/rootReducer";
 import { SetBookRequest } from "@redux/adminPage/types";
 import { doBook } from "../../redux/adminPage/actions" 
-import { async } from "q";
 import { Error } from "../common/errorComponent";
  
-
 
 export interface ModalInputProps {
     doBook: (data: SetBookRequest) => object;
@@ -26,16 +22,13 @@ export interface ModalInputState {
   cost: string;
 }
 export class Inputs extends React.Component<ModalInputProps,ModalInputState> {
-  
-    state:ModalInputState = {
+  state:ModalInputState = {
         nameBook: '',
         description: '',
         cost: ''
     }
-
   handle = (event:any) => 
     this.setState({ [event.target.name]:event.target.value } as any)
-
   setBook =  async () => {
       const{doBook, loadBooks, handleClose} =this.props
       const newBook = {
@@ -44,7 +37,6 @@ export class Inputs extends React.Component<ModalInputProps,ModalInputState> {
         cost: this.state.cost,
       }
       doBook(newBook)
-      console.log('nnsndndndn', newBook)
       fetch ('http://localhost:3000/v1/books', {
         method:"POST",
         headers: {
@@ -55,23 +47,17 @@ export class Inputs extends React.Component<ModalInputProps,ModalInputState> {
       })
       .then(res => res.json())
       .then(() => {
-        console.log(5455455)
         loadBooks()
         handleClose()
       })    
   }
-  
   render() {
-
-    return (
-        
+    return ( 
       <div>
           { !this.state.nameBook || !this.state.cost || !this.state.description ? (
           <Error />
         ) : null
-
         }
-          {console.log(this.state.nameBook, this.state.description, this.state.cost)}
         <div>
           <InputLabel
             htmlFor="nameBook"

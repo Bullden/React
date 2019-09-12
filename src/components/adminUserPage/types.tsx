@@ -4,7 +4,6 @@ export enum ChangeUserActions {
 export interface ChangeUserState {
   email:string;  
   name: string;
- 
 }
 
 export interface ChangeUserProps {

@@ -7,15 +7,10 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import ButtonComponent from "@components/helpComponents/button";
-import { render } from "react-dom";
 import SimpleModal from "./modal";
-import { ModalInputProps, ModalInputState, Inputs } from "./inputForBook";
 import { RootState } from "@redux/rootReducer";
 import { connect } from "react-redux";
 import { doBook } from "../../redux/adminPage/actions";
-import jwt_decode from 'jwt-decode';
-import { TableFooter, TablePagination } from "@material-ui/core";
-import TablePaginationActions from "@material-ui/core/TablePagination/TablePaginationActions";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,7 +24,6 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 );
-
 function createData(
   _id: string,
   nameBook: string,
@@ -39,24 +33,15 @@ function createData(
   return { _id, nameBook, description, cost };
 }
 let rows: any[] = [];
-// const rows = [
-//   createData(1, "Harry Potter", "fine book!", 100),
-//   createData(2, "Ice Cream", "lalalalalalalalala", 50),
-//   createData(3, "Iternet for teapot", "aahahahah yep!", 3000),
-//   // createData(4,  nameBook, this.state.description, this.state.cost)
-// ];
-// const classes = useStyles({});
 interface TableDataItem {
   _id: string;
   nameBook: string;
   description: string;
   cost: number;
 }
-
 interface TableBookState {
   tableData: TableDataItem[];
 }
-
 export class SimpleTable extends PureComponent<any, TableBookState> {
   constructor(props: any) {
     super(props);
@@ -64,7 +49,6 @@ export class SimpleTable extends PureComponent<any, TableBookState> {
       tableData: []
     };
   }
-
   loadBooks = async () => {
     const data = await fetch("http://localhost:3000/v1/books", {
       method: "GET",
@@ -73,32 +57,21 @@ export class SimpleTable extends PureComponent<any, TableBookState> {
         "Content-Type": "application/json"
       }
     });
-
     const arrBooks = await data.json();
-    console.log("arrBooks", arrBooks.data);
-   
     arrBooks.data.forEach(function(item: any) {
       rows.push(
         createData(item._id, item.nameBook, item.description, item.cost)
       );
-      console.log(item, item._id, item.nameBook)
     });
-    // const book = this.props.book
     let formattedArr: TableDataItem[] = [];
     arrBooks.data.forEach((item: any) => {
       formattedArr.push(
         createData(item._id, item.nameBook, item.description, item.cost)
       );
     });
-    // console.log('formattedArrBefore',formattedArr)
-    // formattedArr.push(book)
-    // console.log('formattedArr',formattedArr)
-
     this.setState({
       tableData: formattedArr
     });
-
-    console.log("async rows", rows);
   };
   
   
@@ -107,52 +80,28 @@ export class SimpleTable extends PureComponent<any, TableBookState> {
   }
 
   deleteBook(_id: string) {
-    console.log("CLICK!",_id)
     let arr = this.state.tableData;
-
     arr.forEach((item, idx: any) => {
-      if (item._id === _id) {
-        
+      if (item._id === _id) {   
         fetch(`http://localhost:3000/v1/books/${_id}`, {
           method: "DELETE",
           headers: { "Content-Type": "application/json" }
         })
-          .then(res => res.text()) // OR res.json()
-          .then(res => console.log(res));
-
+          .then(res => res.text())
           arr.splice(idx, 1)
-
-      }
-      console.log("item.id", item._id);
-      console.log("id", _id);
-      console.log("idx", idx);
-      
-     
+      } 
     });
-
-    this.setState(JSON.parse(JSON.stringify(arr)));
-    console.log('arr',arr)
+     this.setState(JSON.parse(JSON.stringify(arr)));
   }
-
-  
-
   render() {
     const { tableData } = this.state;
     const allBooks = this.props.allBooks;
-    console.log("AAAAAAAAAA", allBooks);
     rows = [];
-    
-    // setTimeout(this.update,2000)
-
     allBooks.forEach((item: any) => {
       rows.push(
         createData(item._id, item.nameBook, item.description, item.cost)
       );
     });
-
-    console.log("allBooks", allBooks);
-    console.log("rows", rows);
-
     return (
       <div>
         <SimpleModal loadBooks={this.loadBooks}/>
@@ -160,19 +109,16 @@ export class SimpleTable extends PureComponent<any, TableBookState> {
           <Table>
             <TableHead>
               <TableRow>
-                {/* <TableCell align="right">Edit</TableCell> */}
                 <TableCell align="right">Delete</TableCell>
                 <TableCell align="right">Id</TableCell>
                 <TableCell align="right">Name</TableCell>
                 <TableCell align="right">Descripton</TableCell>
                 <TableCell align="right">Cost</TableCell>
-                {/* <TableCell align="right">Image</TableCell> */}
               </TableRow>
             </TableHead>
             <TableBody>
               {tableData.map(row => (
-                <TableRow key={row.nameBook}>
-                 
+                <TableRow key={row.nameBook}>                 
                   <TableCell align="right">
                     <ButtonComponent
                       text="Delete"
@@ -182,8 +128,7 @@ export class SimpleTable extends PureComponent<any, TableBookState> {
                   <TableCell align="right">{row._id}</TableCell>
                   <TableCell align="right">{row.nameBook}</TableCell>
                   <TableCell align="right">{row.description}</TableCell>
-                  <TableCell align="right">{row.cost}$</TableCell>
-                
+                  <TableCell align="right">{row.cost}$</TableCell> 
                 </TableRow>
               ))}
             </TableBody>
@@ -196,9 +141,6 @@ export class SimpleTable extends PureComponent<any, TableBookState> {
 
 const mapStateToProps = function(state: RootState) {
   return {
-    // nameBook: state.adminBookPage.book.nameBook,
-    // description: state.adminBookPage.book.description,
-    // cost: state.adminBookPage.cost
     book: state.adminBookPage.book,
     allBooks: state.adminBookPage.allBooks
   };

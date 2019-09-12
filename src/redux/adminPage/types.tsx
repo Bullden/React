@@ -1,5 +1,3 @@
-import {BaseState} from '../../types/baseState'
-import book from '@components/adminBookPage/bookTable';
 import { Book } from 'src/types/book';
 
 export enum AdminPageActions {
@@ -13,7 +11,6 @@ export interface AdminPageState {
     token: any;
     error: any;
 }
-
 export interface AdminBookPageState {
 
     book: string;
