@@ -24,9 +24,10 @@ export interface DoLoginProps {
 }
 
 export interface LoginRequest {
-  email: string;
+  username: string;
   password: string;
-  name: string;
+  name: string
+  isLoggedIn: boolean
 }
 
 export interface LoginResult {

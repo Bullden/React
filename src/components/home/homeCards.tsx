@@ -58,7 +58,7 @@ export class SimpleCard extends React.Component<any, CardBookState> {
   }
   loadCardBooks = async (event:any) => {
     (event:any) => this.setState({search: event.target.value})
-    const data = await fetch("http://localhost:3000/v1/books", {
+    const data = await fetch("http://localhost:4201/books", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -66,9 +66,9 @@ export class SimpleCard extends React.Component<any, CardBookState> {
       }
     });
     const arrCards = await data.json();
-    const search = event.target.value;;
+    const search = event.target.value;
     let formattedArr: CardDataItem[] = [];
-    arrCards.data.forEach((item: any) => {
+    arrCards.forEach((item: any) => {
       if (item.nameBook.includes(search)) {
         formattedArr.push(
           createData(item._id, item.nameBook, item.description, item.cost)
@@ -81,7 +81,7 @@ export class SimpleCard extends React.Component<any, CardBookState> {
   };
 
   showBooks = async () => {
-    const data = await fetch("http://localhost:3000/v1/books", {
+    const data = await fetch("http://localhost:4201/books", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -90,7 +90,7 @@ export class SimpleCard extends React.Component<any, CardBookState> {
     });
     const arrCards = await data.json();
     let formattedArr: CardDataItem[] = [];
-    arrCards.data.forEach((item: any) => {
+    arrCards.forEach((item: any) => {
       formattedArr.push(
         createData(item._id, item.nameBook, item.description, item.cost)
       );

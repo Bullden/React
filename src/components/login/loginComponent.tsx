@@ -15,8 +15,7 @@ export interface LoginProps {
   isLoggedIn: boolean;
   isLoading: boolean
 }
-const fakeUser = {id:99,name:'fakeUser',password:'fakeUser',email:'fakeUser' };
-const admin: any = environment.admin;
+const fakeUser = {id:99,name:'fakeUser',password:'fakeUser',email:'fakeUser',permissions:['fakeUser'] };
 const local: any = localStorage.getItem("user");
 
 local ? null : localStorage.setItem("user",JSON.stringify(fakeUser))
@@ -42,9 +41,10 @@ local ? null : localStorage.setItem("user",JSON.stringify(fakeUser))
     !this.state.email || !this.state.password
       ? this.state.error
       : doLogin({
-          email: this.state.email,
+          isLoggedIn: this.state.isLoggedIn,
+          username: this.state.email,
           password: this.state.password,
-          name: this.state.name,
+          name: this.state.name
         });
   };
   render() {
@@ -60,8 +60,6 @@ local ? null : localStorage.setItem("user",JSON.stringify(fakeUser))
           flexDirection: "column"
         }}
       > 
-        { admin.email === this.state.email && admin.password === this.state.password ? <h1>hello you are my admin</h1>  : null}
-        
         { !this.state.email || !this.state.password ? (
           <Error />
         ) : null

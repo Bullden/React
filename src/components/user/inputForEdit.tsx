@@ -3,60 +3,63 @@ import { InputLabel, Input } from "@material-ui/core";
 import ButtonComponent from "@components/helpComponents/button";
 import { RootState } from "@redux/rootReducer";
 import { connect } from "react-redux";
-import {doUserChange} from './actions'
+import { doUserChange } from "./actions";
 import { UserChangeRequest } from "./types";
 
 export interface ModalInputProps {
-    doUserChange: (data: UserChangeRequest) => object;
-     name: string; 
+  doUserChange: (data: UserChangeRequest) => object;
+  name: string;
 }
 export interface UserChangeState {
   name: string;
 }
 class InputForEdit extends React.Component<ModalInputProps, UserChangeState> {
-    state:UserChangeState = {
-    name: '', 
-    }
+  state: UserChangeState = {
+    name: ""
+  };
   handle = (event: any) =>
-    this.setState({ [event.target.name]: event.target.value } as any); 
+    this.setState({ [event.target.name]: event.target.value } as any);
   saveChanges = () => {
-    const {doUserChange} = this.props
+    const { doUserChange } = this.props;
     const newSave = {
-        name: this.state.name,  
+      name: this.state.name
     };
-    const local: any = localStorage.getItem('user')
-    const localParce = JSON.parse(local)
-    for(var key in localParce) {
-      if(key ==='name'){
-        localParce[key] = newSave.name
-      } else null 
+    const local: any = localStorage.getItem("user");
+    const localParce = JSON.parse(local);
+    for (var key in localParce) {
+      if (key === "name") {
+        localParce[key] = newSave.name;
+      } else null;
     }
-    let id =  JSON.parse(local)._id
-    if(localParce.name === newSave.name) {
-      localParce.name = newSave.name
-      localStorage.setItem('user',JSON.stringify(localParce))
-      fetch(`http://localhost:3000/v1/users/:${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json", "Accept": "application/json"},
-      body: JSON.stringify(localParce)
-    })
-    .then(res => res.json()) 
-    }else null 
-    doUserChange(newSave)
-}  
+    let id = JSON.parse(local)._id;
+    if (localParce.name === newSave.name) {
+      localParce.name = newSave.name;
+      localStorage.setItem("user", JSON.stringify(localParce));
+      fetch(`http://localhost:4201/users/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+        body: JSON.stringify(localParce)
+      }).then(res => res.json());
+    } else null;
+    doUserChange(newSave);
+  };
   render() {
-    const local: any = localStorage.getItem('user')
-  
+    const local: any = localStorage.getItem("user");
+
     return (
       <div>
-        <div>Hello, { JSON.parse(local).name} </div>
+        <div>Hello, {JSON.parse(local).name} </div>
         <div>
           <InputLabel
             htmlFor="name"
             className="input-label"
             style={{ marginBottom: "5px" }}
           >
-              Name
+            Name
           </InputLabel>
           <Input
             type="name"
@@ -66,7 +69,7 @@ class InputForEdit extends React.Component<ModalInputProps, UserChangeState> {
             className="input"
             style={{ marginBottom: "20px" }}
           />
-        </div>        
+        </div>
         <div>
           <ButtonComponent text="Save" click={() => this.saveChanges()} />
         </div>
@@ -74,9 +77,12 @@ class InputForEdit extends React.Component<ModalInputProps, UserChangeState> {
     );
   }
 }
-const mapStateToProps = function(state:RootState) {
-    return {
-        name: state.change.name,    
-    }
-}
-export default connect(mapStateToProps,{ doUserChange })(InputForEdit)
+const mapStateToProps = function(state: RootState) {
+  return {
+    name: state.change.name
+  };
+};
+export default connect(
+  mapStateToProps,
+  { doUserChange }
+)(InputForEdit);

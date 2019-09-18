@@ -35,11 +35,12 @@ export class Inputs extends React.Component<ModalInputProps,ModalInputState> {
         role: item.role
       }
       doChangeUser(newUser)
-      fetch (`http://localhost:3000/v1/users/:${item._id}`,{
+      fetch (`http://localhost:4201/users/${item._id}`,{
         method:"PUT",
         headers: {
           "Accept": "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json", 
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
         body: JSON.stringify(newUser)
       })

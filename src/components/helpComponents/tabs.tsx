@@ -15,6 +15,8 @@ import ButtonComponent from "./button";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import PopoverUser from "@components/user/userRoom";
 import LinearIndeterminate from "./loader";
+import { doLogin } from "@redux/login/sagasLogin";
+
 
 const useStyles = makeStyles({
   root: {
@@ -23,29 +25,32 @@ const useStyles = makeStyles({
 });
 export interface LoginProps {
   doLogin: (data: LoginRequest) => object;
-  user: any;
-  admin: any;
   isLoggedIn: boolean;
 }
-const CenteredTabs: React.FC = (props: any) => {
+const CenteredTabs = (props: any) => {
   const classes = useStyles({});
   const [value, setValue] = React.useState(0);
   function handleChange(event: React.ChangeEvent<{}>, newValue: number) {
     setValue(newValue);
   }
   const isLoading = props.isLoading;
-  const isLoggedIn = props.isLoggedIn;
-  const admin = environment.admin;
+  let isLoggedIn = props.isLoggedIn;
   const local: any = localStorage.getItem("user");
   const fakeUser = {
     id: 99,
     name: "fakeUser",
     password: "fakeUser",
-    email: "fakeUser"
+    email: "fakeUser",
+    permissions:['fakeUser']
   };
 
+  const roleLocal = JSON.parse(local).permissions
+  const perm = roleLocal.find((x: any) => { return x})
+
   function handleClick() {
-    localStorage.removeItem("user");
+ 
+   localStorage.removeItem("user");
+    
     <Redirect to ='/login' />
   }
   return (
@@ -71,7 +76,7 @@ const CenteredTabs: React.FC = (props: any) => {
               to="/registration"
             />
           ) : null}
-          {isLoggedIn && '5d71013d1c9d4400006eedba' === props.role || JSON.parse(local).role === '5d71013d1c9d4400006eedba' ? (
+          { 'admin' === perm  ? (
             <Tab
               label="Admin User Page"
               value="/adminUserPage"
@@ -79,7 +84,7 @@ const CenteredTabs: React.FC = (props: any) => {
               to="/adminUserPage"
             />
           ) : null}
-          {isLoggedIn && '5d71013d1c9d4400006eedba' === props.role || JSON.parse(local).role === '5d71013d1c9d4400006eedba' ? (
+          { 'admin' === perm  ? (
             <Tab
               label="Admin Book Page"
               value="/adminBookPage"
@@ -93,17 +98,15 @@ const CenteredTabs: React.FC = (props: any) => {
           JSON.parse(local).password === fakeUser.password ? (
             <Tab label="Login" value="/login" component={Link} to="/login" />
           ) : (
-            <ButtonComponent text="Logout" click={handleClick} />
+           <ButtonComponent text ='Logout' click = {handleClick} />
           )}
           <SimplePopover />         
-          {isLoggedIn && JSON.parse(local).roleId !== 0 && JSON.parse(local).name !== fakeUser.name &&
-          JSON.parse(local).email !== fakeUser.email &&
-          JSON.parse(local).password !== fakeUser.password &&  '5d7101271c9d4400006eedb8'=== props.role || JSON.parse(local).role === '5d7101271c9d4400006eedb8' ? (
+          { 'user'=== perm  ? (
             <div style={{ marginTop: "10px" }}>
               <PopoverUser />
             </div>
           ) : null}
-          {isLoggedIn && '5d71013d1c9d4400006eedba' === props.role || JSON.parse(local).role === '5d71013d1c9d4400006eedba'? (
+          { 'admin' === perm ? (
             <div style={{ marginTop: "10px" }}>
               <VerifiedUserIcon />
             </div>
@@ -115,7 +118,7 @@ const CenteredTabs: React.FC = (props: any) => {
 };
 const mapStateToProps = function(state: RootState) {
   return {
-    role: state.login.token.role,
+    role: state.login.token.permissions,
     isLoggedIn: state.login.isLoggedIn,
     isLoading: state.login.isLoading
   };

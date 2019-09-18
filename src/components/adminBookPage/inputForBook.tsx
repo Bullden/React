@@ -37,11 +37,12 @@ export class Inputs extends React.Component<ModalInputProps,ModalInputState> {
         cost: this.state.cost,
       }
       doBook(newBook)
-      fetch ('http://localhost:3000/v1/books', {
+      fetch ('http://localhost:4201/books', {
         method:"POST",
         headers: {
           "Accept": "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
         body: JSON.stringify(newBook)
       })

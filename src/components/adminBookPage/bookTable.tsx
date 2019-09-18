@@ -11,6 +11,7 @@ import SimpleModal from "./modal";
 import { RootState } from "@redux/rootReducer";
 import { connect } from "react-redux";
 import { doBook } from "../../redux/adminPage/actions";
+import { async } from "q";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,44 +51,47 @@ export class SimpleTable extends PureComponent<any, TableBookState> {
     };
   }
   loadBooks = async () => {
-    const data = await fetch("http://localhost:3000/v1/books", {
+    const data = await fetch("http://localhost:4201/books", {
       method: "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       }
-    });
-    const arrBooks = await data.json();
-    arrBooks.data.forEach(function(item: any) {
-      rows.push(
-        createData(item._id, item.nameBook, item.description, item.cost)
-      );
-    });
-    let formattedArr: TableDataItem[] = [];
-    arrBooks.data.forEach((item: any) => {
-      formattedArr.push(
-        createData(item._id, item.nameBook, item.description, item.cost)
-      );
-    });
+    })
     this.setState({
-      tableData: formattedArr
+      tableData: await data.json()
     });
+    
+    
+    // arrBooks.data.forEach(function(item: any) {
+    //   rows.push(
+    //     createData(item._id, item.nameBook, item.description, item.cost)
+    //   );
+    // });
+    // let formattedArr: TableDataItem[] = [];
+    // arrBooks.data.forEach((item: any) => {
+    //   formattedArr.push(
+    //     createData(item._id, item.nameBook, item.description, item.cost)
+    //   );
+    // });
+    // this.setState({
+    //   tableData: formattedArr
+    // });
   };
-  
   
   componentDidMount() {
     this.loadBooks();
   }
 
-  deleteBook(_id: string) {
+  deleteBook(id: any){
     let arr = this.state.tableData;
     arr.forEach((item, idx: any) => {
-      if (item._id === _id) {   
-        fetch(`http://localhost:3000/v1/books/${_id}`, {
+      
+      if (item._id == id) {   
+        fetch(`http://localhost:4201/books/${+id}`, {
           method: "DELETE",
           headers: { "Content-Type": "application/json" }
         })
-          .then(res => res.text())
           arr.splice(idx, 1)
       } 
     });

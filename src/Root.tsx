@@ -15,6 +15,7 @@ import AdminBookContainer from './containers/adminBookPageContainer'
 import RegistrationContainer from "./containers/registrationContainer";
 import CenteredTabs from "@components/helpComponents/tabs";
 import fullDescription from "@components/home/fullDescription";
+import { doLogin } from "@redux/login/sagasLogin";
 
 export const Path = {
   root: "/",
@@ -37,7 +38,7 @@ export const Root = () => (
           marginTop: 20
         }}
       >
-       <CenteredTabs /> 
+       <CenteredTabs/> 
         <main
           style={{
             display: "flex",

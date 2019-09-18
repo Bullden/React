@@ -39,7 +39,7 @@ export default class SimpleTable extends PureComponent<
     };
   }
   loadUsers = async () => {
-    const data = await fetch("http://localhost:3000/v1/users", {
+    const data = await fetch("http://localhost:4201/users", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -47,11 +47,11 @@ export default class SimpleTable extends PureComponent<
       }
     });
     const arrUser = await data.json();
-    arrUser.data.forEach(function(item: any) {
+    arrUser.users.forEach(function(item: any) {
       rows.push(createData(item._id, item.name, item.email, item.password, item.role));
     });
     let formattedArr: TableDataItem[] = [];
-    arrUser.data.forEach((item: any) => {
+    arrUser.users.forEach((item: any) => {
       formattedArr.push(
         createData(item._id, item.name, item.email, item.password, item.role)
       );

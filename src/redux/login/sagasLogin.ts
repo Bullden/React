@@ -6,10 +6,13 @@ import { tokenService } from "./../../services/tokenService";
 const needDelay: boolean = true;
 export function* doLogin(): IterableIterator<any> {
   yield takeEvery(`@@login/DO_LOGIN`, function*(action: any) {
-    const answerApi = yield call(callApi, "POST", "v1/login", action.data);
-    const token = answerApi.data;
-    const decoded:any = jwt_decode(token)
-    const user = decoded.user
+    const answerApi = yield call(callApi, "POST", "login", action.data);
+    const token = answerApi.token;
+    localStorage.setItem('token', token)
+    
+    const decoded:any = yield jwt_decode(token)
+    
+    const user = decoded
     localStorage.setItem('user',JSON.stringify(user))
     if (user) { 
       yield put({

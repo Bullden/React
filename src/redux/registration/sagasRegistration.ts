@@ -13,7 +13,7 @@ export function* doRegistration(): IterableIterator<any> {
       if (needDelay) {
         yield call(delay, 500);
       } 
-      const answerApi = yield call(callApi, "POST", "v1/registration", action.data);
+      const answerApi = yield call(callApi, "POST", "users/registration", action.data);
       const { email, data, id } = answerApi;
       yield put({
         type: `@@registration/REGISTRATION_SUCCESS`,
@@ -22,6 +22,7 @@ export function* doRegistration(): IterableIterator<any> {
         }
       });
       const stringApi = JSON.stringify(answerApi)
+
       yield tokenService(answerApi);
     } catch (error) {
       yield put({
