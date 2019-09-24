@@ -90,7 +90,8 @@ export class SimpleTable extends PureComponent<any, TableBookState> {
       if (item._id == id) {   
         fetch(`http://localhost:4201/books/${+id}`, {
           method: "DELETE",
-          headers: { "Content-Type": "application/json" }
+          headers: { "Content-Type": "application/json",
+          'Authorization': `Bearer ${localStorage.getItem('token')}` }
         })
           arr.splice(idx, 1)
       } 
