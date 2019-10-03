@@ -6,12 +6,21 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
-import { doCard } from "./actionCards";
+import { doCards , doCard} from "./actionCards";
 import { showCard } from "./actionCards";
 import { RootState } from "@redux/rootReducer";
-import { SetCardRequest, ShowCardRequest } from "./typesCards";
+import {
+  ShowCardRequest,
+  AllCardRequest,
+  DoCardsRequest,
+  CardsPageActions,
+  SetCardRequest
+} from "./typesCards";
 import { Redirect } from "react-router";
 import { DebounceInput } from "react-debounce-input";
+import { Cards } from "src/types/card";
+import { async } from "q";
+import { any } from "prop-types";
 
 function createData(
   _id: any,
@@ -22,93 +31,113 @@ function createData(
   return { _id, nameBook, description, cost };
 }
 export interface ModalInputProps {
-  doCard: (data: SetCardRequest) => object;
+  doCards: (data: DoCardsRequest) => object;
   showCard: (data: ShowCardRequest) => object;
-  nameBook: string;
-  description: string;
-  cost: string;
+  doCard: (data: SetCardRequest) => object;
+  // nameBook: string;
+  // description: string;
+  // cost: string;
+  cards: Array<Cards>;
+  card: any
 }
 interface CardDataItem {
   nameBook: string;
   description: string;
   cost: number;
-  _id: string;
+  _id: number;
 }
 interface CardBookState {
-  cardData: CardDataItem[];
-  nameBook: string;
-  description: string;
-  cost: string;
+  cards: Array<Cards>;
+  search: "";
   redirect: boolean;
-  search: string;
-  quantity: string
 }
-export class SimpleCard extends React.Component<any, CardBookState> {
+
+export class SimpleCard extends React.Component<
+  ModalInputProps,
+  CardBookState
+> {
   constructor(props: any) {
     super(props);
     this.state = {
-      cardData: [],
-      nameBook: "",
-      description: "",
-      cost: "",
-      redirect: false,
+      cards: [],
       search: "",
-      quantity:""
+      redirect: false,
     };
   }
-  loadCardBooks = async (event:any) => {
-    (event:any) => this.setState({search: event.target.value})
-    const data = await fetch("http://localhost:4201/books", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    });
-    const arrCards = await data.json();
+  loadCardBooks = (event: any) => {
+    // const { doCards } = this.props;
+    // doCards({
+    //   cards: this.state.cards
+    // });
+
+    const { cards } = this.props;
+
+    (event: any) => this.setState({ search: event.target.value });
+    //   const data = await fetch("http://localhost:4201/books", {
+    //     method: "GET",
+    //     headers: {
+    //       Accept: "application/json",
+    //       "Content-Type": "application/json"
+    //     }
+    //   });
+    //   const arrCards = await data.json();
+    console.log('sdfsdfsfs',cards)
     const search = event.target.value;
-    let formattedArr: CardDataItem[] = [];
-    arrCards.forEach((item: any) => {
+    let formattedArr: Cards[] = [];
+    cards.forEach((item: any) => {
       if (item.nameBook.includes(search)) {
         formattedArr.push(
           createData(item._id, item.nameBook, item.description, item.cost)
         );
+        console.log("YEP!", formattedArr)
       } else null;
     });
-    this.setState({
-      cardData: formattedArr
-    });
+      this.setState({
+        cards: formattedArr
+      });
+      console.log(this.state.cards)
   };
 
-  showBooks = async () => {
-    const data = await fetch("http://localhost:4201/books", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
+  showBooks = () => {
+    // const data = await fetch("http://localhost:4201/books", {
+    //   method: "GET",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json"
+    //   }
+    // });
+    // const arrCards = await data.json();
+    // let formattedArr: CardDataItem[] = [];
+    // arrCards.forEach((item: any) => {
+    //   formattedArr.push(
+    //     createData(item._id, item.nameBook, item.description, item.cost)
+    //   );
+    // });
+    // this.setState({
+    //   cardData: formattedArr
+    // });
+    const { doCards } = this.props;
+    doCards({
+      cards: this.state.cards
     });
-    const arrCards = await data.json();
-    let formattedArr: CardDataItem[] = [];
-    arrCards.forEach((item: any) => {
-      formattedArr.push(
-        createData(item._id, item.nameBook, item.description, item.cost)
-      );
-    });
-    this.setState({
-      cardData: formattedArr
-    });
+    
+    // const cards = this.props;
+    // console.log(cards)
+    // this.setState({
+    //   cards: cards
+    // })
+    // console.log(this.state.cards)
   };
-  click = (_id: string) => {
-    this.state.cardData.forEach((item, idx: any) => {
+  click = (_id: number) => {
+    this.props.cards.forEach((item, idx: any) => {
       const { doCard } = this.props;
       if (item._id === _id ) {
         let quantity = 1
-        this.props.allCards.forEach((i:any,idxx: any) => {
+        this.props.cards.forEach((i:any,idxx: any) => {
           if(i._id === _id) {
             quantity ++
-          } 
-        }) 
+          }
+        })
         const newCard = {
           _id: item._id,
           nameBook: item.nameBook,
@@ -120,8 +149,8 @@ export class SimpleCard extends React.Component<any, CardBookState> {
       }
     });
   };
-  clicker = (_id: string) => {
-    this.state.cardData.forEach((item, idx: any) => {
+  clicker = (_id: number) => {
+    this.props.cards.forEach((item, idx: any) => {
       if (item._id === _id ) {
         const { showCard } = this.props;
         const newCard = {
@@ -135,18 +164,28 @@ export class SimpleCard extends React.Component<any, CardBookState> {
     });
   };
   componentDidMount() {
-    this.showBooks()
+    // this.loadCardBooks()
+    this.showBooks();
+
   }
   clickToRoute = () => {
     this.setState({ redirect: true });
   };
   render() {
-    if (this.state.redirect === true && this.props.card._id ) {
+    if (this.state.redirect === true && this.props.card._id) {
       return <Redirect push to={`/description/${this.props.card._id}`} />;
     } else null;
-    const { cardData } = this.state;
+    // const { cardData } = this.state;
+    const { cards } = this.props;
+    console.log(cards);
+
+    // this.setState({
+    //   cards: cards
+    // })
+    // console.log(this.state.cards);
     return (
       <div>
+        {/* <button onClick ={this.loadCardBooks}>jjdfvjdfv</button> */}
         <div
           style={{
             display: "flex",
@@ -159,7 +198,7 @@ export class SimpleCard extends React.Component<any, CardBookState> {
               <DebounceInput
                 minLength={2}
                 debounceTimeout={1000}
-                 onChange = {this.loadCardBooks}
+                onChange={this.loadCardBooks}
               />
             </div>
           </div>
@@ -171,7 +210,7 @@ export class SimpleCard extends React.Component<any, CardBookState> {
             justifyContent: "space-around"
           }}
         >
-          {cardData.map(row => (
+          {cards.map(row => (
             <Card style={{ marginTop: "20px" }}>
               <CardContent>
                 <Typography color="textSecondary" gutterBottom>
@@ -205,10 +244,11 @@ export class SimpleCard extends React.Component<any, CardBookState> {
 const mapStateToProps = function(state: RootState) {
   return {
     allCards: state.cardPage.allCards,
-    card: state.cardPage.card
+    card: state.cardPage.card,
+    cards: state.cardPage.cards
   };
-}
+};
 export default connect(
   mapStateToProps,
-  { doCard,showCard }
+  { doCards, showCard ,doCard }
 )(SimpleCard);

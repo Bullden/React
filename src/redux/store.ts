@@ -6,6 +6,8 @@ import { doLogin } from "./login/sagasLogin";
 import { onError } from "./common/errorSagas";
 import { all } from "redux-saga/effects";
 import { doRegistration } from "./registration/sagasRegistration";
+import { doCards } from "./home/HomeSagas";
+import { doBooks } from "./adminPage/sagasAdminBookPage"
 
 export default function configureStore(
   initialState?: RootState
@@ -23,7 +25,7 @@ export default function configureStore(
   }
 
   sagaMiddleware.run(function*() {
-    yield all([doLogin(),onError(),doRegistration()]);
+    yield all([doLogin(),onError(),doRegistration(),doCards(),doBooks()]);
   });
 
   return store;

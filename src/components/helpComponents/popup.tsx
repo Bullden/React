@@ -23,14 +23,15 @@ export interface CardsProps {
 }
 
 export const SimplePopover = (props: any) => {
-  const allCards = props.allCards
-  const sumBook = allCards.map(function(i: any) {
+  const cards = props.allCards
+  console.log(cards)
+  const sumBook = cards.map(function(i: any) {
     return i.cost * i.quantity;
   });
   const totalSum = sumBook.reduce(function(sum:any, current:any) {
     return sum + current;
   }, 0);
-  const allCosts = allCards.map(function(costs: any) {
+  const allCosts = cards.map(function(costs: any) {
     return +costs.cost;
   });
   const classes = useStyles({});
@@ -42,23 +43,23 @@ export const SimplePopover = (props: any) => {
     setAnchorEl(event.currentTarget);
   }
   function remove (_id:any) {
-    allCards.forEach((item:any,idx:any) => {
+    cards.forEach((item:any,idx:any) => {
       if(item._id == _id)
       item.quantity --
       if(item.quantity <1) {
-        allCards.splice(idx,1)  
+        cards.splice(idx,1)  
       }
     })
     const { removeCard } = props
-    removeCard(allCards)
+    removeCard(cards)
   }
   function removeAll() {
-    allCards.forEach((item:any,idx:any) => {
+    cards.forEach((item:any,idx:any) => {
       if(item._id)
-      allCards.splice(idx,100)
+      cards.splice(idx,100)
     })
     const { removeCard } = props
-    removeCard(allCards)
+    removeCard(cards)
   } 
 function handleClose() {
     setAnchorEl(null);
@@ -102,7 +103,7 @@ const totalCount = count.reduce(function(sum:any, current:any) {
           <div>
             <ButtonComponent text="Remove All" click ={() => removeAll()} />
           </div>
-          {allCards.map(
+          {cards.map(
             (i: any) => (
               <div style={{ borderBottom: "1px solid gray", display:'flex' }}>
                 <div style ={{paddingRight: '20px'}}>
@@ -129,7 +130,8 @@ const totalCount = count.reduce(function(sum:any, current:any) {
 const mapStateToProps = function(state: RootState) {
   return {
     card: state.cardPage.card,
-    allCards: state.cardPage.allCards
+    allCards: state.cardPage.allCards,
+    cards: state.cardPage.cards
   };
 };
 export default connect(

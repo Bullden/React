@@ -10,8 +10,10 @@ import ButtonComponent from "@components/helpComponents/button";
 import SimpleModal from "./modal";
 import { RootState } from "@redux/rootReducer";
 import { connect } from "react-redux";
-import { doBook } from "../../redux/adminPage/actions";
+import { doBooks } from "../../redux/adminPage/actions";
 import { async } from "q";
+import { Book } from "src/types/book";
+import { SetBookRequest, BooksPageState } from "@redux/adminPage/types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,28 +42,38 @@ interface TableDataItem {
   description: string;
   cost: number;
 }
-interface TableBookState {
-  tableData: TableDataItem[];
+interface TableBookProps {
+  allBooks: Array<Book>
+  doBooks: (data: BooksPageState) => object
 }
-export class SimpleTable extends PureComponent<any, TableBookState> {
+interface TableBookState {
+  // tableData: TableDataItem[];
+  allBooks : Array<Book>
+}
+export class SimpleTable extends PureComponent<TableBookProps, TableBookState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      tableData: []
+      // tableData: [],
+      allBooks: []
     };
   }
   loadBooks = async () => {
-    const data = await fetch("http://localhost:4201/books", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    })
-    this.setState({
-      tableData: await data.json()
-    });
+    // const data = await fetch("http://localhost:4201/books", {
+    //   method: "GET",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json"
+    //   }
+    // })
+    // this.setState({
+    //   tableData: await data.json()
+    // });
     
+    const { doBooks } = this.props;
+    doBooks({
+      allBooks: this.state.allBooks
+    });
     
     // arrBooks.data.forEach(function(item: any) {
     //   rows.push(
@@ -84,32 +96,34 @@ export class SimpleTable extends PureComponent<any, TableBookState> {
   }
 
   deleteBook(id: any){
-    let arr = this.state.tableData;
-    arr.forEach((item, idx: any) => {
+    // let arr = this.state.tableData;
+    // arr.forEach((item, idx: any) => {
       
-      if (item._id == id) {   
-        fetch(`http://localhost:4201/books/${+id}`, {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json",
-          'Authorization': `Bearer ${localStorage.getItem('token')}` }
-        })
-          arr.splice(idx, 1)
-      } 
-    });
-     this.setState(JSON.parse(JSON.stringify(arr)));
+    //   if (item._id == id) {   
+    //     fetch(`http://localhost:4201/books/${+id}`, {
+    //       method: "DELETE",
+    //       headers: { "Content-Type": "application/json",
+    //       'Authorization': `Bearer ${localStorage.getItem('token')}` }
+    //     })
+    //       arr.splice(idx, 1)
+    //   } 
+    // });
+    //  this.setState(JSON.parse(JSON.stringify(arr)));
+    
   }
   render() {
-    const { tableData } = this.state;
-    const allBooks = this.props.allBooks;
-    rows = [];
-    allBooks.forEach((item: any) => {
-      rows.push(
-        createData(item._id, item.nameBook, item.description, item.cost)
-      );
-    });
+    const allbooks = this.props.allBooks
+    // const { tableData } = this.state;
+    // const allBooks = this.props.allBooks;
+    // rows = [];
+    // allBooks.forEach((item: any) => {
+    //   rows.push(
+    //     createData(item._id, item.nameBook, item.description, item.cost)
+    //   );
+    // });
     return (
       <div>
-        <SimpleModal loadBooks={this.loadBooks}/>
+        {/* <SimpleModal loadBooks={this.loadBooks}/> */}
         <Paper>
           <Table>
             <TableHead>
@@ -122,7 +136,7 @@ export class SimpleTable extends PureComponent<any, TableBookState> {
               </TableRow>
             </TableHead>
             <TableBody>
-              {tableData.map(row => (
+              {allbooks.map((row: any) => (
                 <TableRow key={row.nameBook}>                 
                   <TableCell align="right">
                     <ButtonComponent
@@ -138,7 +152,7 @@ export class SimpleTable extends PureComponent<any, TableBookState> {
               ))}
             </TableBody>
           </Table>
-        </Paper>
+        </Paper> 
       </div>
     );
   }
@@ -152,5 +166,5 @@ const mapStateToProps = function(state: RootState) {
 };
 export default connect(
   mapStateToProps,
-  { doBook }
+  { doBooks }
 )(SimpleTable);

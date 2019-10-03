@@ -2,25 +2,24 @@ import { put, takeEvery, call } from "redux-saga/effects";
 import { callApi } from "../../services/api";
 import { tokenService } from "./../../services/tokenService";
 
-export function* doInit(): IterableIterator<any> {
-  yield takeEvery(`@@home/DATA_INIT`, function*(action: any) {
+export function* doCards(): IterableIterator<any> {
+  yield takeEvery(`@@card/DO_CARD`, function*(action: any) {
     const answerApi = yield call(callApi, "GET", "books");  
-    const user = answerApi
-    if (user) {
+    const books = answerApi
+    console.log(books)
       yield put({
-        type: `@@home/DATA_LOADED`,
+        type: `@@card/CARD_ALL`,
         payload: {
-          data: user,
+          data: books,
         }
       });
-      yield tokenService(answerApi);
-    } else {
-      yield put({
-        type: `@@home/ERROR_OCCURED`,
-        payload: {
-          error: "error.message"
-        }
-      });
-    }
   });
 }
+// export function* cardAll(): IterableIterator<any> {
+//   yield takeEvery(`@@card/CARD_ALL`,function*(action:any) {
+//     const answerApi = yield call(callApi, "GET", "books", action.data);
+//     const books = answerApi
+//     console.log(books);
+    
+//   })
+// }

@@ -13,6 +13,7 @@ export interface LoginState {
   name: string;
   token: any;
   isLoggedIn: boolean;
+
 }
 
 

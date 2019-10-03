@@ -17,6 +17,13 @@ export function adminBookPageReducer(state:AdminBookPageState = initialState, ac
             allBooks: newState.allBooks
           };       
         }
+        case`@@admin/BOOK_ALL`: {
+          console.log(action.payload)
+          return {
+            ...state,
+            allBooks: action.payload.data
+          }
+        }
         default:
             return state 
     }

@@ -4,11 +4,11 @@ import ButtonComponent from "@components/helpComponents/button";
 import { connect } from "react-redux";
 import { RootState } from "@redux/rootReducer";
 import { SetBookRequest } from "@redux/adminPage/types";
-import { doBook } from "../../redux/adminPage/actions";
+import { doBooks } from "../../redux/adminPage/actions";
 import { Error } from "../common/errorComponent";
 
 export interface ModalInputProps {
-  doBook: (data: SetBookRequest) => object;
+  doBooks: (data: SetBookRequest) => object;
   nameBook: string;
   description: string;
   cost: string;
@@ -29,13 +29,13 @@ export class Inputs extends React.Component<ModalInputProps, ModalInputState> {
   handle = (event: any) =>
     this.setState({ [event.target.name]: event.target.value } as any);
   setBook = async () => {
-    const { doBook, loadBooks, handleClose } = this.props;
+    const { doBooks, loadBooks, handleClose } = this.props;
     const newBook = {
       nameBook: this.state.nameBook,
       description: this.state.description,
       cost: this.state.cost
     };
-    doBook(newBook);
+    doBooks(newBook);
     fetch("http://localhost:4201/books", {
       method: "POST",
       headers: {
@@ -116,14 +116,14 @@ export class Inputs extends React.Component<ModalInputProps, ModalInputState> {
   }
 }
 
-const mapStateToProps = function(state: RootState) {
-  return {
-    nameBook: state.adminBookPage.book,
-    description: state.adminBookPage.book,
-    cost: state.adminBookPage.book
-  };
-};
-export default connect(
-  mapStateToProps,
-  { doBook }
-)(Inputs);
+// const mapStateToProps = function(state: RootState) {
+//   return {
+//     nameBook: state.adminBookPage.book,
+//     description: state.adminBookPage.book,
+//     cost: state.adminBookPage.book
+//   };
+// };
+// export default connect(
+//   mapStateToProps,
+//   { doBooks }
+// )(Inputs);

@@ -5,12 +5,13 @@ export const initialState: CardsPageState = {
     card:"",
     allCards : [],
     cardLength: '',
-    quantity: ''
+    quantity: '',
+    cards: []
 }
 export function CardPageReducer(state: CardsPageState = initialState, action:any){
       switch (action.type) {
           case `@@card/CARD_INIT`: { 
-          let newState = JSON.parse(JSON.stringify(state))      
+          let newState = JSON.parse(JSON.stringify(state))   
           let doesExist = newState.allCards.find((x: any) => { return x._id === action.payload._id});
          if(doesExist){
           newState.allCards.forEach((item:any) => {
@@ -29,6 +30,18 @@ export function CardPageReducer(state: CardsPageState = initialState, action:any
               cardLength: length
             };  
           }
+          case `@@card/CARD_ALL` : {
+            const cards = action.payload.data
+            // console.log(action.payload)
+            return {
+              ...state,
+              cards
+            }
+          }
+          // case `@@card/CARD_SEARCH` : {
+          //   const 
+          //   return 
+          // }
           case `@@card/CARD_DELETE`: {
              let newState = JSON.parse(JSON.stringify(state))
              newState.allCards = action.payload;

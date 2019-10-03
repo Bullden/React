@@ -32,10 +32,11 @@ export function loginReducer(state: LoginState = initialState, action: any) {
     }
 
     case `@@login/LOGIN_SUCCESS`: {
+      
       const { data } = action.payload;
       return {
         ...state,
-        token: data,
+        data,
         isLoading: false,
         isLoggedIn: true
       };

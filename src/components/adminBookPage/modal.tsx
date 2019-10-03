@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import Inputs from './inputForBook';
+// import Inputs from './inputForBook';
 import ButtonComponent from '@components/helpComponents/button';
 
 function rand() {
@@ -55,7 +55,7 @@ export default ({ loadBooks }: SimpleModalProps) => {
         onClose={handleClose}
       >
         <div style={modalStyle} className={classes.paper}>
-          <Inputs loadBooks={loadBooks} handleClose={handleClose} />
+          {/* <Inputs loadBooks={loadBooks} handleClose={handleClose} /> */}
         </div>
       </Modal>
     </div>
