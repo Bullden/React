@@ -2,7 +2,7 @@ import { AdminBookPageState } from "./types";
 import { RootState } from "@redux/rootReducer";
 
 export const initialState: AdminBookPageState = {
-    book: "",
+    bookForDelete: {},
     allBooks : []
 };
 
@@ -22,6 +22,22 @@ export function adminBookPageReducer(state:AdminBookPageState = initialState, ac
           return {
             ...state,
             allBooks: action.payload.data
+          }
+        }
+        case `@@admin/BOOK_DELETE`: {
+          console.log(action.payload)
+          const bookForDelete = action.payload.bookForDelete
+          return {
+            ...state,
+            bookForDelete
+          }
+        }
+        case `@@admin/BOOK_SET`: {
+          console.log(action.payload)
+          const bookForDelete = action.payload.bookForDelete
+          return {
+            ...state,
+            bookAdd: action.payload
           }
         }
         default:

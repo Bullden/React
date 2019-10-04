@@ -3,8 +3,8 @@ import { InputLabel, Input } from "@material-ui/core";
 import ButtonComponent from "@components/helpComponents/button";
 import { connect } from "react-redux";
 import { RootState } from "@redux/rootReducer";
-import { doChangeUser } from "./actions" 
-import { ChangeUserRequest } from "./types";
+import { doChangeUser , userForDelete} from "./actions" 
+import { ChangeUserRequest, UserForDelete } from "./types";
  
 export interface ModalInputProps {
     doChangeUser: (data: ChangeUserRequest) => object;
@@ -12,6 +12,7 @@ export interface ModalInputProps {
     email: string;
     loadBooks: () => void
     handleClose: () => void
+    userForDelete: (data: UserForDelete) => object
     item?: any
 }
 export interface ModalInputState {
@@ -23,9 +24,17 @@ export class Inputs extends React.Component<ModalInputProps,ModalInputState> {
         name: '',
         email: ''
     }
-  handle = (event:any) => 
-    this.setState({ [event.target.name]:event.target.value } as any)
+  handle = (event:any) => {
+    this.setState({ [event.target.name]:event.target.value } as any) 
+   
+  }
   changeUser =  async () => {
+    const {userForDelete} = this.props
+    userForDelete({
+      user: this.props.item
+    })
+    console.log('sdfsdfd',userForDelete)
+
       const{doChangeUser, loadBooks, handleClose, item} = this.props
       const newUser = {
         name: this.state.name,
@@ -34,23 +43,26 @@ export class Inputs extends React.Component<ModalInputProps,ModalInputState> {
         _id: item._id,
         role: item.role
       }
+      console.log(newUser)
       doChangeUser(newUser)
-      fetch (`http://localhost:4201/users/${item._id}`,{
-        method:"PUT",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json", 
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify(newUser)
-      })
-      .then(res => res.json())
-      .then(() => {
-        loadBooks()
-        handleClose()
-      })   
+
+      // fetch (`http://localhost:4201/users/${item._id}`,{
+      //   method:"PUT",
+      //   headers: {
+      //     "Accept": "application/json",
+      //     "Content-Type": "application/json", 
+      //     'Authorization': `Bearer ${localStorage.getItem('token')}`
+      //   },
+      //   body: JSON.stringify(newUser)
+      // })
+      // .then(res => res.json())
+      // .then(() => {
+      //   loadBooks()
+      //   handleClose()
+      // })   
   }
   render() {
+    
     return ( 
       <div>
         <div>
@@ -103,4 +115,4 @@ const mapStateToProps = function(state: RootState) {
         email: state.changeUser.email,
     }
 }
-export default connect(mapStateToProps, { doChangeUser })(Inputs)
+export default connect(mapStateToProps, { doChangeUser , userForDelete })(Inputs)

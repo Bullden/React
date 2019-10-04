@@ -10,10 +10,10 @@ import ButtonComponent from "@components/helpComponents/button";
 import SimpleModal from "./modal";
 import { RootState } from "@redux/rootReducer";
 import { connect } from "react-redux";
-import { doBooks } from "../../redux/adminPage/actions";
+import { doBooks ,deleteBook, doDeleteBook } from "../../redux/adminPage/actions";
 import { async } from "q";
 import { Book } from "src/types/book";
-import { SetBookRequest, BooksPageState } from "@redux/adminPage/types";
+import { SetBookRequest, BooksPageState, BookPageDeleteState } from "@redux/adminPage/types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,17 +45,22 @@ interface TableDataItem {
 interface TableBookProps {
   allBooks: Array<Book>
   doBooks: (data: BooksPageState) => object
+  deleteBook :(data: BookPageDeleteState) => object
+  doDeleteBook: (data: BookPageDeleteState) => object
+  bookForDelete: Object
 }
 interface TableBookState {
   // tableData: TableDataItem[];
   allBooks : Array<Book>
+  bookForDelete: Object
 }
 export class SimpleTable extends PureComponent<TableBookProps, TableBookState> {
   constructor(props: any) {
     super(props);
     this.state = {
       // tableData: [],
-      allBooks: []
+      allBooks: [],
+      bookForDelete: ''
     };
   }
   loadBooks = async () => {
@@ -72,7 +77,8 @@ export class SimpleTable extends PureComponent<TableBookProps, TableBookState> {
     
     const { doBooks } = this.props;
     doBooks({
-      allBooks: this.state.allBooks
+      allBooks: this.state.allBooks,
+      // bookForDelete: this.state.bookForDelete
     });
     
     // arrBooks.data.forEach(function(item: any) {
@@ -96,20 +102,36 @@ export class SimpleTable extends PureComponent<TableBookProps, TableBookState> {
   }
 
   deleteBook(id: any){
-    // let arr = this.state.tableData;
-    // arr.forEach((item, idx: any) => {
-      
-    //   if (item._id == id) {   
-    //     fetch(`http://localhost:4201/books/${+id}`, {
-    //       method: "DELETE",
-    //       headers: { "Content-Type": "application/json",
-    //       'Authorization': `Bearer ${localStorage.getItem('token')}` }
-    //     })
-    //       arr.splice(idx, 1)
-    //   } 
-    // });
+    let arr = this.props.allBooks;
+    console.log(arr)
+    arr.forEach((item, idx: any) => {
+       
+      if (item._id == id) {   
+        console.log(item)
+
+        // const { deleteBook } = this.props
+        // deleteBook({         
+        //   bookForDelete: item
+        // });
+        const { deleteBook } = this.props
+        deleteBook({         
+          bookForDelete: item,
+          // allBooks: this.state.allBooks
+        });
+        const {doDeleteBook} =  this.props
+        doDeleteBook({
+          bookForDelete: item
+        })
+        // fetch(`http://localhost:4201/books/${+id}`, {
+        //   method: "DELETE",
+        //   headers: { "Content-Type": "application/json",
+        //   'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        // })
+        //   arr.splice(idx, 1)
+      } 
+    });
     //  this.setState(JSON.parse(JSON.stringify(arr)));
-    
+
   }
   render() {
     const allbooks = this.props.allBooks
@@ -123,7 +145,7 @@ export class SimpleTable extends PureComponent<TableBookProps, TableBookState> {
     // });
     return (
       <div>
-        {/* <SimpleModal loadBooks={this.loadBooks}/> */}
+        <SimpleModal/>
         <Paper>
           <Table>
             <TableHead>
@@ -160,11 +182,11 @@ export class SimpleTable extends PureComponent<TableBookProps, TableBookState> {
 
 const mapStateToProps = function(state: RootState) {
   return {
-    book: state.adminBookPage.book,
+    bookForDelete: state.adminBookPage.bookForDelete,
     allBooks: state.adminBookPage.allBooks
   };
 };
 export default connect(
   mapStateToProps,
-  { doBooks }
+  { doBooks ,deleteBook, doDeleteBook}
 )(SimpleTable);

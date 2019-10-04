@@ -1,10 +1,12 @@
 export enum LoginActions {
   DO_LOGIN = "DO_LOGIN",
   LOGIN_SUCCESS = "LOGIN_SUCCESS",
-  LOGIN_FAILED = "LOGIN_FAILED"
+  LOGIN_FAILED = "LOGIN_FAILED",
+  DO_LOGOUT = "DO_LOGOUT"
 }
 
 export interface LoginState {
+  data: object;
   login: any;
   email: string;
   password: string;
@@ -13,7 +15,6 @@ export interface LoginState {
   name: string;
   token: any;
   isLoggedIn: boolean;
-
 }
 
 
@@ -29,6 +30,12 @@ export interface LoginRequest {
   password: string;
   name: string
   isLoggedIn: boolean
+}
+export interface LogoutRequest {
+  // username: string;
+  // password: string;
+  // name: string
+  // isLoggedIn: boolean
 }
 
 export interface LoginResult {

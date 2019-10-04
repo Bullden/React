@@ -12,69 +12,41 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import ButtonComponent from "./button";
 import UserModal from "../adminUserPage/modal";
+import {UserInitRequest } from "@components/adminUserPage/types";
+import { User } from "src/types/user";
+import { RootState } from "@redux/rootReducer";
+import { connect } from "react-redux";
+import {doUsers} from '../adminUserPage/actions'
 
-function createData(_id: string, name: string, email: string, password:string, role:string) {
-  return { _id, name, email, password, role };
+interface SimpleTableProps {
+  doUsers: (data: UserInitRequest) => object
+  users: Array<User>
 }
-let rows: any[] = [];
-interface TableDataItem {
-  _id: string;
-  name: string;
-  email: string;
-  password: string;
-  role: string;
-}
-interface SimpleTableProps {}
 interface SimpleTableState {
-  tableData: TableDataItem[];
+  users: Array<User>;
 }
-export default class SimpleTable extends PureComponent<
+class SimpleTable extends React.Component<
   SimpleTableProps,
   SimpleTableState
 > {
+  userForDelete: any;
   constructor(props: SimpleTableProps) {
     super(props);
     this.state = {
-      tableData: []
+      users: []
     };
   }
   loadUsers = async () => {
-    const data = await fetch("http://localhost:4201/users", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    });
-    const arrUser = await data.json();
-    arrUser.users.forEach(function(item: any) {
-      rows.push(createData(item._id, item.name, item.email, item.password, item.role));
-    });
-    let formattedArr: TableDataItem[] = [];
-    arrUser.users.forEach((item: any) => {
-      formattedArr.push(
-        createData(item._id, item.name, item.email, item.password, item.role)
-      );
-    });
-    this.setState({
-      tableData: formattedArr
-    });
+    const {doUsers} = this.props
+    doUsers({
+      users: this.state.users
+    })   
   };
   componentDidMount() {
     this.loadUsers()
   }
-  deleteUser(_id: string) {
-    let arr = this.state.tableData;
-
-    arr.forEach((item,idx:any) => {
-      if(item._id === _id)
-       arr.splice(idx, 1);
-    })
-    this.setState(JSON.parse(JSON.stringify(arr)) );
-  }
-
   render() {
-    const { tableData } = this.state;
+    const  users  = this.props.users;
     return (
       <div style={{ width: "100%", marginTop: "10px" }}>
         <Paper style={{ width: "100%" }}>
@@ -82,21 +54,16 @@ export default class SimpleTable extends PureComponent<
             <TableHead style={{ width: "100%" }}>
               <TableRow>
                 <TableCell align="right">edit </TableCell>
-                <TableCell align="right">delete </TableCell>
                 <TableCell align="right">id </TableCell>
                 <TableCell align="right">name </TableCell>
                 <TableCell align="right">email </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {tableData.map(row => (
+              {users.map(row => (
                 <TableRow key={row.name}>
-                  <TableCell align="right"><UserModal item={row} loadBooks={this.loadUsers}/></TableCell>
+                  <TableCell align="right" ><UserModal item={row} loadBooks={this.loadUsers}/></TableCell>
                   <TableCell align="right">
-                    <ButtonComponent
-                      text="Delete"
-                      click={() => this.deleteUser(row._id)}
-                    />
                   </TableCell>
                   <TableCell align="right">{row._id}</TableCell>
                   <TableCell align="right">{row.name}</TableCell>
@@ -110,3 +77,15 @@ export default class SimpleTable extends PureComponent<
     );
   }
 }
+const mapStateToProps = function(state: RootState) {
+  return {
+    users: state.changeUser.users
+    // allCards: state.cardPage.allCards,
+    // card: state.cardPage.card,
+    // cards: state.cardPage.cards
+  };
+};
+export default connect(
+  mapStateToProps,
+  { doUsers }
+)(SimpleTable);

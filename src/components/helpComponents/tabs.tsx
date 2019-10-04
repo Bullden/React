@@ -8,14 +8,14 @@ import {Redirect} from 'react-router'
 import { LoginProps } from "@components/login/loginComponent";
 import { environment } from "../../enviroment";
 import { connect } from "react-redux";
-import {LoginRequest} from "@redux/login/types";
+import {LoginRequest, LogoutRequest} from "@redux/login/types";
 import { RootState } from "@redux/rootReducer";
 import SimplePopover from "./popup";
 import ButtonComponent from "./button";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import PopoverUser from "@components/user/userRoom";
 import LinearIndeterminate from "./loader";
-import { doLogin } from "@redux/login/sagasLogin";
+import {doLogout} from "../../redux/login/actions"
 
 
 const useStyles = makeStyles({
@@ -23,17 +23,18 @@ const useStyles = makeStyles({
     flexGrow: 0
   }
 });
-export interface LoginProps {
-  doLogin: (data: LoginRequest) => object;
-  isLoggedIn: boolean;
+export interface LoginPropses {
+  doLogout: (data: LogoutRequest) => object;
+  // doLogin: (data: LoginRequest) => object;
+  isLoggedIn: boolean
 }
-const CenteredTabs = (props: any) => {
+const CenteredTabs = (props: LoginPropses) => {
   const classes = useStyles({});
   const [value, setValue] = React.useState(0);
   function handleChange(event: React.ChangeEvent<{}>, newValue: number) {
     setValue(newValue);
   }
-  const isLoading = props.isLoading;
+  // const isLoading = props.isLoading;
   let isLoggedIn = props.isLoggedIn;
   const local: any = localStorage.getItem("user");
   const fakeUser = {
@@ -48,14 +49,16 @@ const CenteredTabs = (props: any) => {
   const perm = roleLocal.find((x: any) => { return x})
 
   function handleClick() {
- 
-   localStorage.removeItem("user");
+
+    const {doLogout} = props
+    doLogout({});
+  //  localStorage.removeItem("user");
     
     <Redirect to ='/login' />
   }
   return (
     <div>
-      {isLoading ? <LinearIndeterminate /> : null}
+      {/* {isLoading ? <LinearIndeterminate /> : null} */}
       <Paper className={classes.root}>
         <Tabs
           value={value}
@@ -118,9 +121,9 @@ const CenteredTabs = (props: any) => {
 };
 const mapStateToProps = function(state: RootState) {
   return {
-    role: state.login.token.permissions,
+    // role: state.login.token.permissions,
     isLoggedIn: state.login.isLoggedIn,
     isLoading: state.login.isLoading
   };
 };
-export default connect(mapStateToProps)(CenteredTabs);
+export default connect(mapStateToProps,{ doLogout })(CenteredTabs);

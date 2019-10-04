@@ -1,8 +1,10 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-// import Inputs from './inputForBook';
+import Inputs from './inputForBook';
 import ButtonComponent from '@components/helpComponents/button';
+// import { Inputs } from './inputForBook';
+import { setBook } from '@redux/adminPage/actions';
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -32,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
 interface SimpleModalProps {
   loadBooks: () => void
 }
-export default ({ loadBooks }: SimpleModalProps) => {
+export default () => {
   const classes = useStyles({});
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
@@ -55,7 +57,7 @@ export default ({ loadBooks }: SimpleModalProps) => {
         onClose={handleClose}
       >
         <div style={modalStyle} className={classes.paper}>
-          {/* <Inputs loadBooks={loadBooks} handleClose={handleClose} /> */}
+          <Inputs />
         </div>
       </Modal>
     </div>

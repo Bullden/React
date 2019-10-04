@@ -9,7 +9,8 @@ export const initialState: LoginState = {
   name: "",
   token:"",
   isLoggedIn: false,
-  login:''
+  login:'',
+  data: {}
 };
 
 export function loginReducer(state: LoginState = initialState, action: any) {
@@ -20,7 +21,13 @@ export function loginReducer(state: LoginState = initialState, action: any) {
         isLoading: true
       };
     }
-
+    case `@@login/LOGOUT`: {
+      console.log(action.payload.initialState);
+      const {state} = action.payload.initialState
+      return{
+        ...state
+      }
+    }
     case `@@login/LOGIN_FAILED`: {
       const { data } = action.payload;
       return {
@@ -31,8 +38,7 @@ export function loginReducer(state: LoginState = initialState, action: any) {
       };
     }
 
-    case `@@login/LOGIN_SUCCESS`: {
-      
+    case `@@login/LOGIN_SUCCESS`: {      
       const { data } = action.payload;
       return {
         ...state,

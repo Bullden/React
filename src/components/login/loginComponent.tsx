@@ -33,6 +33,7 @@ local ? null : localStorage.setItem("user",JSON.stringify(fakeUser))
     token: "",
     isLoggedIn: false,
     login: '',
+    data: {}
   };
   handle = (event: any) =>
     this.setState({ [event.target.name]: event.target.value } as any);
