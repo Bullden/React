@@ -33,7 +33,6 @@ export interface ShowCardRequest {
     nameBook: string;
     description: string;
     cost: number;
-    // quantity: string
 }
 export interface AllCardRequest {
     cards: Array<Cards>

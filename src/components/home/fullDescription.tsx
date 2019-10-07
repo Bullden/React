@@ -1,7 +1,7 @@
 import React from "react";
 import { RootState } from "@redux/rootReducer";
 import { connect } from "react-redux";
-import {showCard} from "../home/actionCards"
+import {showCard} from "./actionCards"
 import { ShowCardRequest } from "./typesCards";
 export interface ShowCardProps {
   showCard: ( data: ShowCardRequest) => object;

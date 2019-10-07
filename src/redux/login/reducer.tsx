@@ -23,9 +23,12 @@ export function loginReducer(state: LoginState = initialState, action: any) {
     }
     case `@@login/LOGOUT`: {
       console.log(action.payload.initialState);
-      const {state} = action.payload.initialState
+      const data1 = action.payload.initialState
       return{
-        ...state
+        ...state,
+        data: {},
+        isLoading: false,
+        isLoggedIn: false
       }
     }
     case `@@login/LOGIN_FAILED`: {

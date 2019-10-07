@@ -8,14 +8,14 @@ import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 import { Store } from "redux";
 import configureStore from "./redux/store";
 import { RootState } from "./redux/rootReducer";
-import LoginContainer from "./containers/loginContainer";
-import HomeContainer from "./containers/homeContainer";
-import AdminUserContainer from './containers/adminUserPageContainer'
-import AdminBookContainer from './containers/adminBookPageContainer'
-import RegistrationContainer from "./containers/registrationContainer";
-import CenteredTabs from "@components/helpComponents/tabs";
+import LoginContainer from "./containers/login.container";
+import HomeContainer from "./containers/home.container";
+import AdminUserContainer from './containers/admin.userpage.container'
+import AdminBookContainer from './containers/admin.bookpage.container'
+import RegistrationContainer from "./containers/registration.container";
+import CenteredTabs from "@components/help.components/tabs";
 import fullDescription from "@components/home/fullDescription";
-import { doLogin } from "@redux/login/sagasLogin";
+import { doLogin } from "@redux/login/sagas.login";
 
 export const Path = {
   root: "/",

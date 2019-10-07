@@ -32,16 +32,11 @@ export function CardPageReducer(state: CardsPageState = initialState, action:any
           }
           case `@@card/CARD_ALL` : {
             const cards = action.payload.data
-            // console.log(action.payload)
             return {
               ...state,
               cards
             }
           }
-          // case `@@card/CARD_SEARCH` : {
-          //   const 
-          //   return 
-          // }
           case `@@card/CARD_DELETE`: {
              let newState = JSON.parse(JSON.stringify(state))
              newState.allCards = action.payload;
