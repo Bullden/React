@@ -1,13 +1,10 @@
 import { initialState } from "./reducer";
-import { LoginState } from "./types";
-
 import { put, takeEvery, call, select } from "redux-saga/effects";
 import jwt_decode from "jwt-decode";
 import { callApi } from "../../services/api";
 import { tokenService } from "../../services/tokenService";
 import { RootState } from "@redux/rootReducer";
 
-const needDelay: boolean = true;
 export function* doLogin(): IterableIterator<any> {
   yield takeEvery(`@@login/DO_LOGIN`, function*(action: any) {
     const answerApi = yield call(callApi, "POST", "login", action.data);

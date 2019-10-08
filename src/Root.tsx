@@ -1,9 +1,7 @@
 import * as React from "react";
-import { Provider, connect } from "react-redux";
-import { Route, Link, BrowserRouter as Router } from "react-router-dom";
+import { Provider} from "react-redux";
+import { Route, BrowserRouter as Router } from "react-router-dom";
 
-//import BooksTableContainer from "./containers/BooksTableContainer";
-//import AuthorTableContainer from "./containers/AuthorTableContainer";
 
 import { Store } from "redux";
 import configureStore from "./redux/store";
@@ -15,7 +13,6 @@ import AdminBookContainer from './containers/admin.bookpage.container'
 import RegistrationContainer from "./containers/registration.container";
 import CenteredTabs from "@components/help.components/tabs";
 import fullDescription from "@components/home/fullDescription";
-import { doLogin } from "@redux/login/sagas.login";
 
 export const Path = {
   root: "/",

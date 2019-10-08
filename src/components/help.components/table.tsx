@@ -1,16 +1,10 @@
-import React, { PureComponent } from "react";
-import {
-  createStyles,
-  Theme,
-  makeStyles,
-} from "@material-ui/core/styles";
+import React from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import ButtonComponent from "./button";
 import UserModal from "../admin.userpage/admin.modal.user.table";
 import {UserInitRequest } from "@redux/admin.userpage/types";
 import { User } from "src/types/user";
@@ -80,9 +74,6 @@ class SimpleTable extends React.Component<
 const mapStateToProps = function(state: RootState) {
   return {
     users: state.changeUser.users
-    // allCards: state.cardPage.allCards,
-    // card: state.cardPage.card,
-    // cards: state.cardPage.cards
   };
 };
 export default connect(

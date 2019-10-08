@@ -20,12 +20,6 @@ import {
   BookPageDeleteState
 } from "@redux/admin.bookpage/types";
 
-interface TableDataItem {
-  _id: string;
-  nameBook: string;
-  description: string;
-  cost: number;
-}
 interface TableBookProps {
   allBooks: Array<Book>;
   doBooks: (data: BooksPageState) => object;
@@ -41,7 +35,6 @@ export class SimpleTable extends PureComponent<TableBookProps, TableBookState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      // tableData: [],
       allBooks: [],
       bookForDelete: ""
     };

@@ -31,12 +31,7 @@ export interface LoginRequest {
   name: string
   isLoggedIn: boolean
 }
-export interface LogoutRequest {
-  // username: string;
-  // password: string;
-  // name: string
-  // isLoggedIn: boolean
-}
+export interface LogoutRequest {}
 
 export interface LoginResult {
   token: string;

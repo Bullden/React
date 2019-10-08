@@ -97,11 +97,7 @@ export class Inputs extends React.Component<ModalInputProps, ModalInputState> {
 }
 
 const mapStateToProps = function(state: RootState) {
-  return {
-    // nameBook: state.adminBookPage.,
-    // description: state.adminBookPage.book,
-    // cost: state.adminBookPage.book
-  };
+  return {};
 };
 export default connect(
   mapStateToProps,

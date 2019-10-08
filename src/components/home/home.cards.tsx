@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -11,16 +10,12 @@ import { showCard } from "./actionCards";
 import { RootState } from "@redux/rootReducer";
 import {
   ShowCardRequest,
-  AllCardRequest,
   DoCardsRequest,
-  CardsPageActions,
   SetCardRequest
 } from "./typesCards";
 import { Redirect } from "react-router";
 import { DebounceInput } from "react-debounce-input";
 import { Cards } from "src/types/card";
-import { async } from "q";
-import { any } from "prop-types";
 
 function createData(
   _id: any,
@@ -34,17 +29,8 @@ export interface ModalInputProps {
   doCards: (data: DoCardsRequest) => object;
   showCard: (data: ShowCardRequest) => object;
   doCard: (data: SetCardRequest) => object;
-  // nameBook: string;
-  // description: string;
-  // cost: string;
   cards: Array<Cards>;
   card: any;
-}
-interface CardDataItem {
-  nameBook: string;
-  description: string;
-  cost: number;
-  _id: number;
 }
 interface CardBookState {
   cards: Array<Cards>;

@@ -4,7 +4,6 @@ import { InputLabel, Input } from "@material-ui/core";
 import ButtonComponent from "../help.components/button";
 import { Error } from "../common/error.component";
 import { Redirect } from "react-router";
-import { environment } from "../../enviroment";
 import { connect } from "react-redux";
 import { RootState } from "@redux/rootReducer";
 

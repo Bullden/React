@@ -5,16 +5,13 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import {Link} from "react-router-dom";
 import {Redirect} from 'react-router'
-import { LoginProps } from "@components/login/login.component";
-import { environment } from "../../enviroment";
 import { connect } from "react-redux";
-import {LoginRequest, LogoutRequest} from "@redux/login/types";
+import {LogoutRequest} from "@redux/login/types";
 import { RootState } from "@redux/rootReducer";
 import SimplePopover from "./popup";
 import ButtonComponent from "./button";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import PopoverUser from "@components/user/user.room";
-import LinearIndeterminate from "./loader";
 import {doLogout} from "../../redux/login/actions"
 
 
@@ -33,7 +30,6 @@ const CenteredTabs = (props: LoginPropses) => {
   function handleChange(event: React.ChangeEvent<{}>, newValue: number) {
     setValue(newValue);
   }
-  // const isLoading = props.isLoading;
   let isLoggedIn = props.isLoggedIn;
   const local: any = localStorage.getItem("user");
   const fakeUser = {
@@ -56,7 +52,6 @@ const CenteredTabs = (props: LoginPropses) => {
   }
   return (
     <div>
-      {/* {isLoading ? <LinearIndeterminate /> : null} */}
       <Paper className={classes.root}>
         <Tabs
           value={value}
@@ -119,7 +114,6 @@ const CenteredTabs = (props: LoginPropses) => {
 };
 const mapStateToProps = function(state: RootState) {
   return {
-    // role: state.login.token.permissions,
     isLoggedIn: state.login.isLoggedIn,
     isLoading: state.login.isLoading
   };

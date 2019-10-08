@@ -34,7 +34,6 @@ export function adminBookPageReducer(
       };
     }
     case `@@admin/BOOK_SET`: {
-      const bookForDelete = action.payload.bookForDelete;
       return {
         ...state,
         bookAdd: action.payload

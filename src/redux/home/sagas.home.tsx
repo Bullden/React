@@ -1,6 +1,5 @@
 import { put, takeEvery, call } from "redux-saga/effects";
 import { callApi } from "../../services/api";
-import { tokenService } from "../../services/tokenService";
 
 export function* doCards(): IterableIterator<any> {
   yield takeEvery(`@@card/DO_CARD`, function*(action: any) {

@@ -39,7 +39,7 @@ export class Inputs extends React.Component<ModalInputProps, ModalInputState> {
       user: this.props.item
     });
 
-    const { doChangeUser, loadBooks, handleClose, item } = this.props;
+    const { doChangeUser, item } = this.props;
     const newUser = {
       name: this.state.name,
       email: this.state.email,
