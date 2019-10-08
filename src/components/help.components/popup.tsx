@@ -8,7 +8,7 @@ import { RootState } from "@redux/rootReducer";
 import IndeterminateCheckBoxIcon from "@material-ui/icons/IndeterminateCheckBox";
 import ButtonComponent from "./button";
 import { RemoveCard } from "@components/home/typesCards";
-import {removeCard} from "../home/actionCards"
+import { removeCard } from "../home/actionCards";
 import CustomizedBadges from "./badge";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -19,16 +19,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 export interface CardsProps {
-  removeCard: (data: RemoveCard ) => object;
+  removeCard: (data: RemoveCard) => object;
 }
 
 export const SimplePopover = (props: any) => {
-  const cards = props.allCards
-  console.log(cards)
+  const cards = props.allCards;
+
   const sumBook = cards.map(function(i: any) {
     return i.cost * i.quantity;
   });
-  const totalSum = sumBook.reduce(function(sum:any, current:any) {
+  const totalSum = sumBook.reduce(function(sum: any, current: any) {
     return sum + current;
   }, 0);
   const allCosts = cards.map(function(costs: any) {
@@ -42,34 +42,32 @@ export const SimplePopover = (props: any) => {
   function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     setAnchorEl(event.currentTarget);
   }
-  function remove (_id:any) {
-    cards.forEach((item:any,idx:any) => {
-      if(item._id == _id)
-      item.quantity --
-      if(item.quantity <1) {
-        cards.splice(idx,1)  
+  function remove(_id: any) {
+    cards.forEach((item: any, idx: any) => {
+      if (item._id == _id) item.quantity--;
+      if (item.quantity < 1) {
+        cards.splice(idx, 1);
       }
-    })
-    const { removeCard } = props
-    removeCard(cards)
+    });
+    const { removeCard } = props;
+    removeCard(cards);
   }
   function removeAll() {
-    cards.forEach((item:any,idx:any) => {
-      if(item._id)
-      cards.splice(idx,100)
-    })
-    const { removeCard } = props
-    removeCard(cards)
-  } 
-function handleClose() {
+    cards.forEach((item: any, idx: any) => {
+      if (item._id) cards.splice(idx, 100);
+    });
+    const { removeCard } = props;
+    removeCard(cards);
+  }
+  function handleClose() {
     setAnchorEl(null);
-}
-const count = props.allCards.map(function(e:any){
-  return e.quantity
-})
-const totalCount = count.reduce(function(sum:any, current:any) {
-  return sum + current;
-}, 0);
+  }
+  const count = props.allCards.map(function(e: any) {
+    return e.quantity;
+  });
+  const totalCount = count.reduce(function(sum: any, current: any) {
+    return sum + current;
+  }, 0);
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
   return (
@@ -83,7 +81,7 @@ const totalCount = count.reduce(function(sum:any, current:any) {
           background: "none"
         }}
       >
-        <CustomizedBadges totalCount = {totalCount} />
+        <CustomizedBadges totalCount={totalCount} />
       </Button>
       <Popover
         id={id}
@@ -101,24 +99,22 @@ const totalCount = count.reduce(function(sum:any, current:any) {
       >
         <Typography className={classes.typography}>
           <div>
-            <ButtonComponent text="Remove All" click ={() => removeAll()} />
+            <ButtonComponent text="Remove All" click={() => removeAll()} />
           </div>
-          {cards.map(
-            (i: any) => (
-              <div style={{ borderBottom: "1px solid gray", display:'flex' }}>
-                <div style ={{paddingRight: '20px'}}>
-                  <IndeterminateCheckBoxIcon onClick={() =>remove(i._id)} />
-                </div>
-                <div>
-                  <div>{i.nameBook}</div>
-                  <div>{i.cost}$</div>
-                </div>
-                <div style ={{padding:'10px', marginLeft:'30px'}}>
-                  <div>{i.quantity}</div>
-                </div>
+          {cards.map((i: any) => (
+            <div style={{ borderBottom: "1px solid gray", display: "flex" }}>
+              <div style={{ paddingRight: "20px" }}>
+                <IndeterminateCheckBoxIcon onClick={() => remove(i._id)} />
               </div>
-            )
-          )}
+              <div>
+                <div>{i.nameBook}</div>
+                <div>{i.cost}$</div>
+              </div>
+              <div style={{ padding: "10px", marginLeft: "30px" }}>
+                <div>{i.quantity}</div>
+              </div>
+            </div>
+          ))}
           <div>
             <p style={{ fontWeight: 600 }}>Total:{totalSum}$</p>
           </div>
@@ -136,5 +132,5 @@ const mapStateToProps = function(state: RootState) {
 };
 export default connect(
   mapStateToProps,
-  {removeCard}
+  { removeCard }
 )(SimplePopover);

@@ -7,7 +7,6 @@ export function* doBooks(): IterableIterator<any> {
   yield takeEvery(`@@admin/BOOK_INIT`, function*(action: any) {
     const answerApi = yield call(callApi, "GET", "books");  
     const books = answerApi
-    console.log('books',books)
       yield put({
         type: `@@admin/BOOK_ALL`,
         payload: {
@@ -22,7 +21,6 @@ export function* doDeleteBook(): IterableIterator<any> {
     const itemForDelete = yield select((state:RootState) => state.adminBookPage.bookForDelete)
     const answerApiGuard = yield call(callApiGuard,"DELETE",`books/${itemForDelete._id}`)
     const bookForDelte =answerApiGuard
-    console.log(bookForDelte)
     yield put ({
       type:`@@admin/BOOK_DELETE`,
       payload: {
@@ -41,10 +39,8 @@ export function* doDeleteBook(): IterableIterator<any> {
 }
 export function* setBook(): IterableIterator<any> {
   yield takeEvery(`@@admin/BOOK_SET`, function*(action: any) {
-    console.log(action)
     const answerApiGuard = yield call(callApiGuard, "POST", "books", action.payload);  
     const addBook = answerApiGuard
-    console.log('bookAdd',addBook)
       yield put({
         type: `@@admin/BOOK_ADD`,
         payload: {

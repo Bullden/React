@@ -12,10 +12,14 @@ export function* doRegistration(): IterableIterator<any> {
     try {
       if (needDelay) {
         yield call(delay, 500);
-      } 
-      const answerApi = yield call(callApi, "POST", "users/registration", action.data);
-      console.log(answerApi);
-      
+      }
+      const answerApi = yield call(
+        callApi,
+        "POST",
+        "users/registration",
+        action.data
+      );
+
       const { email, data, id } = answerApi;
       yield put({
         type: `@@registration/REGISTRATION_SUCCESS`,
@@ -23,7 +27,7 @@ export function* doRegistration(): IterableIterator<any> {
           data: action.data
         }
       });
-      const stringApi = JSON.stringify(answerApi)
+      const stringApi = JSON.stringify(answerApi);
 
       yield tokenService(answerApi);
     } catch (error) {
@@ -36,4 +40,3 @@ export function* doRegistration(): IterableIterator<any> {
     }
   });
 }
-

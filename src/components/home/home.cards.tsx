@@ -6,7 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
-import { doCards , doCard} from "./actionCards";
+import { doCards, doCard } from "./actionCards";
 import { showCard } from "./actionCards";
 import { RootState } from "@redux/rootReducer";
 import {
@@ -38,7 +38,7 @@ export interface ModalInputProps {
   // description: string;
   // cost: string;
   cards: Array<Cards>;
-  card: any
+  card: any;
 }
 interface CardDataItem {
   nameBook: string;
@@ -61,7 +61,7 @@ export class SimpleCard extends React.Component<
     this.state = {
       cards: [],
       search: "",
-      redirect: false,
+      redirect: false
     };
   }
   loadCardBooks = (event: any) => {
@@ -74,13 +74,11 @@ export class SimpleCard extends React.Component<
         formattedArr.push(
           createData(item._id, item.nameBook, item.description, item.cost)
         );
-        console.log("YEP!", formattedArr)
       } else null;
     });
-      this.setState({
-        cards: formattedArr
-      });
-      console.log(this.state.cards)
+    this.setState({
+      cards: formattedArr
+    });
   };
 
   showBooks = () => {
@@ -92,13 +90,13 @@ export class SimpleCard extends React.Component<
   click = (_id: number) => {
     this.props.cards.forEach((item, idx: any) => {
       const { doCard } = this.props;
-      if (item._id === _id ) {
-        let quantity = 1
-        this.props.cards.forEach((i:any,idxx: any) => {
-          if(i._id === _id) {
-            quantity ++
+      if (item._id === _id) {
+        let quantity = 1;
+        this.props.cards.forEach((i: any, idxx: any) => {
+          if (i._id === _id) {
+            quantity++;
           }
-        })
+        });
         const newCard = {
           _id: item._id,
           nameBook: item.nameBook,
@@ -112,7 +110,7 @@ export class SimpleCard extends React.Component<
   };
   clicker = (_id: number) => {
     this.props.cards.forEach((item, idx: any) => {
-      if (item._id === _id ) {
+      if (item._id === _id) {
         const { showCard } = this.props;
         const newCard = {
           _id: item._id,
@@ -201,5 +199,5 @@ const mapStateToProps = function(state: RootState) {
 };
 export default connect(
   mapStateToProps,
-  { doCards, showCard ,doCard }
+  { doCards, showCard, doCard }
 )(SimpleCard);

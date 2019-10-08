@@ -9,9 +9,16 @@ import ButtonComponent from "@components/help.components/button";
 import SimpleModal from "./admin.modal.book.table";
 import { RootState } from "@redux/rootReducer";
 import { connect } from "react-redux";
-import { doBooks ,deleteBook, doDeleteBook } from "../../redux/admin.bookpage/actions";
+import {
+  doBooks,
+  deleteBook,
+  doDeleteBook
+} from "../../redux/admin.bookpage/actions";
 import { Book } from "src/types/book";
-import { BooksPageState, BookPageDeleteState } from "@redux/admin.bookpage/types";
+import {
+  BooksPageState,
+  BookPageDeleteState
+} from "@redux/admin.bookpage/types";
 
 interface TableDataItem {
   _id: string;
@@ -20,15 +27,15 @@ interface TableDataItem {
   cost: number;
 }
 interface TableBookProps {
-  allBooks: Array<Book>
-  doBooks: (data: BooksPageState) => object
-  deleteBook :(data: BookPageDeleteState) => object
-  doDeleteBook: (data: BookPageDeleteState) => object
-  bookForDelete: Object
+  allBooks: Array<Book>;
+  doBooks: (data: BooksPageState) => object;
+  deleteBook: (data: BookPageDeleteState) => object;
+  doDeleteBook: (data: BookPageDeleteState) => object;
+  bookForDelete: Object;
 }
 interface TableBookState {
-  allBooks : Array<Book>
-  bookForDelete: Object
+  allBooks: Array<Book>;
+  bookForDelete: Object;
 }
 export class SimpleTable extends PureComponent<TableBookProps, TableBookState> {
   constructor(props: any) {
@@ -36,43 +43,40 @@ export class SimpleTable extends PureComponent<TableBookProps, TableBookState> {
     this.state = {
       // tableData: [],
       allBooks: [],
-      bookForDelete: ''
+      bookForDelete: ""
     };
   }
-  loadBooks = async () => {  
+  loadBooks = async () => {
     const { doBooks } = this.props;
     doBooks({
-      allBooks: this.state.allBooks,
+      allBooks: this.state.allBooks
     });
   };
-  
+
   componentDidMount() {
     this.loadBooks();
   }
 
-  deleteBook(id: any){
+  deleteBook(id: any) {
     let arr = this.props.allBooks;
-    console.log(arr)
     arr.forEach((item, idx: any) => {
-       
-      if (item._id == id) {   
-        console.log(item)
-        const { deleteBook } = this.props
-        deleteBook({         
-          bookForDelete: item,
+      if (item._id == id) {
+        const { deleteBook } = this.props;
+        deleteBook({
+          bookForDelete: item
         });
-        const {doDeleteBook} =  this.props
+        const { doDeleteBook } = this.props;
         doDeleteBook({
           bookForDelete: item
-        })
-      } 
+        });
+      }
     });
   }
   render() {
-    const allbooks = this.props.allBooks
+    const allbooks = this.props.allBooks;
     return (
       <div>
-        <SimpleModal/>
+        <SimpleModal />
         <Paper>
           <Table>
             <TableHead>
@@ -86,7 +90,7 @@ export class SimpleTable extends PureComponent<TableBookProps, TableBookState> {
             </TableHead>
             <TableBody>
               {allbooks.map((row: any) => (
-                <TableRow key={row.nameBook}>                 
+                <TableRow key={row.nameBook}>
                   <TableCell align="right">
                     <ButtonComponent
                       text="Delete"
@@ -96,12 +100,12 @@ export class SimpleTable extends PureComponent<TableBookProps, TableBookState> {
                   <TableCell align="right">{row._id}</TableCell>
                   <TableCell align="right">{row.nameBook}</TableCell>
                   <TableCell align="right">{row.description}</TableCell>
-                  <TableCell align="right">{row.cost}$</TableCell> 
+                  <TableCell align="right">{row.cost}$</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
-        </Paper> 
+        </Paper>
       </div>
     );
   }
@@ -114,5 +118,5 @@ const mapStateToProps = function(state: RootState) {
 };
 export default connect(
   mapStateToProps,
-  { doBooks ,deleteBook, doDeleteBook}
+  { doBooks, deleteBook, doDeleteBook }
 )(SimpleTable);

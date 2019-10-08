@@ -4,14 +4,13 @@ import { tokenService } from "../../services/tokenService";
 
 export function* doCards(): IterableIterator<any> {
   yield takeEvery(`@@card/DO_CARD`, function*(action: any) {
-    const answerApi = yield call(callApi, "GET", "books");  
-    const books = answerApi
-    console.log(books)
-      yield put({
-        type: `@@card/CARD_ALL`,
-        payload: {
-          data: books.data,
-        }
-      });
+    const answerApi = yield call(callApi, "GET", "books");
+    const books = answerApi;
+    yield put({
+      type: `@@card/CARD_ALL`,
+      payload: {
+        data: books.data
+      }
+    });
   });
 }

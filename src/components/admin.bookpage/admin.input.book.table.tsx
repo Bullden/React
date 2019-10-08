@@ -3,7 +3,7 @@ import { InputLabel, Input } from "@material-ui/core";
 import ButtonComponent from "@components/help.components/button";
 import { connect } from "react-redux";
 import { RootState } from "@redux/rootReducer";
-import { SetBookRequest} from "@redux/admin.bookpage/types";
+import { SetBookRequest } from "@redux/admin.bookpage/types";
 import { doBooks, setBook } from "../../redux/admin.bookpage/actions";
 import { Error } from "../common/error.component";
 
@@ -24,11 +24,8 @@ export class Inputs extends React.Component<ModalInputProps, ModalInputState> {
   handle = (event: any) =>
     this.setState({ [event.target.name]: event.target.value } as any);
   setBook = async () => {
-
-    console.log(this.state.nameBook);
-    
     const { setBook } = this.props;
-    setBook ({
+    setBook({
       nameBook: this.state.nameBook,
       description: this.state.description,
       cost: this.state.cost

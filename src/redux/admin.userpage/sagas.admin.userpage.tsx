@@ -6,7 +6,6 @@ export function* doUsers(): IterableIterator<any> {
   yield takeEvery(`@@changeUser/USER_INIT`, function*() {
     const answerApi = yield call(callApi, "GET", "users");
     const users = answerApi;
-    console.log("users", users);
     yield put({
       type: `@@changeUser/USER_ALL`,
       payload: {
@@ -14,7 +13,7 @@ export function* doUsers(): IterableIterator<any> {
       }
     });
   });
-};
+}
 
 export function* doChangeUser(): IterableIterator<any> {
   yield takeEvery(`@@changeUser/DO_CHANGEUSER`, function*(action: any) {
@@ -29,7 +28,6 @@ export function* doChangeUser(): IterableIterator<any> {
     );
     const answerApi = yield call(callApi, "GET", "users");
     const users = answerApi;
-    console.log("users", users);
     yield put({
       type: `@@changeUser/USER_ALL`,
       payload: {

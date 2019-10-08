@@ -3,52 +3,55 @@ import { InputLabel, Input } from "@material-ui/core";
 import ButtonComponent from "@components/help.components/button";
 import { connect } from "react-redux";
 import { RootState } from "@redux/rootReducer";
-import { doChangeUser , userForDelete} from "../../redux/admin.userpage/actions" 
-import { ChangeUserRequest, UserForDelete } from "../../redux/admin.userpage/types";
- 
+import {
+  doChangeUser,
+  userForDelete
+} from "../../redux/admin.userpage/actions";
+import {
+  ChangeUserRequest,
+  UserForDelete
+} from "../../redux/admin.userpage/types";
+
 export interface ModalInputProps {
-    doChangeUser: (data: ChangeUserRequest) => object;
-    name: string;
-    email: string;
-    loadBooks: () => void
-    handleClose: () => void
-    userForDelete: (data: UserForDelete) => object
-    item?: any
+  doChangeUser: (data: ChangeUserRequest) => object;
+  name: string;
+  email: string;
+  loadBooks: () => void;
+  handleClose: () => void;
+  userForDelete: (data: UserForDelete) => object;
+  item?: any;
 }
 export interface ModalInputState {
-    name: string;
-    email: string;
+  name: string;
+  email: string;
 }
-export class Inputs extends React.Component<ModalInputProps,ModalInputState> {
-    state:ModalInputState = {
-        name: '',
-        email: ''
-    }
-  handle = (event:any) => {
-    this.setState({ [event.target.name]:event.target.value } as any) 
-   
-  }
-  changeUser =  async () => {
-    const {userForDelete} = this.props
+export class Inputs extends React.Component<ModalInputProps, ModalInputState> {
+  state: ModalInputState = {
+    name: "",
+    email: ""
+  };
+  handle = (event: any) => {
+    this.setState({ [event.target.name]: event.target.value } as any);
+  };
+  changeUser = async () => {
+    const { userForDelete } = this.props;
     userForDelete({
       user: this.props.item
-    })
-    console.log('sdfsdfd',userForDelete)
+    });
 
-      const{doChangeUser, loadBooks, handleClose, item} = this.props
-      const newUser = {
-        name: this.state.name,
-        email: this.state.email,
-        password: item.password,
-        _id: item._id,
-        role: item.role
-      }
-      console.log(newUser)
-      doChangeUser(newUser)
-  }
+    const { doChangeUser, loadBooks, handleClose, item } = this.props;
+    const newUser = {
+      name: this.state.name,
+      email: this.state.email,
+      password: item.password,
+      _id: item._id,
+      role: item.role
+    };
+
+    doChangeUser(newUser);
+  };
   render() {
-    
-    return ( 
+    return (
       <div>
         <div>
           <InputLabel
@@ -95,9 +98,12 @@ export class Inputs extends React.Component<ModalInputProps,ModalInputState> {
 }
 
 const mapStateToProps = function(state: RootState) {
-    return {
-        name: state.changeUser.name,
-        email: state.changeUser.email,
-    }
-}
-export default connect(mapStateToProps, { doChangeUser , userForDelete })(Inputs)
+  return {
+    name: state.changeUser.name,
+    email: state.changeUser.email
+  };
+};
+export default connect(
+  mapStateToProps,
+  { doChangeUser, userForDelete }
+)(Inputs);
